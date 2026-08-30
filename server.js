@@ -18,7 +18,7 @@
 // degrades to deterministic prose), no Turnstile secret (challenge skipped,
 // stated in the result), no Sheet (leads land in out/leads.jsonl).
 import { createServer } from 'node:http';
-import { readFileSync, existsSync, statSync } from 'node:fs';
+import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { join, normalize } from 'node:path';
 import { run, fastProbe, normalizeDomain, DEFAULT_OPTS } from './lib/run.js';
 import { scoreEvidence } from './lib/rubric.js';
@@ -46,6 +46,30 @@ const cache = new EvidenceCache({});
 // Every user-visible mention of the cache window derives from CACHE_TTL_MS so the
 // page can never claim a TTL the code does not actually enforce.
 const CACHE_TTL_DAYS = Math.round(CACHE_TTL_MS / 86400000);
+// Corpus figures are DERIVED, never written down. A hardcoded count goes stale
+// the moment the corpus changes, and a stale number about this tool's own
+// coverage is exactly the class of false claim the report promises not to make.
+// CORPUS_COUNT = what is actually published (the committed site/reports tree).
+const CORPUS_COUNT = (() => {
+  try { return readdirSync(join('site', 'reports')).filter((f) => f.endsWith('.html')).length; }
+  catch { return 0; }
+})();
+// CORPUS_STATS = coverage, scored at boot with the LIVE rubric over the evidence
+// corpus (never read out of a stale `scoring` block). Measured at 0.39s across
+// the full corpus, so this is invisible at startup. null when the corpus is absent —
+// and null means the "for scale" sentence is omitted, never filled with a guess.
+const CORPUS_STATS = (() => {
+  try {
+    const dir = join('out', 'calib');
+    const files = readdirSync(dir).filter((f) => f.endsWith('.json'));
+    if (!files.length) return null;
+    let graded = 0;
+    for (const f of files) {
+      if (scoreEvidence(JSON.parse(readFileSync(join(dir, f), 'utf8'))).gradeable) graded++;
+    }
+    return { total: files.length, graded, withheld: files.length - graded };
+  } catch { return null; }
+})();
 const leadStore = createLeadStore(env);
 const fastLimit = new RateLimiter({ windowMs: 3600e3, max: 30 });
 const fullLimit = new RateLimiter({ windowMs: 3600e3, max: 10 });
@@ -74,7 +98,7 @@ function pump() {
       .then((evidence) => { cache.put(host, evidence); job.state = 'ready'; })
       .catch((err) => { job.state = 'error'; job.error = String(err.message || err); });
     const watchdog = new Promise((r) => setTimeout(r, FULL_CAP_MS)).then(() => {
-      if (job.state === 'running') { job.state = 'error'; job.error = `The full read did not finish within ${FULL_CAP_MS / 1000}s. Large or slow sites can exceed our patience budget; the fast-tier findings above are still real.`; }
+      if (job.state === 'running') { job.state = 'error'; job.error = `The full read did not finish within ${FULL_CAP_MS / 1000}s. Large or slow sites can exceed this tool's patience budget; the fast-tier findings above are still real.`; }
     });
     Promise.race([work, watchdog]).finally(() => { running--; pump(); });
   }
@@ -104,7 +128,7 @@ async function handleLookup(req, res) {
   const norm = normalizeDomain(body.domain);
   if (!norm) return json(res, 400, { error: `Could not parse "${body.domain}" as a domain.` });
   const pc = hostPreCheck(norm.host);
-  if (pc.blocked) return json(res, 400, { error: `We can only grade public websites: ${pc.reason}.` });
+  if (pc.blocked) return json(res, 400, { error: `Only public websites can be graded: ${pc.reason}.` });
   const host = cacheKey(norm.host);
 
   const cached = cache.get(host);
@@ -163,7 +187,7 @@ function handleJob(req, res, url) {
   if (!job) return json(res, 200, { state: 'none' });
   const elapsed = Math.round((Date.now() - job.started_at) / 1000);
   return json(res, 200, { state: job.state, elapsed_s: elapsed, error: job.error || null,
-    note: job.state === 'running' && elapsed > 20 ? 'Still reading — the median site takes 10 seconds, but large sites have taken up to 77. We keep at it for 150 before giving up honestly.' : null });
+    note: job.state === 'running' && elapsed > 20 ? 'Still reading — the median site takes 10 seconds, but large sites have taken up to 77. It keeps at it for 150 before giving up honestly.' : null });
 }
 
 async function handleLead(req, res) {
@@ -200,7 +224,7 @@ async function handleReport(req, res, host) {
   let findings = buildFindings(cached.evidence, scoring);
   findings = await narrateFindings(findings, { domain: host }); // no-op without ANTHROPIC_API_KEY
   const preGenerated = cached.source.includes('calib');
-  return html(res, 200, renderReport({ domain: host, ev: cached.evidence, scoring, findings, preGenerated, backHref: '/' }));
+  return html(res, 200, renderReport({ domain: host, ev: cached.evidence, scoring, findings, preGenerated, backHref: '/', corpusStats: CORPUS_STATS }));
 }
 
 function serveStatic(req, res, urlPath) {
@@ -217,7 +241,7 @@ function landingPage() {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Advocacy Readiness Grader</title>
+<title>Advocacy Grader by JustMeSocial</title>
 <style>${CSS}
 form.lookup{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0}
 input[type=text],input[type=email]{flex:1;min-width:220px;padding:.6rem .8rem;font-size:1rem;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}
@@ -229,9 +253,9 @@ button:disabled{opacity:.5;cursor:wait}
 </head>
 <body>
 <main>
-  <p class="kicker">Advocacy Readiness Grader</p>
+  <p class="kicker">Advocacy Grader by JustMeSocial</p>
   <h1>What does your website hand your employees to share?</h1>
-  <p>Enter your company's domain. We read only public pages — sitemap, share tags, structured data, robots.txt — politely and honestly, and show you what we find, with the evidence cited. The first findings appear in seconds, free.</p>
+  <p>Enter your company's domain. This reads only public pages — sitemap, share tags, structured data, robots.txt — politely and honestly, and shows you what it finds, with the evidence cited. The first findings appear in seconds, free.</p>
 
   <form class="lookup" id="lookup">
     <input type="text" id="domain" name="domain" placeholder="yourcompany.com" autocomplete="off" required>
@@ -252,10 +276,13 @@ button:disabled{opacity:.5;cursor:wait}
 
   <div class="honest">
     <p class="kicker">Straight talk, before you type anything</p>
-    <p>I built this tool in a few days, on a stack of assumptions — without the inside knowledge to be sure these are the exact metrics that matter for employee advocacy. The four categories and their weights are editorial judgment; nobody has proven they cause employees to post. LinkedIn activity isn't measured because LinkedIn doesn't permit that access. And 350 of these reports are pre-generated because I spent my time on reading sites honestly rather than on making the live run fast. What you can hold me to: every claim cites its public evidence, robots.txt is honored on every request, and when this tool can't read a site it says "we couldn't read you" instead of inventing a grade.</p>
+    <p>I built this tool in a few days, on a stack of assumptions — without the inside knowledge to be sure these are the exact metrics that matter for employee advocacy. The four categories and their weights are editorial judgment; nobody has proven they cause employees to post.</p>
+    <p>I chose to strictly adhere to LinkedIn's Terms of Service, so no direct or indirect scraping of LinkedIn went into any of these results. The only LinkedIn signal I read is whether your own pages carry a LinkedIn share link — that's your HTML, not theirs.</p>
+    <p>To prioritize report generation speed, reports are cached for ${CACHE_TTL_DAYS} days. There are currently ${CORPUS_COUNT} pre-generated reports cached — <a href="/corpus/">you can view those reports here</a>.</p>
+    <p>What you can hold me to: every claim cites its public evidence, robots.txt is honored on every request, and when this tool can't read a site it says so instead of inventing a grade.</p>
   </div>
 
-  <p>Browse the <a href="/corpus/">350 pre-generated company reports</a> to see what one looks like.</p>
+  <p>Browse the <a href="/corpus/">${CORPUS_COUNT} pre-generated company reports</a> to see what one looks like.</p>
 
   <footer><p>No tracking on this page. Lookups are rate-limited per address; results are cached for ${CACHE_TTL_DAYS} days.</p></footer>
 </main>
@@ -308,23 +335,23 @@ button:disabled{opacity:.5;cursor:wait}
         domain = j.domain;
         renderFindings((j.fast && j.fast.findings) || []);
         if (j.fast && j.fast.note) $('status').textContent = j.fast.note; else $('status').textContent = '';
-        if (j.state === 'ready') { $('status').textContent = 'Report ready' + (j.cached ? ' (from our ${CACHE_TTL_DAYS}-day cache)' : '') + '.'; showReady(); }
+        if (j.state === 'ready') { $('status').textContent = 'Report ready' + (j.cached ? ' (from the ${CACHE_TTL_DAYS}-day cache)' : '') + '.'; showReady(); }
         else { $('gate').classList.remove('hide'); if (j.state === 'running') { $('status').textContent = 'Quick checks done. The full read is running — median 10 seconds, large sites up to a minute.'; polling = setInterval(poll, 3000); } }
       })
-      .catch(function () { $('go').disabled = false; $('status').textContent = 'Something went wrong on our side. Try again in a moment.'; });
+      .catch(function () { $('go').disabled = false; $('status').textContent = 'Something went wrong on the server side. Try again in a moment.'; });
   });
   $('leadform').addEventListener('submit', function (e) {
     e.preventDefault();
     fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: $('email').value, domain: domain }) })
       .then(function (r) { return r.json(); })
       .then(function (j) {
-        if (j.ok) { $('gate').innerHTML = '<p>Thanks — the report link will be waiting here, and we saved your address for exactly one email.</p>'; }
+        if (j.ok) { $('gate').innerHTML = '<p>Thanks — the report link will be waiting here, and I saved your address for exactly one email.</p>'; }
         else { $('status').textContent = j.error || 'Could not save that — try again?'; }
       });
   });
 })();
 </script>
-<noscript><p style="max-width:860px;margin:1rem auto;padding:0 1.25rem">This live checker needs JavaScript for the two-phase flow, but the <a href="/corpus/">350 pre-generated reports</a> work without it.</p></noscript>
+<noscript><p style="max-width:860px;margin:1rem auto;padding:0 1.25rem">This live checker needs JavaScript for the two-phase flow, but the <a href="/corpus/">${CORPUS_COUNT} pre-generated reports</a> work without it.</p></noscript>
 </body>
 </html>`;
 }

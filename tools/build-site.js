@@ -21,16 +21,33 @@ if (!existsSync(srcDir)) {
 }
 mkdirSync(join(outDir, 'reports'), { recursive: true });
 
+// Pass 1: coverage only. Every report quotes the corpus-wide "N of M earned a
+// grade" figure, so it has to be known BEFORE the first report is rendered.
+// Scoring the whole corpus costs ~0.4s across 350 files; a hardcoded number
+// would cost a false claim the first time coverage changes.
+const evidenceFiles = readdirSync(srcDir).filter((x) => x.endsWith('.json')).sort();
+const corpusStats = (() => {
+  let total = 0, graded = 0;
+  for (const f of evidenceFiles) {
+    try {
+      if (scoreEvidence(JSON.parse(readFileSync(join(srcDir, f), 'utf8'))).gradeable) graded++;
+      total++;
+    } catch { /* counted as a failure in pass 2, which reports it */ }
+  }
+  return total ? { total, graded, withheld: total - graded } : null;
+})();
+
+// Pass 2: render.
 const rows = [];
 let failures = 0;
-for (const f of readdirSync(srcDir).filter((x) => x.endsWith('.json')).sort()) {
+for (const f of evidenceFiles) {
   const slug = f.replace(/\.json$/, '').replace(/[^a-z0-9.-]/gi, '_');
   try {
     const ev = JSON.parse(readFileSync(join(srcDir, f), 'utf8'));
     const scoring = scoreEvidence(ev); // ALWAYS the live rubric; d.scoring is stale first-pass output
     const findings = buildFindings(ev, scoring);
     const domain = ev.meta?.normalized_host || slug;
-    const html = renderReport({ domain, ev, scoring, findings, preGenerated: true });
+    const html = renderReport({ domain, ev, scoring, findings, preGenerated: true, corpusStats });
     writeFileSync(join(outDir, 'reports', slug + '.html'), html);
     rows.push({ slug, domain, grade: scoring.grade, overall: scoring.overall_score, actions: findings.actions.length });
   } catch (err) {

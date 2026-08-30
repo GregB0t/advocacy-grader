@@ -107,7 +107,8 @@ test('control: a well-read, genuinely thin site keeps its low grade (Home Depot 
 test('blocked_at_root still withholds exactly as before', () => {
   const s = scoreEvidence(evidence({ blocked: true }));
   assert.equal(s.gradeable, false);
-  assert.match(s.withheld_reason, /disallows our user-agent/);
+  assert.match(s.withheld_reason, /disallows this crawler at the root/);
+  assert.match(s.withheld_reason, /none is issued/);
 });
 
 // ---- Task B1/B2: single-count shareability ----

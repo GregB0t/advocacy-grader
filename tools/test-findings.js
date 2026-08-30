@@ -35,7 +35,7 @@ const load = (f) => {
   ok(r.actions[0].id === 'broken_og_images', 'broken og:image ranks first (fixability x impact beats abstractions)');
   const cov = r.limitations.find((f) => f.id === 'classification_coverage');
   ok(cov, 'coverage-gate limitation finding present when the gate fires');
-  ok(/limit of our reading/.test(cov.statement) && /not evidence you lack content/.test(cov.statement), 'coverage finding is phrased as OUR reading limitation');
+  ok(/limit of this tool's reading/.test(cov.statement) && /not evidence you lack content/.test(cov.statement), "coverage finding is phrased as THIS TOOL's reading limitation, not the company's failure");
   ok(Object.keys(cov.evidence.top_unclassified_prefixes || {}).length > 0, 'coverage finding cites the unread path prefixes');
   ok(r.all.every((f) => f.title && f.statement && f.evidence && typeof f.priority === 'number'), 'every finding carries title, statement, evidence, priority');
   ok(r.actions.every((f) => f.fix), 'every actionable finding carries a fix');
