@@ -11,11 +11,13 @@
     "setup": "node setup.js",
     "check": "node setup.js --check",
     "fixtures": "node fixtures/server.js",
-    "test": "node tools/test-rubric.js && node tools/test-findings.js",
+    "test": "node tools/test-rubric.js && node tools/test-findings.js && node tools/test-cache.js",
     "build:site": "node tools/build-site.js",
     "serve": "node server.js",
     "start": "node server.js",
-    "rescore": "node tools/rescore.js"
+    "rescore": "node tools/rescore.js",
+    "seed:build": "tar -czf seed/calib.tgz -C out calib",
+    "prewarm": "node tools/prewarm.js"
   },
   "engines": {
     "node": ">=20"

@@ -94,7 +94,7 @@ score.js / server.js / tools/build-site.js
                                grade-withheld and blocked-at-root evidence
         └── lib/narrate.js     optional Claude seam: rephrase-only, guarded, falls
                                back to deterministic prose
-server.js adds: two-phase lookup (~1s fast probe, full run queued), 7-day evidence
+server.js adds: two-phase lookup (~1s fast probe, full run queued), 30-day evidence
 cache, per-IP rate limits, Turnstile-optional email gate, lead capture to
 out/leads.jsonl + optional webhook.
 ```

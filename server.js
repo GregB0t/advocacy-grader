@@ -10,7 +10,7 @@
 // So the flow is: Phase 1 answers the submit with real fast-tier findings
 // inside a hard 15s cap (degrading to a waiting state, never hanging), while
 // Phase 2 — sitemaps, classification, page sampling — continues in the
-// background behind the email gate. A 7-day evidence cache (seeded by the
+// background behind the email gate. A 30-day evidence cache (seeded by the
 // 350-domain corpus) makes repeat lookups instant, and scoring always
 // re-applies the live rubric at read time.
 //
@@ -25,7 +25,8 @@ import { scoreEvidence } from './lib/rubric.js';
 import { buildFindings, fastTier } from './lib/findings.js';
 import { narrateFindings } from './lib/narrate.js';
 import { renderReport, CSS } from './lib/report-html.js';
-import { EvidenceCache, cacheKey } from './lib/cache.js';
+import { EvidenceCache, cacheKey, CACHE_TTL_MS } from './lib/cache.js';
+import { ensureSeed } from './lib/seed.js';
 import { RateLimiter } from './lib/ratelimit.js';
 import { createLeadStore } from './lib/leads.js';
 import { verifyTurnstile } from './lib/turnstile.js';
@@ -37,7 +38,14 @@ const PORT = Number(env.PORT || 8787);
 const FAST_CAP_MS = 15000;   // p99 of the measured fast tier
 const FULL_CAP_MS = 150000;  // max observed full run was 77s; double it, then say so honestly
 
+// out/ is gitignored, so a git deploy lands with an empty cache. Unpack the
+// shipped corpus before the cache is read, so the very first lookup of a
+// corpus domain is instant on a brand-new instance.
+ensureSeed();
 const cache = new EvidenceCache({});
+// Every user-visible mention of the cache window derives from CACHE_TTL_MS so the
+// page can never claim a TTL the code does not actually enforce.
+const CACHE_TTL_DAYS = Math.round(CACHE_TTL_MS / 86400000);
 const leadStore = createLeadStore(env);
 const fastLimit = new RateLimiter({ windowMs: 3600e3, max: 30 });
 const fullLimit = new RateLimiter({ windowMs: 3600e3, max: 10 });
@@ -249,7 +257,7 @@ button:disabled{opacity:.5;cursor:wait}
 
   <p>Browse the <a href="/corpus/">350 pre-generated company reports</a> to see what one looks like.</p>
 
-  <footer><p>No tracking on this page. Lookups are rate-limited per address; results are cached for 7 days.</p></footer>
+  <footer><p>No tracking on this page. Lookups are rate-limited per address; results are cached for ${CACHE_TTL_DAYS} days.</p></footer>
 </main>
 <script>
 (function () {
@@ -300,7 +308,7 @@ button:disabled{opacity:.5;cursor:wait}
         domain = j.domain;
         renderFindings((j.fast && j.fast.findings) || []);
         if (j.fast && j.fast.note) $('status').textContent = j.fast.note; else $('status').textContent = '';
-        if (j.state === 'ready') { $('status').textContent = 'Report ready' + (j.cached ? ' (from our 7-day cache)' : '') + '.'; showReady(); }
+        if (j.state === 'ready') { $('status').textContent = 'Report ready' + (j.cached ? ' (from our ${CACHE_TTL_DAYS}-day cache)' : '') + '.'; showReady(); }
         else { $('gate').classList.remove('hide'); if (j.state === 'running') { $('status').textContent = 'Quick checks done. The full read is running — median 10 seconds, large sites up to a minute.'; polling = setInterval(poll, 3000); } }
       })
       .catch(function () { $('go').disabled = false; $('status').textContent = 'Something went wrong on our side. Try again in a moment.'; });
