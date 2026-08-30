@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>pigglywiggly.com — Advocacy Readiness Report</title>
+<style>
+:root{
+  --bg:#faf9f7; --panel:#ffffff; --ink:#1e2126; --muted:#5b6470; --line:#e3e0da;
+  --accent:#0d5c63; --accent-ink:#ffffff;
+  --crit:#a8323a; --crit-bg:#fbeef0; --issue:#8a5a12; --issue-bg:#fbf3e4;
+  --opp:#28618f; --opp-bg:#eaf2f9; --pos:#2e6b46; --pos-bg:#ecf5ef;
+  --lim:#5b6470; --lim-bg:#f1f0ed;
+  --grade-a:#2e6b46; --grade-b:#3a7a54; --grade-c:#8a5a12; --grade-d:#a05c2c; --grade-f:#a8323a;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#15171b; --panel:#1d2026; --ink:#e6e4df; --muted:#9aa2ad; --line:#31353d;
+    --accent:#5cb8bf; --accent-ink:#10262a;
+    --crit:#e08790; --crit-bg:#332326; --issue:#d8ab5e; --issue-bg:#302a1e;
+    --opp:#7fb3dd; --opp-bg:#1f2a35; --pos:#84c29d; --pos-bg:#1f2e25;
+    --lim:#9aa2ad; --lim-bg:#23262c;
+    --grade-a:#84c29d; --grade-b:#84c29d; --grade-c:#d8ab5e; --grade-d:#dd9a6a; --grade-f:#e08790;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+main{max-width:860px;margin:0 auto;padding:2rem 1.25rem 4rem}
+a{color:var(--accent)}
+h1{font-size:1.9rem;line-height:1.2;margin:.25rem 0 .1rem;overflow-wrap:anywhere}
+h2{font-size:1.25rem;margin:2.2rem 0 .8rem;border-bottom:1px solid var(--line);padding-bottom:.35rem}
+.kicker{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.sub{color:var(--muted);font-size:.9rem;margin:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;margin:1rem 0}
+.gradebox{display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap}
+.gradeletter{font-size:3.4rem;font-weight:700;line-height:1;min-width:4.2rem;text-align:center}
+.g-A{color:var(--grade-a)}.g-B{color:var(--grade-b)}.g-C{color:var(--grade-c)}.g-D{color:var(--grade-d)}.g-F{color:var(--grade-f)}
+.withheld-mark{font-size:1.5rem;font-weight:700;color:var(--lim)}
+.finding{background:var(--panel);border:1px solid var(--line);border-left-width:4px;border-radius:8px;padding:.9rem 1.1rem;margin:.7rem 0}
+.finding h3{margin:.1rem 0 .4rem;font-size:1.05rem}
+.finding p{margin:.4rem 0}
+.f-critical{border-left-color:var(--crit)} .f-issue{border-left-color:var(--issue)}
+.f-opportunity{border-left-color:var(--opp)} .f-positive{border-left-color:var(--pos)}
+.f-limitation{border-left-color:var(--lim)} .f-info{border-left-color:var(--lim)}
+.chip{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:99px;padding:.15rem .6rem;margin-bottom:.2rem}
+.c-critical{color:var(--crit);background:var(--crit-bg)} .c-issue{color:var(--issue);background:var(--issue-bg)}
+.c-opportunity{color:var(--opp);background:var(--opp-bg)} .c-positive{color:var(--pos);background:var(--pos-bg)}
+.c-limitation,.c-info{color:var(--lim);background:var(--lim-bg)}
+.fix{border-top:1px dashed var(--line);margin-top:.6rem;padding-top:.5rem}
+.fix b{color:var(--accent)}
+details{margin:.4rem 0 0}
+summary{cursor:pointer;color:var(--muted);font-size:.85rem}
+.ev{font-size:.85rem;color:var(--muted);overflow-x:auto}
+.ev ul{margin:.4rem 0;padding-left:1.2rem}
+.ev li{overflow-wrap:anywhere}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+.tablewrap{overflow-x:auto}
+th,td{text-align:left;padding:.45rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
+.honest{border-left:4px solid var(--accent);background:var(--panel);border-radius:8px;padding:1rem 1.25rem;margin:1.4rem 0}
+.honest p{margin:.5rem 0}
+.note{font-size:.85rem;color:var(--muted)}
+footer{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem;font-size:.8rem;color:var(--muted)}
+.score-num{font-variant-numeric:tabular-nums}
+.catscore{font-weight:700}
+.conf{font-size:.75rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker"><a href="../index.html">Advocacy Readiness Grader</a></p>
+  <h1>pigglywiggly.com</h1>
+  <p class="sub">Evidence collected 2026-08-29 · 6 polite, robots.txt-respecting requests · every claim cites what it saw</p>
+  <div class="panel">
+        <p class="withheld-mark">No letter grade — withheld, not failed</p>
+        <p>No letter grade is issued because 3 of 4 categories could not be observed. The categories that were measurable are scored below.</p>
+      </div>
+  <div class="honest">
+  <p class="kicker">Read this before the numbers</p>
+  <p><b>This tool was built in a few days, on a stack of stated assumptions.</b> I didn't have the time — or the inside knowledge of what EveryoneSocial's customers actually optimize for — to be certain these are the metrics that matter most. The four categories and their weights are editorial judgment, not measurement: nobody has proven that these things cause employees to post, and we don't claim otherwise.</p>
+  <p>What isn't measured, on purpose: your employees' actual posting. LinkedIn doesn't permit that access, so a free tool claiming to measure it is either paying an enrichment vendor or estimating. This report only reads what your company has published on its own public site — which is also the part you can fix.</p>
+  <p>This report was pre-generated from evidence collected in late August 2026 rather than live — the honest reason is speed: a full live run takes up to a minute on large sites and I chose accuracy over optimizing that this week. Every observation below is dated and cited.</p>
+  <p>What you can hold us to: every number cites its public evidence, nothing unseen is guessed at, robots.txt is respected on every fetch, and when we couldn't read a site we say "we couldn't read you" instead of issuing a grade.</p>
+</div>
+  <h2>What we found — most fixable first</h2>
+    <p class="note">Ranked by impact × ease of fixing, not by category. Counts describe the pages we actually read, and each finding cites them.</p>
+    <div class="finding f-opportunity">
+  <span class="chip c-opportunity">Opportunity</span>
+  <h3>No structured data on your homepage</h3>
+  <p>The homepage carries no JSON-LD schema.org markup. Machine readers — search engines and AI assistants alike — get no structured statement of who you are (Organization, name, logo, sameAs profiles).</p>
+  <p class="note">Evidence: homepage HTML.</p>
+  <p class="fix"><b>The fix:</b> Add an Organization JSON-LD block to the homepage: name, url, logo, and sameAs links to your official social profiles.</p>
+</div>
+<div class="finding f-opportunity">
+  <span class="chip c-opportunity">Opportunity</span>
+  <h3>Your job listings are invisible without JavaScript</h3>
+  <p>Your careers page (https://www.pigglywiggly.com/careers) returns HTML, but the job listings are injected client-side — a plain reader sees a page with no roles on it. Machine readers that do not execute JavaScript (many crawlers and AI assistants) cannot see that you are hiring.</p>
+  <details><summary>Evidence — careers page probes</summary><div class="ev"><ul>
+    <li>https://www.pigglywiggly.com/careers</li>
+    
+    
+    
+    
+  </ul></div></details>
+  <p class="fix"><b>The fix:</b> Server-render at least the role titles and locations, or publish jobs in structured data (schema.org JobPosting).</p>
+</div>
+<h2>What's already working</h2><div class="finding f-positive">
+  <span class="chip c-positive">Working</span>
+  <h3>All tracked AI user-agents may read your site</h3>
+  <p>robots.txt permits all 25 tracked AI user-agents at the site root, so AI search engines and assistants that honor robots.txt can read and cite you.</p>
+  <p class="note">Evidence: robots.txt.</p>
+  
+</div>
+<div class="finding f-positive">
+  <span class="chip c-positive">Working</span>
+  <h3>Your homepage share card is complete</h3>
+  <p>The homepage carries og:title, og:description and og:image, so a shared homepage link renders a full preview card.</p>
+  <p class="note">Evidence: homepage HTML.</p>
+  
+</div>
+<h2>What we could not see</h2>
+  <p class="note">Anything our reader could not observe is listed here rather than guessed at or silently skipped.</p>
+  <div class="finding f-limitation">
+  <span class="chip c-limitation">Not visible to us</span>
+  <h3>No sitemap returned any URLs</h3>
+  <p>We looked for sitemaps at 1 location(s) (declared in robots.txt or at the conventional paths) and collected zero URLs. Your content inventory is invisible to us — and to anything else that discovers content this way. This means &quot;not found where sitemaps usually live&quot;, not &quot;no content&quot;.</p>
+  <p class="note">Evidence: sitemap fetches.</p>
+  <p class="fix"><b>The fix:</b> Publish an XML sitemap of your canonical content and declare it with a Sitemap: line in robots.txt.</p>
+</div>
+<h2>For the record</h2><div class="finding f-info">
+  <span class="chip c-info">Note</span>
+  <h3>No llms.txt</h3>
+  <p>No llms.txt file is served. This costs nothing today — the evidence that llms.txt affects anything is weak — so we do not count it against you.</p>
+  <p class="note">Evidence: llms.txt fetch.</p>
+  
+</div>
+  <h2>How the numbers break down</h2>
+  <p class="note">Weights: Content Supply 30% · Shareability 25% · Employee &amp; Culture 25% · AI Discoverability 20%. The weights are editorial judgment about what an advocacy program draws on — not the result of a study. Every row cites the observation behind it.</p>
+  <div class="panel"><h3 style="margin:.1rem 0">Content Supply — <span class="conf">not scored</span></h3><p class="note">No sitemap URLs were retrieved, so content volume could not be measured.</p></div>
+<div class="panel"><h3 style="margin:.1rem 0">Shareability — <span class="conf">not scored</span></h3><p class="note">No content pages were sampled.</p></div>
+<div class="panel"><h3 style="margin:.1rem 0">Employee & Culture Surface — <span class="conf">not scored</span></h3><p class="note">No sitemap URLs were retrieved.</p></div>
+<div class="panel">
+      <h3 style="margin:.1rem 0">AI Discoverability — <span class="catscore score-num">54</span>/100 <span class="conf">(reduced confidence)</span></h3>
+      <div class="tablewrap"><table><thead><tr><th>Signal</th><th>Points</th><th>What we saw</th></tr></thead><tbody>
+      <tr><td>AI crawler access</td><td class="score-num">45/45</td><td>All 25 tracked AI user-agents are permitted at the site root</td></tr><tr><td>Content-Signal coherence</td><td class="score-num">9/15</td><td>No Content-Signal declared. Neither a grant nor a restriction — scored neutrally.</td></tr><tr><td>Structured data</td><td class="score-num">0/40</td><td>0 schema.org type(s) on the homepage; article schema not measured</td></tr><tr><td>llms.txt</td><td class="score-num">0/0</td><td>Not present. This costs nothing — the evidence that llms.txt affects anything is weak.</td></tr>
+      </tbody></table></div>
+      <p class="note">robots.txt compliance is voluntary and advisory. This reports the declared policy; it is not a claim that any crawler was actually blocked.</p>
+    </div>
+  <footer>
+    <p>Method: deterministic rubric in code — the same evidence always yields the same result; no model assigns numbers. User-agent: AdvocacyReadinessGrader/0.1.0-phase1 (+https://greg-o-matic.com/grader; respects robots.txt). This page renders without JavaScript and holds no tracking.</p>
+    <p>This report reads only public pages, identifies itself honestly, and honors robots.txt on every request — including the ones that would have made it look better.</p>
+  </footer>
+</main>
+</body>
+</html>

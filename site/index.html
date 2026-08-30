@@ -1,0 +1,1848 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Advocacy Readiness Grader — 350 company reports</title>
+<style>
+:root{
+  --bg:#faf9f7; --panel:#ffffff; --ink:#1e2126; --muted:#5b6470; --line:#e3e0da;
+  --accent:#0d5c63; --accent-ink:#ffffff;
+  --crit:#a8323a; --crit-bg:#fbeef0; --issue:#8a5a12; --issue-bg:#fbf3e4;
+  --opp:#28618f; --opp-bg:#eaf2f9; --pos:#2e6b46; --pos-bg:#ecf5ef;
+  --lim:#5b6470; --lim-bg:#f1f0ed;
+  --grade-a:#2e6b46; --grade-b:#3a7a54; --grade-c:#8a5a12; --grade-d:#a05c2c; --grade-f:#a8323a;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#15171b; --panel:#1d2026; --ink:#e6e4df; --muted:#9aa2ad; --line:#31353d;
+    --accent:#5cb8bf; --accent-ink:#10262a;
+    --crit:#e08790; --crit-bg:#332326; --issue:#d8ab5e; --issue-bg:#302a1e;
+    --opp:#7fb3dd; --opp-bg:#1f2a35; --pos:#84c29d; --pos-bg:#1f2e25;
+    --lim:#9aa2ad; --lim-bg:#23262c;
+    --grade-a:#84c29d; --grade-b:#84c29d; --grade-c:#d8ab5e; --grade-d:#dd9a6a; --grade-f:#e08790;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+main{max-width:860px;margin:0 auto;padding:2rem 1.25rem 4rem}
+a{color:var(--accent)}
+h1{font-size:1.9rem;line-height:1.2;margin:.25rem 0 .1rem;overflow-wrap:anywhere}
+h2{font-size:1.25rem;margin:2.2rem 0 .8rem;border-bottom:1px solid var(--line);padding-bottom:.35rem}
+.kicker{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.sub{color:var(--muted);font-size:.9rem;margin:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;margin:1rem 0}
+.gradebox{display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap}
+.gradeletter{font-size:3.4rem;font-weight:700;line-height:1;min-width:4.2rem;text-align:center}
+.g-A{color:var(--grade-a)}.g-B{color:var(--grade-b)}.g-C{color:var(--grade-c)}.g-D{color:var(--grade-d)}.g-F{color:var(--grade-f)}
+.withheld-mark{font-size:1.5rem;font-weight:700;color:var(--lim)}
+.finding{background:var(--panel);border:1px solid var(--line);border-left-width:4px;border-radius:8px;padding:.9rem 1.1rem;margin:.7rem 0}
+.finding h3{margin:.1rem 0 .4rem;font-size:1.05rem}
+.finding p{margin:.4rem 0}
+.f-critical{border-left-color:var(--crit)} .f-issue{border-left-color:var(--issue)}
+.f-opportunity{border-left-color:var(--opp)} .f-positive{border-left-color:var(--pos)}
+.f-limitation{border-left-color:var(--lim)} .f-info{border-left-color:var(--lim)}
+.chip{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:99px;padding:.15rem .6rem;margin-bottom:.2rem}
+.c-critical{color:var(--crit);background:var(--crit-bg)} .c-issue{color:var(--issue);background:var(--issue-bg)}
+.c-opportunity{color:var(--opp);background:var(--opp-bg)} .c-positive{color:var(--pos);background:var(--pos-bg)}
+.c-limitation,.c-info{color:var(--lim);background:var(--lim-bg)}
+.fix{border-top:1px dashed var(--line);margin-top:.6rem;padding-top:.5rem}
+.fix b{color:var(--accent)}
+details{margin:.4rem 0 0}
+summary{cursor:pointer;color:var(--muted);font-size:.85rem}
+.ev{font-size:.85rem;color:var(--muted);overflow-x:auto}
+.ev ul{margin:.4rem 0;padding-left:1.2rem}
+.ev li{overflow-wrap:anywhere}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+.tablewrap{overflow-x:auto}
+th,td{text-align:left;padding:.45rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
+.honest{border-left:4px solid var(--accent);background:var(--panel);border-radius:8px;padding:1rem 1.25rem;margin:1.4rem 0}
+.honest p{margin:.5rem 0}
+.note{font-size:.85rem;color:var(--muted)}
+footer{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem;font-size:.8rem;color:var(--muted)}
+.score-num{font-variant-numeric:tabular-nums}
+.catscore{font-weight:700}
+.conf{font-size:.75rem;color:var(--muted)}
+
+.searchnote{margin:.4rem 0 1rem}
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">Advocacy Readiness Grader</p>
+  <h1>What 350 companies hand their employees to share</h1>
+  <p class="sub">Pre-generated reports from public evidence — sitemaps, share tags, structured data, robots.txt AI posture. Generated 2026-08-30.</p>
+
+  <div class="panel">
+    <p><b>The honest headline:</b> of 350 companies, we issued a letter grade to 91. For the other 259 we <i>withheld</i> the grade — mostly because our reader could not classify the site's content structure, and grading the readable sliver would report our gap as their failure. Every report still lists what we did observe, cited and ranked by fixability.</p>
+  </div>
+
+  <div class="honest">
+  <p class="kicker">What this is — and isn't</p>
+  <p>Employee-advocacy leaderboards rank companies by how many employees post. They're useful, and this isn't one. A ranking can't tell you what to change on Monday; this looks at the conditions we can actually observe on your public website — every one of them something you can fix: <b>content supply</b> (is there anything worth sharing?), <b>shareability</b> (does a shared link survive the trip?), <b>employee &amp; culture surface</b> (are there pages a person would put their name on?), and <b>AI discoverability</b> (can machines find, read, and cite you?).</p>
+  <p>To be straight about it: nobody has proven these four things cause employees to post — no such study exists and we haven't run one. The weights are editorial judgment. LinkedIn activity is not measured because LinkedIn doesn't permit that access, and a free tool that claims otherwise is estimating. And I built this in a few days on a stack of assumptions, without the inside knowledge to be sure these are the metrics that matter most — the reports are pre-generated because I spent the time on reading sites honestly rather than on making the live run fast.</p>
+  <p>What survives all those caveats: every claim cites the public evidence behind it, and when we couldn't read a site, we say so instead of grading it.</p>
+</div>
+
+  <h2>Reports</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Domain</th><th>Grade</th><th>Findings</th></tr></thead>
+    <tbody><tr>
+    <td><a href="reports/zapier.html">zapier.com</a></td>
+    <td><b class="g-B score-num">B</b> <span class="score-num note">76.3</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/gitlab.html">gitlab.com</a></td>
+    <td><b class="g-B score-num">B</b> <span class="score-num note">76.1</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/temenos.com.html">temenos.com</a></td>
+    <td><b class="g-B score-num">B</b> <span class="score-num note">75.8</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/perkinscoie.com.html">perkinscoie.com</a></td>
+    <td><b class="g-B score-num">B</b> <span class="score-num note">73.4</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/doxatalent.com.html">doxatalent.com</a></td>
+    <td><b class="g-B score-num">B</b> <span class="score-num note">72.8</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/robertson.co.uk.html">robertson.co.uk</a></td>
+    <td><b class="g-B score-num">B</b> <span class="score-num note">72.6</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/eisneramper.com.html">eisneramper.com</a></td>
+    <td><b class="g-B score-num">B</b> <span class="score-num note">71.6</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/legalzoom.com.html">legalzoom.com</a></td>
+    <td><b class="g-B score-num">B</b> <span class="score-num note">71.2</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/arcticwolf.com.html">arcticwolf.com</a></td>
+    <td><b class="g-B score-num">B</b> <span class="score-num note">70.8</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/messer-us.com.html">messer-us.com</a></td>
+    <td><b class="g-B score-num">B</b> <span class="score-num note">70.8</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/serrala.com.html">serrala.com</a></td>
+    <td><b class="g-B score-num">B</b> <span class="score-num note">70.6</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/everyonesocial.html">everyonesocial.com</a></td>
+    <td><b class="g-B score-num">B</b> <span class="score-num note">70.5</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/charlesrussellspeechlys.com.html">charlesrussellspeechlys.com</a></td>
+    <td><b class="g-B score-num">B</b> <span class="score-num note">70.1</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/paloaltonetworks.com.html">paloaltonetworks.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">69.9</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/startek.com.html">startek.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">69.7</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/resilience.com.html">resilience.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">69.3</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/interstates.com.html">interstates.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">69</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/starlingbank.com.html">starlingbank.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">68.9</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/grantthornton.co.uk.html">grantthornton.co.uk</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">67.6</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/gong.html">gong.io</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">67.5</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/crowdstrike.com.html">crowdstrike.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">67.2</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/softserveinc.com.html">softserveinc.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">67.2</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/randstad.com.html">randstad.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">67.1</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/gammagroup.co.html">gammagroup.co</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">66.9</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/burnsmcd.com.html">burnsmcd.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">66.8</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/theaccessgroup.com.html">theaccessgroup.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">66.5</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/datagroup.de.html">datagroup.de</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">66.2</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/klaviyo.com.html">klaviyo.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">66.1</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/novartis.com.html">novartis.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">65.2</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/sakon.com.html">sakon.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">64.8</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/haskell.com.html">haskell.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">64.3</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/nordicglobal.com.html">nordicglobal.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">63.4</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/mineralresources.com.au.html">mineralresources.com.au</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">62.2</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/marathon.health.html">marathon.health</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">61.8</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/vanta.html">vanta.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">61.5</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/advancedmd.com.html">advancedmd.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">60.9</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/qinecsa.com.html">qinecsa.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">60.5</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/trccompanies.com.html">trccompanies.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">60.5</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/cambiumnetworks.com.html">cambiumnetworks.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">58.5</span></td>
+    <td class="score-num">9</td>
+  </tr>
+<tr>
+    <td><a href="reports/premierfoods.co.uk.html">premierfoods.co.uk</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">58.1</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/wachter.com.html">wachter.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">57.6</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/altisource.com.html">altisource.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">57.4</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/everfi.com.html">everfi.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">57.4</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/myersandstauffer.com.html">myersandstauffer.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">56.9</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/steelcase.com.html">steelcase.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">56.5</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/hometrust.com.html">hometrust.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">55.9</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/clinchoice.com.html">clinchoice.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">55.8</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/imagine360.com.html">imagine360.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">55.6</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/ssen-transmission.co.uk.html">ssen-transmission.co.uk</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">55.6</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/stackinfra.com.html">stackinfra.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">55.3</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/sophiagenetics.com.html">sophiagenetics.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">55</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/wood.com.html">wood.com</a></td>
+    <td><b class="g-C score-num">C</b> <span class="score-num note">55</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/silgandispensing.com.html">silgandispensing.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">54.8</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/thiess.com.html">thiess.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">54.8</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/3shape.com.html">3shape.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">54.5</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/haiilo.html">haiilo.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">54.4</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/accuray.com.html">accuray.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">53.5</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/baaderbank.de.html">baaderbank.de</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">53.5</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/eviden.com.html">eviden.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">53.5</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/dpr.com.html">dpr.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">52.9</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/affinityx.com.html">affinityx.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">52.8</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/avetta.com.html">avetta.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">51.9</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/clarkconstruction.com.html">clarkconstruction.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">51.4</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/digi.com.html">digi.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">51.1</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/trowers.com.html">trowers.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">50.5</span></td>
+    <td class="score-num">9</td>
+  </tr>
+<tr>
+    <td><a href="reports/endries.com.html">endries.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">48.7</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/sfeir.com.html">sfeir.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">48.3</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/oiaglobal.com.html">oiaglobal.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">48</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/ambius.com.html">ambius.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">47.7</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/foss.com.html">foss.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">47.5</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/belambra.fr.html">belambra.fr</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">46.8</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/berger-levrault.com.html">berger-levrault.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">46.3</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/kestrel.com.html">kestrel.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">46.1</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/linear.html">linear.app</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">45.9</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/lactalis.com.html">lactalis.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">45.6</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/kumon.co.uk.html">kumon.co.uk</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">45.1</span></td>
+    <td class="score-num">8</td>
+  </tr>
+<tr>
+    <td><a href="reports/argenx.com.html">argenx.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">44.1</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/mirogliogroup.com.html">mirogliogroup.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">42.8</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/bankerslife.com.html">bankerslife.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">42.4</span></td>
+    <td class="score-num">8</td>
+  </tr>
+<tr>
+    <td><a href="reports/premiumsoundsolutions.com.html">premiumsoundsolutions.com</a></td>
+    <td><b class="g-D score-num">D</b> <span class="score-num note">41</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/greenheck.com.html">greenheck.com</a></td>
+    <td><b class="g-F score-num">F</b> <span class="score-num note">38.7</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/severntrent.com.html">severntrent.com</a></td>
+    <td><b class="g-F score-num">F</b> <span class="score-num note">38.4</span></td>
+    <td class="score-num">9</td>
+  </tr>
+<tr>
+    <td><a href="reports/orthomolecularproducts.com.html">orthomolecularproducts.com</a></td>
+    <td><b class="g-F score-num">F</b> <span class="score-num note">37.4</span></td>
+    <td class="score-num">8</td>
+  </tr>
+<tr>
+    <td><a href="reports/globalfurnitureusa.com.html">globalfurnitureusa.com</a></td>
+    <td><b class="g-F score-num">F</b> <span class="score-num note">36.8</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/cibc.com.html">cibc.com</a></td>
+    <td><b class="g-F score-num">F</b> <span class="score-num note">36.2</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/ruag.com.html">ruag.com</a></td>
+    <td><b class="g-F score-num">F</b> <span class="score-num note">36.1</span></td>
+    <td class="score-num">8</td>
+  </tr>
+<tr>
+    <td><a href="reports/rumpke.com.html">rumpke.com</a></td>
+    <td><b class="g-F score-num">F</b> <span class="score-num note">35.3</span></td>
+    <td class="score-num">9</td>
+  </tr>
+<tr>
+    <td><a href="reports/libertydentalplan.com.html">libertydentalplan.com</a></td>
+    <td><b class="g-F score-num">F</b> <span class="score-num note">34.9</span></td>
+    <td class="score-num">8</td>
+  </tr>
+<tr>
+    <td><a href="reports/staffmark.com.html">staffmark.com</a></td>
+    <td><b class="g-F score-num">F</b> <span class="score-num note">33.4</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/ultradentproducts.com.html">ultradentproducts.com</a></td>
+    <td><b class="g-F score-num">F</b> <span class="score-num note">20.2</span></td>
+    <td class="score-num">9</td>
+  </tr>
+<tr>
+    <td><a href="reports/gesco.ca.html">gesco.ca</a></td>
+    <td><b class="g-F score-num">F</b> <span class="score-num note">19.5</span></td>
+    <td class="score-num">10</td>
+  </tr>
+<tr>
+    <td><a href="reports/adas.co.uk.html">adas.co.uk</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/aligntechnology.com.html">aligntechnology.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/allegion.com.html">allegion.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/allegis-group.com.html">allegis-group.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/allstate.com.html">allstate.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/alpiq.com.html">alpiq.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/americanfreight.com.html">americanfreight.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/amphenol.com.html">amphenol.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/andros.fr.html">andros.fr</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/apmortgage.com.html">apmortgage.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/appliedmedical.com.html">appliedmedical.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/arlington.com.html">arlington.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/associaonline.com.html">associaonline.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/atmos.com.html">atmos.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/avaloncommunities.com.html">avaloncommunities.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/avenga.com.html">avenga.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/averydennison.com.html">averydennison.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">8</td>
+  </tr>
+<tr>
+    <td><a href="reports/avon.com.html">avon.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/babcock.com.html">babcock.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/barminco.com.au.html">barminco.com.au</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/basecamp.html">basecamp.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/berkshirehathaway.com.html">berkshirehathaway.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/bernhardschulte.com.html">bernhardschulte.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/berrydunn.com.html">berrydunn.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/bigdconstruction.com.html">bigdconstruction.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/bioventus.com.html">bioventus.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/bonefishgrill.com.html">bonefishgrill.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/booths.co.uk.html">booths.co.uk</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/bostonscientific.com.html">bostonscientific.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/breadfinancial.com.html">breadfinancial.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/bristowgroup.com.html">bristowgroup.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/brooksource.com.html">brooksource.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/buhlergroup.com.html">buhlergroup.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/bwoffshore.com.html">bwoffshore.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">8</td>
+  </tr>
+<tr>
+    <td><a href="reports/cabify.com.html">cabify.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/cablex.ch.html">cablex.ch</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/cajun.com.html">cajun.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/cbe-companies.com.html">cbe-companies.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/cce.com.html">cce.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/cenovus.com.html">cenovus.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/cenveo.com.html">cenveo.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/cewe.com.html">cewe.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/chickensaladchick.com.html">chickensaladchick.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/chk.com.html">chk.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/chubb.com.html">chubb.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/citb.co.uk.html">citb.co.uk</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/cititrends.com.html">cititrends.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/clece.es.html">clece.es</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/collegeboard.org.html">collegeboard.org</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/communityhealthchoice.org.html">communityhealthchoice.org</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/conad.it.html">conad.it</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/consumerportfolioservices.com.html">consumerportfolioservices.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/corporatetraveller.com.html">corporatetraveller.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/cycergyparisuniversite.fr.html">cycergyparisuniversite.fr</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/danone.com.html">danone.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/datamars.com.html">datamars.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/designerbrands.com.html">designerbrands.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/dialogdesign.ca.html">dialogdesign.ca</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/digicert.com.html">digicert.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/dnow.com.html">dnow.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/dollarbank.com.html">dollarbank.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/dovalue.it.html">dovalue.it</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/dovenmuehle.com.html">dovenmuehle.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/draper.com.html">draper.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/ducommun.com.html">ducommun.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/eccouncil.org.html">eccouncil.org</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/ecobee.com.html">ecobee.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/edgewell.com.html">edgewell.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/edmentum.com.html">edmentum.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/egencia.com.html">egencia.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/eliagroup.com.html">eliagroup.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/empowerpharmacy.com.html">empowerpharmacy.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/endesa.com.html">endesa.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/energir.com.html">energir.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/enmax.com.html">enmax.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/enphaseenergy.com.html">enphaseenergy.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/equinix.com.html">equinix.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/equipmentshare.com.html">equipmentshare.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/esfm-usa.com.html">esfm-usa.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/eurasianresources.com.html">eurasianresources.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/everi.com.html">everi.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/famousdaves.com.html">famousdaves.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/ferchau.com.html">ferchau.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/fidal.com.html">fidal.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/fime.com.html">fime.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/financeofamerica.com.html">financeofamerica.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/flender.de.html">flender.de</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/flexsteel.com.html">flexsteel.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/fluor.com.html">fluor.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/flynth.nl.html">flynth.nl</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/freightquote.com.html">freightquote.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/froneri.com.html">froneri.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/frontiers.ch.html">frontiers.ch</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/gaggleamp.html">gaggleamp.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/gdmissionsystems.com.html">gdmissionsystems.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/gelighting.com.html">gelighting.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/generalassembly.com.html">generalassembly.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/georges.com.html">georges.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/gianttiger.com.html">gianttiger.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/glidewelldental.com.html">glidewelldental.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/go.com.html">go.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/goodbyekansas.com.html">goodbyekansas.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/greekarmy.com.html">greekarmy.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/greif.com.html">greif.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/guardanthealth.com.html">guardanthealth.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/hach.com.html">hach.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/hamilton-medical.com.html">hamilton-medical.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/hamptonlumber.com.html">hamptonlumber.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/handelsblattgroup.com.html">handelsblattgroup.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/hermods.se.html">hermods.se</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/hiberus.com.html">hiberus.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/hilti.com.html">hilti.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/hoffmaster.com.html">hoffmaster.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/holdingcarisma.it.html">holdingcarisma.it</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/homedepot.com.html">homedepot.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/hoppenbrouwers.nl.html">hoppenbrouwers.nl</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/howdenre.com.html">howdenre.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/hr-path.com.html">hr-path.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/hubspot.html">hubspot.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/hudsonadvisors.com.html">hudsonadvisors.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">8</td>
+  </tr>
+<tr>
+    <td><a href="reports/huge.com.html">huge.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/iceland.co.uk.html">iceland.co.uk</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/intechww.com.html">intechww.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/itvstudios.com.html">itvstudios.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/jjrhatigan.com.html">jjrhatigan.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/kannaway.com.html">kannaway.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/kneaders.com.html">kneaders.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/kniferiver.com.html">kniferiver.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/kredinor.com.html">kredinor.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/latecoere.aero.html">latecoere.aero</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/leclercfoods.com.html">leclercfoods.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/libertytax.com.html">libertytax.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/linklogistics.com.html">linklogistics.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/livech.com.html">livech.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/loggi.com.html">loggi.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/longjohn.com.html">longjohn.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/lookout.com.html">lookout.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/macleanengineering.com.html">macleanengineering.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/mcdonalds.com.html">mcdonalds.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/medac.es.html">medac.es</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/mediametrie.fr.html">mediametrie.fr</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/mediaservices.us.html">mediaservices.us</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/medline-europe.com.html">medline-europe.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/menzies-distribution.co.uk.html">menzies-distribution.co.uk</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/merieuxnutrisciences.com.html">merieuxnutrisciences.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/merrick.com.html">merrick.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/midi-libre.com.html">midi-libre.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/miltoncat.com.html">miltoncat.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/mint.ca.html">mint.ca</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/mohegansun.com.html">mohegansun.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/moneymart.ca.html">moneymart.ca</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/monks.co.uk.html">monks.co.uk</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/myriad.com.html">myriad.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/naperville.com.html">naperville.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/navitaire.com.html">navitaire.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/niko.com.html">niko.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/nokia.com.html">nokia.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/northitalia.com.html">northitalia.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/nvidia.html">nvidia.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/ocu-group.com.html">ocu-group.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/ohiocat.com.html">ohiocat.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/oldendorff.com.html">oldendorff.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/olive.com.html">olive.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/omnicommedia.com.html">omnicommedia.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/ontic.com.html">ontic.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/opendoor.com.html">opendoor.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/oppd.com.html">oppd.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/orion-group.com.html">orion-group.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/pacha.com.html">pacha.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/paintingwithatwist.com.html">paintingwithatwist.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/panasonic.com.html">panasonic.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/payone.com.html">payone.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/pcrichard.com.html">pcrichard.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/pearson.com.html">pearson.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/pelicanproducts.com.html">pelicanproducts.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/penske.com.html">penske.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/petrol.com.html">petrol.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/pigglywiggly.com.html">pigglywiggly.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/pigier.com.html">pigier.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/pitchbook-data.com.html">pitchbook-data.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/poet.com.html">poet.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/posigen.com.html">posigen.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/prague-airport.com.html">prague-airport.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/precast.com.html">precast.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/preqin.com.html">preqin.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/prismahealth.org.html">prismahealth.org</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/proofpoint.com.html">proofpoint.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/providence.org.html">providence.org</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/qualys.com.html">qualys.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/rainforrent.com.html">rainforrent.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/rally.com.html">rally.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/rapiscansystems.com.html">rapiscansystems.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/recharge.us.html">recharge.us</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/reelfx.com.html">reelfx.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/repligen.com.html">repligen.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/resound.com.html">resound.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/ringier.com.html">ringier.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/robinsmorton.com.html">robinsmorton.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/rocketstation.com.html">rocketstation.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/rubinbrown.com.html">rubinbrown.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/russellcellular.com.html">russellcellular.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/ryanair.com.html">ryanair.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/sallinggroup.com.html">sallinggroup.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/secu.com.html">secu.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/securecorp.com.au.html">securecorp.com.au</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/sedena.es.html">sedena.es</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/semikron-danfoss.com.html">semikron-danfoss.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/servair.com.html">servair.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/sherritt.com.html">sherritt.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/sigmaaldrich.com.html">sigmaaldrich.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/simtra.com.html">simtra.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/sixflags.com.html">sixflags.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/skyward.com.html">skyward.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/sociabble.html">sociabble.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/sound-united.com.html">sound-united.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/southwest.com.html">southwest.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/standardaero.com.html">standardaero.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/stellar.com.html">stellar.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/summitfunding.com.html">summitfunding.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/sunrisemedical.de.html">sunrisemedical.de</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/superiorgrocers.com.html">superiorgrocers.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/switch.com.html">switch.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/systemceramics.com.html">systemceramics.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/tangerine.ca.html">tangerine.ca</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/tangischools.org.html">tangischools.org</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/telia.se.html">telia.se</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/texascapitalbank.com.html">texascapitalbank.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/thenewtrongroup.com.html">thenewtrongroup.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/thorne.com.html">thorne.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">7</td>
+  </tr>
+<tr>
+    <td><a href="reports/tibco.fr.html">tibco.fr</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/tieto.com.html">tieto.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/toluna.com.html">toluna.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/townsquaremedia.com.html">townsquaremedia.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/tranter.com.html">tranter.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/travelcounsellors.co.uk.html">travelcounsellors.co.uk</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/trulynolen.com.html">trulynolen.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/trustedshops.com.html">trustedshops.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/trustly.com.html">trustly.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/uniflex.se.html">uniflex.se</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/unitedbank.com.html">unitedbank.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/urbaser.com.html">urbaser.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/uscellular.com.html">uscellular.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">6</td>
+  </tr>
+<tr>
+    <td><a href="reports/vaillant.de.html">vaillant.de</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/valneva.fr.html">valneva.fr</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/viaposte.fr.html">viaposte.fr</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/wafdbank.com.html">wafdbank.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">1</td>
+  </tr>
+<tr>
+    <td><a href="reports/warburgpincus.com.html">warburgpincus.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/warnerbros.com.html">warnerbros.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/wavin.com.html">wavin.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/weightmans.com.html">weightmans.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/westshorehome.com.html">westshorehome.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/wholefoodsmarket.com.html">wholefoodsmarket.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/williams-sonoma.com.html">williams-sonoma.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/wirelesszone.com.html">wirelesszone.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">0</td>
+  </tr>
+<tr>
+    <td><a href="reports/wolfram.com.html">wolfram.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr>
+<tr>
+    <td><a href="reports/wondershare.com.html">wondershare.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">2</td>
+  </tr>
+<tr>
+    <td><a href="reports/worldtravelholdings.com.html">worldtravelholdings.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">5</td>
+  </tr>
+<tr>
+    <td><a href="reports/zambonpharma.com.html">zambonpharma.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">4</td>
+  </tr>
+<tr>
+    <td><a href="reports/zionsbank.com.html">zionsbank.com</a></td>
+    <td><span class="note">grade withheld — report available</span></td>
+    <td class="score-num">3</td>
+  </tr></tbody>
+  </table></div>
+
+  <footer>
+    <p>Every report reads only public pages, identifies itself honestly, and honors robots.txt on every request. No tracking on any page.</p>
+  </footer>
+</main>
+</body>
+</html>

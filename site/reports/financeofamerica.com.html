@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>financeofamerica.com — Advocacy Readiness Report</title>
+<style>
+:root{
+  --bg:#faf9f7; --panel:#ffffff; --ink:#1e2126; --muted:#5b6470; --line:#e3e0da;
+  --accent:#0d5c63; --accent-ink:#ffffff;
+  --crit:#a8323a; --crit-bg:#fbeef0; --issue:#8a5a12; --issue-bg:#fbf3e4;
+  --opp:#28618f; --opp-bg:#eaf2f9; --pos:#2e6b46; --pos-bg:#ecf5ef;
+  --lim:#5b6470; --lim-bg:#f1f0ed;
+  --grade-a:#2e6b46; --grade-b:#3a7a54; --grade-c:#8a5a12; --grade-d:#a05c2c; --grade-f:#a8323a;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#15171b; --panel:#1d2026; --ink:#e6e4df; --muted:#9aa2ad; --line:#31353d;
+    --accent:#5cb8bf; --accent-ink:#10262a;
+    --crit:#e08790; --crit-bg:#332326; --issue:#d8ab5e; --issue-bg:#302a1e;
+    --opp:#7fb3dd; --opp-bg:#1f2a35; --pos:#84c29d; --pos-bg:#1f2e25;
+    --lim:#9aa2ad; --lim-bg:#23262c;
+    --grade-a:#84c29d; --grade-b:#84c29d; --grade-c:#d8ab5e; --grade-d:#dd9a6a; --grade-f:#e08790;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+main{max-width:860px;margin:0 auto;padding:2rem 1.25rem 4rem}
+a{color:var(--accent)}
+h1{font-size:1.9rem;line-height:1.2;margin:.25rem 0 .1rem;overflow-wrap:anywhere}
+h2{font-size:1.25rem;margin:2.2rem 0 .8rem;border-bottom:1px solid var(--line);padding-bottom:.35rem}
+.kicker{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.sub{color:var(--muted);font-size:.9rem;margin:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;margin:1rem 0}
+.gradebox{display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap}
+.gradeletter{font-size:3.4rem;font-weight:700;line-height:1;min-width:4.2rem;text-align:center}
+.g-A{color:var(--grade-a)}.g-B{color:var(--grade-b)}.g-C{color:var(--grade-c)}.g-D{color:var(--grade-d)}.g-F{color:var(--grade-f)}
+.withheld-mark{font-size:1.5rem;font-weight:700;color:var(--lim)}
+.finding{background:var(--panel);border:1px solid var(--line);border-left-width:4px;border-radius:8px;padding:.9rem 1.1rem;margin:.7rem 0}
+.finding h3{margin:.1rem 0 .4rem;font-size:1.05rem}
+.finding p{margin:.4rem 0}
+.f-critical{border-left-color:var(--crit)} .f-issue{border-left-color:var(--issue)}
+.f-opportunity{border-left-color:var(--opp)} .f-positive{border-left-color:var(--pos)}
+.f-limitation{border-left-color:var(--lim)} .f-info{border-left-color:var(--lim)}
+.chip{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:99px;padding:.15rem .6rem;margin-bottom:.2rem}
+.c-critical{color:var(--crit);background:var(--crit-bg)} .c-issue{color:var(--issue);background:var(--issue-bg)}
+.c-opportunity{color:var(--opp);background:var(--opp-bg)} .c-positive{color:var(--pos);background:var(--pos-bg)}
+.c-limitation,.c-info{color:var(--lim);background:var(--lim-bg)}
+.fix{border-top:1px dashed var(--line);margin-top:.6rem;padding-top:.5rem}
+.fix b{color:var(--accent)}
+details{margin:.4rem 0 0}
+summary{cursor:pointer;color:var(--muted);font-size:.85rem}
+.ev{font-size:.85rem;color:var(--muted);overflow-x:auto}
+.ev ul{margin:.4rem 0;padding-left:1.2rem}
+.ev li{overflow-wrap:anywhere}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+.tablewrap{overflow-x:auto}
+th,td{text-align:left;padding:.45rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
+.honest{border-left:4px solid var(--accent);background:var(--panel);border-radius:8px;padding:1rem 1.25rem;margin:1.4rem 0}
+.honest p{margin:.5rem 0}
+.note{font-size:.85rem;color:var(--muted)}
+footer{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem;font-size:.8rem;color:var(--muted)}
+.score-num{font-variant-numeric:tabular-nums}
+.catscore{font-weight:700}
+.conf{font-size:.75rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker"><a href="../index.html">Advocacy Readiness Grader</a></p>
+  <h1>financeofamerica.com</h1>
+  <p class="sub">Evidence collected 2026-08-29 · 38 polite, robots.txt-respecting requests · every claim cites what it saw</p>
+  <div class="panel">
+        <p class="withheld-mark">No letter grade — withheld, not failed</p>
+        <p>No letter grade is issued because we could not read this site&#39;s content structure: of the 164 URLs in its sitemap, 87 (53%) could not be classified into content sections by our reader. That is a limit of this tool&#39;s reading, not evidence that the company lacks content — a grade computed from the readable sliver would report our gap as their failure. What could be observed is scored below at reduced confidence.</p>
+      </div>
+  <div class="honest">
+  <p class="kicker">Read this before the numbers</p>
+  <p><b>This tool was built in a few days, on a stack of stated assumptions.</b> I didn't have the time — or the inside knowledge of what EveryoneSocial's customers actually optimize for — to be certain these are the metrics that matter most. The four categories and their weights are editorial judgment, not measurement: nobody has proven that these things cause employees to post, and we don't claim otherwise.</p>
+  <p>What isn't measured, on purpose: your employees' actual posting. LinkedIn doesn't permit that access, so a free tool claiming to measure it is either paying an enrichment vendor or estimating. This report only reads what your company has published on its own public site — which is also the part you can fix.</p>
+  <p>This report was pre-generated from evidence collected in late August 2026 rather than live — the honest reason is speed: a full live run takes up to a minute on large sites and I chose accuracy over optimizing that this week. Every observation below is dated and cited.</p>
+  <p>What you can hold us to: every number cites its public evidence, nothing unseen is guessed at, robots.txt is respected on every fetch, and when we couldn't read a site we say "we couldn't read you" instead of issuing a grade.</p>
+</div>
+  <h2>What we found — most fixable first</h2>
+    <p class="note">Ranked by impact × ease of fixing, not by category. Counts describe the pages we actually read, and each finding cites them.</p>
+    <div class="finding f-issue">
+  <span class="chip c-issue">Issue</span>
+  <h3>Your homepage share card is missing og:title, og:description, og:image</h3>
+  <p>The homepage lacks og:title, og:description, og:image. When anyone — including your own employees — shares your homepage link, the preview card renders incomplete (no image means most platforms show a bare grey box).</p>
+  <p class="note">Evidence: homepage HTML.</p>
+  <p class="fix"><b>The fix:</b> Add the missing tags to the homepage template: og:title, og:description, og:image. Minutes of work, visible on every share afterward.</p>
+</div>
+<div class="finding f-issue">
+  <span class="chip c-issue">Issue</span>
+  <h3>Only 5 of 24 sampled pages carry a share image (og:image)</h3>
+  <p>5 of 24 sampled content pages (20.8%) (sampled from the slice of the site we could read) carry a share image (og:image); the rest do not. Without an og:image, most platforms render a shared link as a bare grey box.</p>
+  <details><summary>Evidence — content page sample</summary><div class="ev"><ul>
+    <li>https://www.financeofamerica.com/resources/faqs/</li><li>https://www.financeofamerica.com/resources/faqs/3-what-are-the-different-types-of-reverse-mortgages-available/</li><li>https://www.financeofamerica.com/resources/faqs/can-reverse-mortgage-borrowers-rent-out-their-homes/</li><li>https://www.financeofamerica.com/resources/faqs/how-am-i-protected-2/</li><li>https://www.financeofamerica.com/resources/faqs/how-can-i-ensure-that-a-reverse-mortgage-is-the-right-choice-for-me/</li><li>https://www.financeofamerica.com/resources/faqs/how-does-a-reverse-mortgage-work/</li><li>https://www.financeofamerica.com/resources/faqs/how-does-the-reverse-mortgage-process-work-from-application-to-closing/</li><li>https://www.financeofamerica.com/resources/faqs/how-has-public-perception-of-reverse-mortgages-changed-over-the-years/</li>
+    <li>… and 11 more in the sample</li>
+    
+    
+    
+  </ul></div></details>
+  <p class="fix"><b>The fix:</b> Add a default share image to the content template, and per-post images where you have art.</p>
+</div>
+<div class="finding f-issue">
+  <span class="chip c-issue">Issue</span>
+  <h3>0 of 24 sampled pages carry a visible share control</h3>
+  <p>None of the 24 content pages we sampled (sampled from the slice of the site we could read) carry a visible share control. Nothing on the page invites a reader — or an employee — to share it.</p>
+  <details><summary>Evidence — content page sample</summary><div class="ev"><ul>
+    <li>https://www.financeofamerica.com/customer-stories/meet-cynthia/</li><li>https://www.financeofamerica.com/customer-stories/meet-dave/</li><li>https://www.financeofamerica.com/customer-stories/meet-linda/</li><li>https://www.financeofamerica.com/customer-stories/meet-mario-veronica/</li><li>https://www.financeofamerica.com/customer-stories/meet-susan/</li><li>https://www.financeofamerica.com/resources/faqs/</li><li>https://www.financeofamerica.com/resources/faqs/3-what-are-the-different-types-of-reverse-mortgages-available/</li><li>https://www.financeofamerica.com/resources/faqs/can-reverse-mortgage-borrowers-rent-out-their-homes/</li>
+    <li>… and 16 more in the sample</li>
+    
+    
+    
+  </ul></div></details>
+  <p class="fix"><b>The fix:</b> Add share links or buttons to the content template. Plain links to the platform share endpoints work without any tracking script.</p>
+</div>
+<div class="finding f-issue">
+  <span class="chip c-issue">Issue</span>
+  <h3>0 of 24 sampled pages carry Article structured data</h3>
+  <p>None of the 24 content pages we sampled (sampled from the slice of the site we could read) carry Article structured data. Machine readers cannot tell these pages are articles, or when they were published, or by whom.</p>
+  <details><summary>Evidence — content page sample</summary><div class="ev"><ul>
+    <li>https://www.financeofamerica.com/customer-stories/meet-cynthia/</li><li>https://www.financeofamerica.com/customer-stories/meet-dave/</li><li>https://www.financeofamerica.com/customer-stories/meet-linda/</li><li>https://www.financeofamerica.com/customer-stories/meet-mario-veronica/</li><li>https://www.financeofamerica.com/customer-stories/meet-susan/</li><li>https://www.financeofamerica.com/resources/faqs/</li><li>https://www.financeofamerica.com/resources/faqs/3-what-are-the-different-types-of-reverse-mortgages-available/</li><li>https://www.financeofamerica.com/resources/faqs/can-reverse-mortgage-borrowers-rent-out-their-homes/</li>
+    <li>… and 16 more in the sample</li>
+    
+    
+    
+  </ul></div></details>
+  <p class="fix"><b>The fix:</b> Emit Article (or BlogPosting) JSON-LD with headline, datePublished and author in the content template.</p>
+</div>
+<div class="finding f-issue">
+  <span class="chip c-issue">Issue</span>
+  <h3>0 of 24 sampled pages name a human author</h3>
+  <p>None of the 24 sampled content pages (sampled from the slice of the site we could read) carry a named human author — no byline, no author schema, no rel=author. Content nobody signs is content nobody feels ownership of; advocacy runs on employees being visible in the work.</p>
+  <p class="note">Evidence: content page sample — 0 of 24 sampled pages.</p>
+  <p class="fix"><b>The fix:</b> Add author bylines to content pages — a name, ideally with a link or an author block in the Article schema. Start with new posts; backfilling can wait.</p>
+</div>
+<div class="finding f-opportunity">
+  <span class="chip c-opportunity">Opportunity</span>
+  <h3>No structured data on your homepage</h3>
+  <p>The homepage carries no JSON-LD schema.org markup. Machine readers — search engines and AI assistants alike — get no structured statement of who you are (Organization, name, logo, sameAs profiles).</p>
+  <p class="note">Evidence: homepage HTML.</p>
+  <p class="fix"><b>The fix:</b> Add an Organization JSON-LD block to the homepage: name, url, logo, and sameAs links to your official social profiles.</p>
+</div>
+<div class="finding f-opportunity">
+  <span class="chip c-opportunity">Opportunity</span>
+  <h3>Your job listings are invisible without JavaScript</h3>
+  <p>Your careers page (https://www.financeofamericacompanies.com/about/careers) returns HTML, but the job listings are injected client-side — a plain reader sees a page with no roles on it. Machine readers that do not execute JavaScript (many crawlers and AI assistants) cannot see that you are hiring.</p>
+  <details><summary>Evidence — careers page probes</summary><div class="ev"><ul>
+    <li>https://www.financeofamericacompanies.com/about/careers</li><li>https://www.financeofamerica.com/careers</li>
+    
+    
+    
+    
+  </ul></div></details>
+  <p class="fix"><b>The fix:</b> Server-render at least the role titles and locations, or publish jobs in structured data (schema.org JobPosting).</p>
+</div>
+<h2>What's already working</h2><div class="finding f-positive">
+  <span class="chip c-positive">Working</span>
+  <h3>All tracked AI user-agents may read your site</h3>
+  <p>robots.txt permits all 25 tracked AI user-agents at the site root, so AI search engines and assistants that honor robots.txt can read and cite you.</p>
+  <p class="note">Evidence: robots.txt.</p>
+  
+</div>
+<h2>What we could not see</h2>
+  <p class="note">Anything our reader could not observe is listed here rather than guessed at or silently skipped.</p>
+  <div class="finding f-limitation">
+  <span class="chip c-limitation">Not visible to us</span>
+  <h3>Our reader could not classify most of your site</h3>
+  <p>Of the 164 URLs in your sitemap, 87 (53%) could not be sorted into content sections by our path-based classifier — the unread majority sits under paths like /education (68), /loan-officer (10), /reverse-mortgages-by-state (2), /california-rm-eligibility-requirements (1), /advantages-of-rm-loans-in-california (1), /reverse-mortgage-application-process-in-california (1). That is a limit of our reading, not evidence you lack content, so no letter grade is issued and the volume-based scores below are floors, not measurements.</p>
+  <details><summary>Evidence — sitemap URL classification</summary><div class="ev"><ul>
+    
+    
+    
+    <li>/education — 68 URL(s) we could not classify</li><li>/loan-officer — 10 URL(s) we could not classify</li><li>/reverse-mortgages-by-state — 2 URL(s) we could not classify</li><li>/california-rm-eligibility-requirements — 1 URL(s) we could not classify</li><li>/advantages-of-rm-loans-in-california — 1 URL(s) we could not classify</li><li>/reverse-mortgage-application-process-in-california — 1 URL(s) we could not classify</li><li>/search — 1 URL(s) we could not classify</li><li>/texas-consumer-complaint-and-recovery-fund-notice — 1 URL(s) we could not classify</li>
+    
+  </ul></div></details>
+  
+</div>
+<div class="finding f-limitation">
+  <span class="chip c-limitation">Not visible to us</span>
+  <h3>Content freshness is not observable here</h3>
+  <p>Your sitemap publishes lastmod dates, but they look machine-generated rather than edit history (28.8% of all lastmod values fall on a single day (2025-03-24), which is the signature of a site-wide rebuild rather than individual edits.), so we cannot read them as freshness and have not guessed.</p>
+  <p class="note">Evidence: sitemap lastmod analysis.</p>
+  <p class="fix"><b>The fix:</b> Emit real last-modified dates in the sitemap. Credible freshness data helps every machine reader — search, AI, and tools like this one — represent you accurately.</p>
+</div>
+<h2>For the record</h2><div class="finding f-info">
+  <span class="chip c-info">Note</span>
+  <h3>No llms.txt</h3>
+  <p>No llms.txt file is served. This costs nothing today — the evidence that llms.txt affects anything is weak — so we do not count it against you.</p>
+  <p class="note">Evidence: llms.txt fetch.</p>
+  
+</div>
+  <h2>How the numbers break down</h2>
+  <p class="note">Weights: Content Supply 30% · Shareability 25% · Employee &amp; Culture 25% · AI Discoverability 20%. The weights are editorial judgment about what an advocacy program draws on — not the result of a study. Every row cites the observation behind it.</p>
+  <div class="panel">
+      <h3 style="margin:.1rem 0">Content Supply — <span class="catscore score-num">38.6</span>/100 <span class="conf">(reduced confidence)</span></h3>
+      <div class="tablewrap"><table><thead><tr><th>Signal</th><th>Points</th><th>What we saw</th></tr></thead><tbody>
+      <tr><td>Volume floor</td><td class="score-num">14.5/40</td><td>69 shareable pages after collapsing localized duplicates</td></tr><tr><td>Section diversity</td><td class="score-num">9/30</td><td>2 shareable section(s): case_study, resource</td></tr><tr><td>Shareable share</td><td class="score-num">15.1/30</td><td>42.1% of the canonical inventory is shareable content</td></tr>
+      </tbody></table></div>
+      <p class="note">Recency was not scored: this site publishes lastmod dates, but they look machine-generated rather than edit history, so they cannot be read as freshness.</p><p class="note">Low-coverage caveat: 87 of 164 sitemap URLs (53%) could not be classified, so this score describes only the 69 page(s) we could read and section-sort. It is a floor, not a measurement of the whole site.</p>
+    </div>
+<div class="panel">
+      <h3 style="margin:.1rem 0">Shareability — <span class="catscore score-num">42.3</span>/100 <span class="conf">(reduced confidence)</span></h3>
+      <div class="tablewrap"><table><thead><tr><th>Signal</th><th>Points</th><th>What we saw</th></tr></thead><tbody>
+      <tr><td>Open Graph image — without one, a shared link renders as a bare grey box</td><td class="score-num">7.3/35</td><td>5 of 24 sampled pages (20.8%)</td></tr><tr><td>Open Graph title on the shared card</td><td class="score-num">15/15</td><td>24 of 24 sampled pages (100%)</td></tr><tr><td>Open Graph description on the shared card</td><td class="score-num">15/15</td><td>24 of 24 sampled pages (100%)</td></tr><tr><td>A visible share control on the page</td><td class="score-num">0/30</td><td>0 of 24 sampled pages (0%)</td></tr><tr><td>Twitter/X card tags (near-zero weight: X falls back to Open Graph)</td><td class="score-num">3/3</td><td>24 of 24 sampled pages (100%)</td></tr><tr><td>Canonical URL (near-zero weight: SEO hygiene, not a sharing condition)</td><td class="score-num">2/2</td><td>24 of 24 sampled pages (100%)</td></tr>
+      </tbody></table></div>
+      <p class="note">Low-coverage caveat: 87 of 164 sitemap URLs (53%) could not be classified, so this score describes only the 69 page(s) we could read and section-sort. It is a floor, not a measurement of the whole site.</p>
+    </div>
+<div class="panel">
+      <h3 style="margin:.1rem 0">Employee & Culture Surface — <span class="catscore score-num">15</span>/100 <span class="conf">(reduced confidence)</span></h3>
+      <div class="tablewrap"><table><thead><tr><th>Signal</th><th>Points</th><th>What we saw</th></tr></thead><tbody>
+      <tr><td>Culture / life-at pages</td><td class="score-num">0/30</td><td>0 culture page(s) in the canonical inventory</td></tr><tr><td>Careers page reachable</td><td class="score-num">15/15</td><td>A careers page was found and retrieved</td></tr><tr><td>Careers depth</td><td class="score-num">0/15</td><td>0 careers URL(s) in the sitemap</td></tr><tr><td>Named authors on content</td><td class="score-num">0/25</td><td>0% of sampled pages carry a named author</td></tr><tr><td>Employee-story signals</td><td class="score-num">0/15</td><td>No culture URLs existed to sample, so no employee-story signal could be checked</td></tr>
+      </tbody></table></div>
+      <p class="note">A qualitative read of the careers page (boilerplate vs. real human stories) is not included in this number.</p><p class="note">Low-coverage caveat: 87 of 164 sitemap URLs (53%) could not be classified, so this score describes only the 69 page(s) we could read and section-sort. It is a floor, not a measurement of the whole site.</p>
+    </div>
+<div class="panel">
+      <h3 style="margin:.1rem 0">AI Discoverability — <span class="catscore score-num">54</span>/100 </h3>
+      <div class="tablewrap"><table><thead><tr><th>Signal</th><th>Points</th><th>What we saw</th></tr></thead><tbody>
+      <tr><td>AI crawler access</td><td class="score-num">45/45</td><td>All 25 tracked AI user-agents are permitted at the site root</td></tr><tr><td>Content-Signal coherence</td><td class="score-num">9/15</td><td>No Content-Signal declared. Neither a grant nor a restriction — scored neutrally.</td></tr><tr><td>Structured data</td><td class="score-num">0/40</td><td>0 schema.org type(s) on the homepage; 0% of sampled content pages carry Article schema</td></tr><tr><td>llms.txt</td><td class="score-num">0/0</td><td>Not present. This costs nothing — the evidence that llms.txt affects anything is weak.</td></tr>
+      </tbody></table></div>
+      <p class="note">robots.txt compliance is voluntary and advisory. This reports the declared policy; it is not a claim that any crawler was actually blocked.</p>
+    </div>
+  <footer>
+    <p>Method: deterministic rubric in code — the same evidence always yields the same result; no model assigns numbers. User-agent: AdvocacyReadinessGrader/0.1.0-phase1 (+https://greg-o-matic.com/grader; respects robots.txt). This page renders without JavaScript and holds no tracking.</p>
+    <p>This report reads only public pages, identifies itself honestly, and honors robots.txt on every request — including the ones that would have made it look better.</p>
+  </footer>
+</main>
+</body>
+</html>
