@@ -2,4 +2,18 @@ _brief/
 node_modules/
 .env
 .env.*
+!.env.example
 *.local
+.DS_Store
+out/
+
+# incumbent index build caches (regenerable; the built index itself is tracked)
+data/.vendor-cache/
+data/.resolve-cache.json
+data/.webresolve-cache.json
+
+data/.web-cache/
+data/.play-cache/
+
+# personal research scrapes, not part of the product; kept private
+_personal-research/
