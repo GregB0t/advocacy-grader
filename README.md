@@ -104,13 +104,19 @@ customers on advocacy/comms vendors' own public marketing pages and app-store
 listings, with per-row evidence tiers. It deliberately refuses to score "incumbency"
 without outcome data, and it never enters any grade.
 
+`data/` is **not distributed with this repository** — it is gitignored, and it feeds
+only the private lead score, never the public grade, findings or reports. A fresh
+clone has no index; `lib/incumbent.js` then reports it missing and the lead score
+carries no incumbent signal. Everything else runs unchanged. Set `INCUMBENT_INDEX`
+to point at a copy if you have one (see `.env.example`).
+
 Evidence files carry a private `lead_signals` block (public careers-page
 reachability, detected ATS). It never renders in any public report — that separation
 is enforced by tests.
 
 ## Tests
 
-`npm test` runs 37 assertions, fully offline: coverage-gate boundaries, withheld-grade
+`npm test` runs 50 assertions, fully offline: coverage-gate boundaries, withheld-grade
 wording, the single-count rule for shareability signals, floor/sampler agreement, lead
 tiers, robots contradiction logic, findings on graded / withheld / blocked / partial
 evidence, and a no-leak check that private lead data never reaches findings.

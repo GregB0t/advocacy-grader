@@ -7,13 +7,13 @@ node_modules/
 .DS_Store
 out/
 
-# incumbent index build caches (regenerable; the built index itself is tracked)
-data/.vendor-cache/
-data/.resolve-cache.json
-data/.webresolve-cache.json
-
-data/.web-cache/
-data/.play-cache/
+# The incumbent-vendor index and its build caches. UNTRACKED BY DECISION
+# (2026-08-30): data/ is read only by lib/incumbent.js -> lib/lead-score.js ->
+# the PRIVATE lead score. Nothing in the public grade, findings, reports or
+# static site touches it, and every consumer degrades honestly when it is
+# absent. Keeping it out of a public repo costs the shipped product nothing.
+# Rebuild it with the tools/ scripts, or point INCUMBENT_INDEX at a copy.
+data/
 
 # personal research scrapes, not part of the product; kept private
 _personal-research/
