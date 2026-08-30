@@ -1,0 +1,23 @@
+{
+  "name": "advocacy-readiness-grader",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Employee-advocacy readiness grader: collects public evidence (robots, sitemaps, sampled pages, careers surface) for any domain and scores it with a deterministic rubric. The report is the product; the letter grade is withheld whenever classification coverage does not earn it.",
+  "bin": {
+    "score": "./score.js"
+  },
+  "scripts": {
+    "setup": "node setup.js",
+    "check": "node setup.js --check",
+    "fixtures": "node fixtures/server.js",
+    "test": "node tools/test-rubric.js && node tools/test-findings.js",
+    "build:site": "node tools/build-site.js",
+    "serve": "node server.js",
+    "start": "node server.js",
+    "rescore": "node tools/rescore.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

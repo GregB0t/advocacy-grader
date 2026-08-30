@@ -1,0 +1,1088 @@
+{
+  "schema": "advocacy-grader/evidence",
+  "phase": 3,
+  "disclaimer": "Raw observation only. No scores, no model output, no inference. Every number below is derived from a request recorded in meta.fetch_log.",
+  "meta": {
+    "version": "0.1.0-phase1",
+    "user_agent": "AdvocacyReadinessGrader/0.1.0-phase1 (+https://greg-o-matic.com/grader; respects robots.txt)",
+    "input": "wholefoodsmarket.com",
+    "normalized_host": "wholefoodsmarket.com",
+    "resolved_origin": "https://www.wholefoodsmarket.com",
+    "origin_attempts": [
+      {
+        "origin": "https://wholefoodsmarket.com",
+        "status": 200,
+        "ok": true,
+        "final_url": "https://www.wholefoodsmarket.com/",
+        "redirected": true,
+        "error": null
+      }
+    ],
+    "started_at": "2026-08-29T03:47:05.139Z",
+    "elapsed_ms": 3633,
+    "requests_made": 16,
+    "bytes_downloaded": 2398866,
+    "fetch_log": [
+      {
+        "url": "https://wholefoodsmarket.com/",
+        "note": "origin probe",
+        "status": 200,
+        "ok": true,
+        "ms": 295,
+        "bytes": 157593,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/",
+        "redirected": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/robots.txt",
+        "note": "robots.txt",
+        "status": 200,
+        "ok": true,
+        "ms": 35,
+        "bytes": 247,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/robots.txt",
+        "redirected": false,
+        "contentType": "text/plain; charset=utf-8"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/llms.txt",
+        "note": "llms.txt",
+        "status": 404,
+        "ok": false,
+        "ms": 371,
+        "bytes": 75208,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/llms.txt",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://wholefoodsmarket.com/sitemap.xml",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 427,
+        "bytes": 821,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/sitemap.xml",
+        "redirected": true,
+        "contentType": "application/xml"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/sitemap/sitemap-cms.xml",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 83,
+        "bytes": 712702,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/sitemap/sitemap-cms.xml",
+        "redirected": false,
+        "contentType": "application/xml"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/sitemap/sitemap-stores.xml",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 36,
+        "bytes": 64554,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/sitemap/sitemap-stores.xml",
+        "redirected": false,
+        "contentType": "application/xml"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/sitemap/sitemap-static.xml",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 37,
+        "bytes": 752,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/sitemap/sitemap-static.xml",
+        "redirected": false,
+        "contentType": "application/xml"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/sitemap/sitemap-recipes.xml",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 40,
+        "bytes": 271275,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/sitemap/sitemap-recipes.xml",
+        "redirected": false,
+        "contentType": "application/xml"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/sitemap/sitemap-products.xml",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 38,
+        "bytes": 3334,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/sitemap/sitemap-products.xml",
+        "redirected": false,
+        "contentType": "application/xml"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/events",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 356,
+        "bytes": 102948,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/events",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/events/global-flavors-cuisine",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 380,
+        "bytes": 87139,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/events/global-flavors-cuisine",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/events/game-day",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 413,
+        "bytes": 200931,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/events/game-day",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/events/asian-cuisine",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 424,
+        "bytes": 197033,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/events/asian-cuisine",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/events/latin-american-cuisine",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 454,
+        "bytes": 169652,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/events/latin-american-cuisine",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/tips-and-ideas/archive/customer-stories-part-family",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 605,
+        "bytes": 112369,
+        "error": null,
+        "finalUrl": "https://www.wholefoodsmarket.com/tips-and-ideas/archive/customer-stories-part-family",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/careers",
+        "note": "careers page",
+        "status": 200,
+        "ok": true,
+        "ms": 1196,
+        "bytes": 242308,
+        "error": null,
+        "finalUrl": "https://careers.wholefoods.com/",
+        "redirected": true,
+        "contentType": "text/html; charset=utf-8"
+      }
+    ],
+    "caps": {
+      "max_sitemaps": 60,
+      "max_urls": 60000,
+      "timeout_ms": 15000,
+      "sample_size": 24,
+      "max_credits": 150
+    },
+    "scrapingbee": {
+      "enabled": true,
+      "credits_used": 0,
+      "credits_ceiling": 150,
+      "calls": [],
+      "note": null
+    },
+    "robots_hosts": {
+      "hosts_consulted": [
+        {
+          "origin": "https://www.wholefoodsmarket.com",
+          "source": "primary fetch"
+        }
+      ],
+      "note": "Every host touched has its own robots.txt checked before any request to it."
+    }
+  },
+  "robots": {
+    "present": true,
+    "status": 200,
+    "bytes": 247,
+    "url": "https://www.wholefoodsmarket.com/robots.txt",
+    "raw": "\nUser-agent: *\n\nDisallow: /locations/\nDisallow: /account/\nDisallow: /email/\nDisallow: /login/\nDisallow: /logout/\nDisallow: /preview\nDisallow: /cart\nDisallow: /grocery/cart\nDisallow: /catering/cart\n\nSitemap: https://wholefoodsmarket.com/sitemap.xml",
+    "group_count": 1,
+    "declared_sitemaps": [
+      "https://wholefoodsmarket.com/sitemap.xml"
+    ],
+    "unknown_directives": [],
+    "ai_posture": {
+      "agents": [
+        {
+          "user_agent": "GPTBot",
+          "vendor": "OpenAI",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "OAI-SearchBot",
+          "vendor": "OpenAI",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "ChatGPT-User",
+          "vendor": "OpenAI",
+          "kind": "user-fetch",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "ClaudeBot",
+          "vendor": "Anthropic",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Claude-User",
+          "vendor": "Anthropic",
+          "kind": "user-fetch",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Claude-SearchBot",
+          "vendor": "Anthropic",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "anthropic-ai",
+          "vendor": "Anthropic",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Google-Extended",
+          "vendor": "Google",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Googlebot",
+          "vendor": "Google",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Bingbot",
+          "vendor": "Microsoft",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "PerplexityBot",
+          "vendor": "Perplexity",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Perplexity-User",
+          "vendor": "Perplexity",
+          "kind": "user-fetch",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Applebot",
+          "vendor": "Apple",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Applebot-Extended",
+          "vendor": "Apple",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Amazonbot",
+          "vendor": "Amazon",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "meta-externalagent",
+          "vendor": "Meta",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Meta-ExternalFetcher",
+          "vendor": "Meta",
+          "kind": "user-fetch",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "CCBot",
+          "vendor": "Common Crawl",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Bytespider",
+          "vendor": "ByteDance",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "cohere-ai",
+          "vendor": "Cohere",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "YouBot",
+          "vendor": "You.com",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "DuckAssistBot",
+          "vendor": "DuckDuckGo",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Diffbot",
+          "vendor": "Diffbot",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "ImagesiftBot",
+          "vendor": "ImageSift",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "CloudflareBrowserRenderingCrawler",
+          "vendor": "Cloudflare",
+          "kind": "render",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        }
+      ],
+      "content_signals": [],
+      "blocked_count": 0,
+      "blocked_agents": [],
+      "matches_cloudflare_default_blocklist": false,
+      "contradictions": [],
+      "caveat": "robots.txt is advisory. This reports the declared policy only; it is not a claim that any crawler was actually blocked."
+    }
+  },
+  "llms_txt": {
+    "checked": true,
+    "present": false,
+    "status": 404,
+    "bytes": 0,
+    "first_lines": null,
+    "evidence_caveat": "Presence is reported for completeness only. Google has stated it does not support llms.txt; no major AI vendor has confirmed consuming it; large-scale studies found no correlation with AI citations. This is recorded, not credited."
+  },
+  "sitemaps": {
+    "seeds_tried": [
+      "https://wholefoodsmarket.com/sitemap.xml",
+      "https://www.wholefoodsmarket.com/sitemap/sitemap-cms.xml",
+      "https://www.wholefoodsmarket.com/sitemap/sitemap-stores.xml",
+      "https://www.wholefoodsmarket.com/sitemap/sitemap-static.xml",
+      "https://www.wholefoodsmarket.com/sitemap/sitemap-recipes.xml",
+      "https://www.wholefoodsmarket.com/sitemap/sitemap-products.xml"
+    ],
+    "documents": [
+      {
+        "url": "https://wholefoodsmarket.com/sitemap.xml",
+        "status": 200,
+        "kind": "index",
+        "bytes": 821,
+        "entries": 5,
+        "entries_with_lastmod": 5
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/sitemap/sitemap-cms.xml",
+        "status": 200,
+        "kind": "urlset",
+        "bytes": 712702,
+        "entries": 4798,
+        "entries_with_lastmod": 4798
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/sitemap/sitemap-stores.xml",
+        "status": 200,
+        "kind": "urlset",
+        "bytes": 64554,
+        "entries": 561,
+        "entries_with_lastmod": 561
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/sitemap/sitemap-static.xml",
+        "status": 200,
+        "kind": "urlset",
+        "bytes": 752,
+        "entries": 4,
+        "entries_with_lastmod": 4
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/sitemap/sitemap-recipes.xml",
+        "status": 200,
+        "kind": "urlset",
+        "bytes": 271275,
+        "entries": 2000,
+        "entries_with_lastmod": 2000
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/sitemap/sitemap-products.xml",
+        "status": 200,
+        "kind": "urlset",
+        "bytes": 3334,
+        "entries": 27,
+        "entries_with_lastmod": 27
+      }
+    ],
+    "documents_fetched": 6,
+    "urls_collected": 7238,
+    "duplicate_urls_removed": 152,
+    "recency": {
+      "urls_total": 7238,
+      "urls_with_lastmod": 7238,
+      "lastmod_coverage_pct": 100,
+      "newest": "2026-08-24",
+      "oldest": "2014-11-12",
+      "distinct_dates": 532,
+      "span_days": 4303,
+      "most_common_date": {
+        "date": "2020-02-18",
+        "urls": 3930,
+        "share_pct": 54.3
+      },
+      "updated_last_30d": 19,
+      "updated_last_90d": 584,
+      "updated_last_365d": 736,
+      "lastmod_looks_machine_generated": true,
+      "credibility_reasons": [
+        "54.3% of all lastmod values fall on a single day (2020-02-18), which is the signature of a site-wide rebuild rather than individual edits."
+      ],
+      "recency_measurable": false,
+      "note": "lastmod is present but does not look like genuine edit history. The counts above describe the dates as published; they should NOT be reported to the visitor as content freshness."
+    }
+  },
+  "homepage": {
+    "title": "Whole Foods Market: Shop Groceries &amp; Weekly Sales",
+    "meta_description": "Get hungry for local, organic, plant-based &amp; more: see today&#x27;s sales, find a grocery store near you, browse products by special diet, get delivery and pickup.",
+    "canonical": "https://www.wholefoodsmarket.com/",
+    "open_graph": {
+      "image": "https://m.media-amazon.com/images/S/assets.wholefoodsmarket.com/content/b5/68/d0e7dfed477d8afdb7234aeaab11/wfm-og-homepage-rectangle.png",
+      "image:alt": "Whole Foods Market logo with an assortment of fruits and vegetables",
+      "title": "Whole Foods Market: Shop Groceries &amp; Weekly Sales",
+      "description": "Get hungry for local, organic, plant-based &amp; more: see today&#x27;s sales, find a grocery store near you, browse products by special diet, get delivery and pickup.",
+      "site_name": "Whole Foods Market",
+      "url": "https://www.wholefoodsmarket.com/"
+    },
+    "open_graph_complete": true,
+    "twitter_card": {
+      "image": "https://m.media-amazon.com/images/S/assets.wholefoodsmarket.com/content/b5/68/d0e7dfed477d8afdb7234aeaab11/wfm-og-homepage-rectangle.png",
+      "image:alt": "Whole Foods Market logo with an assortment of fruits and vegetables",
+      "title": "Whole Foods Market: Shop Groceries &amp; Weekly Sales",
+      "description": "Get hungry for local, organic, plant-based &amp; more: see today&#x27;s sales, find a grocery store near you, browse products by special diet, get delivery and pickup.",
+      "site": "@WholeFoods"
+    },
+    "json_ld_types": [],
+    "json_ld_blocks": 0,
+    "feeds_declared": [],
+    "generator": null,
+    "outbound_link_count": 80,
+    "career_links_found": [],
+    "ats_hints": [],
+    "rendered_text_chars": 4212,
+    "likely_js_rendered": false,
+    "note": null
+  },
+  "classification": {
+    "total_urls_classified": 7238,
+    "canonical_content": {
+      "canonical_urls": 7225,
+      "raw_urls": 7238,
+      "collapsed_by_localization": 13,
+      "sections": {
+        "unclassified": 7175,
+        "legal": 27,
+        "product": 14,
+        "event_webinar": 5,
+        "partner_integration": 2,
+        "case_study": 1,
+        "home": 1
+      },
+      "sections_present": 6,
+      "shareable_url_count": 6,
+      "shareable_share_pct": 0.1,
+      "note": "Localized duplicates collapsed to one entry each. Per decision 2 this deduplicated view is what Content Supply scores; the raw counts below are kept for transparency."
+    },
+    "hosts_seen": {
+      "www.wholefoodsmarket.com": 7238
+    },
+    "cross_host": null,
+    "sections": {
+      "unclassified": 7175,
+      "legal": 27,
+      "product": 27,
+      "event_webinar": 5,
+      "partner_integration": 2,
+      "case_study": 1,
+      "home": 1
+    },
+    "section_samples": {
+      "unclassified": [
+        "https://www.wholefoodsmarket.com/company-info/newsroom/news-releases/new-whole-foods-market-in-san-diego-california-to-open-september-23",
+        "https://www.wholefoodsmarket.com/company-info/newsroom/news-releases/new-whole-foods-market-in-elk-grove-california-to-open-september-16",
+        "https://www.wholefoodsmarket.com/company-info/newsroom/news-releases/whole-foods-market-and-national-young-farmers-coalition-launch-next-generation-farmer-fund-to-support-the-future-of-american-agriculture"
+      ],
+      "legal": [
+        "https://www.wholefoodsmarket.com/legal/summer-grilling-sweepstakes",
+        "https://www.wholefoodsmarket.com/legal/365-by-whole-foods-market-baby-food-test-results",
+        "https://www.wholefoodsmarket.com/legal/catering-terms-and-conditions"
+      ],
+      "partner_integration": [
+        "https://www.wholefoodsmarket.com/app/pay-with-in-store-code",
+        "https://www.wholefoodsmarket.com/app"
+      ],
+      "case_study": [
+        "https://www.wholefoodsmarket.com/tips-and-ideas/archive/customer-stories-part-family"
+      ],
+      "event_webinar": [
+        "https://www.wholefoodsmarket.com/events/global-flavors-cuisine",
+        "https://www.wholefoodsmarket.com/events/latin-american-cuisine",
+        "https://www.wholefoodsmarket.com/events/game-day"
+      ],
+      "home": [
+        "https://www.wholefoodsmarket.com/"
+      ],
+      "product": [
+        "https://www.wholefoodsmarket.com/products",
+        "https://www.wholefoodsmarket.com/products/all-products",
+        "https://www.wholefoodsmarket.com/products/dairy-eggs"
+      ]
+    },
+    "sections_present": 6,
+    "shareable_url_count": 6,
+    "shareable_share_pct": 0.1,
+    "localization": {
+      "localized_urls": 0,
+      "locales": {},
+      "distinct_locales": 0,
+      "note": null
+    },
+    "path_depth": {
+      "0": 1,
+      "1": 33,
+      "2": 2879,
+      "3": 4292,
+      "4": 33
+    },
+    "unclassified": {
+      "count": 7175,
+      "top_path_prefixes": {
+        "/tips-and-ideas": 4212,
+        "/recipes": 2001,
+        "/stores": 557,
+        "/departments": 86,
+        "/company-info": 54,
+        "/recipe-collections": 51,
+        "/local": 47,
+        "/special-diets": 33,
+        "/quality-standards": 20,
+        "/mission-values": 18,
+        "/trends": 17,
+        "/customer-service": 17,
+        "/healthy-eating": 12,
+        "/site-information": 11,
+        "/mission-in-action": 11
+      },
+      "note": "Reported so classification gaps are visible rather than silently absorbed into other buckets."
+    }
+  },
+  "shareability": {
+    "sampling": {
+      "urls": [
+        {
+          "url": "https://www.wholefoodsmarket.com/events",
+          "section": "event_webinar"
+        },
+        {
+          "url": "https://www.wholefoodsmarket.com/events/asian-cuisine",
+          "section": "event_webinar"
+        },
+        {
+          "url": "https://www.wholefoodsmarket.com/events/game-day",
+          "section": "event_webinar"
+        },
+        {
+          "url": "https://www.wholefoodsmarket.com/events/global-flavors-cuisine",
+          "section": "event_webinar"
+        },
+        {
+          "url": "https://www.wholefoodsmarket.com/events/latin-american-cuisine",
+          "section": "event_webinar"
+        },
+        {
+          "url": "https://www.wholefoodsmarket.com/tips-and-ideas/archive/customer-stories-part-family",
+          "section": "case_study"
+        }
+      ],
+      "method": "all",
+      "seed": null,
+      "pool_size": 6,
+      "allocation": null,
+      "note": "Only 6 candidate URL(s) available, so every one was checked rather than sampled."
+    },
+    "pages_attempted": 6,
+    "pages_retrieved": 6,
+    "pages_unretrieved": [],
+    "aggregates": {
+      "og_complete": {
+        "n": 4,
+        "pct": 66.7
+      },
+      "og_image": {
+        "n": 6,
+        "pct": 100
+      },
+      "og_title": {
+        "n": 6,
+        "pct": 100
+      },
+      "og_description": {
+        "n": 4,
+        "pct": 66.7
+      },
+      "twitter_card": {
+        "n": 0,
+        "pct": 0
+      },
+      "canonical": {
+        "n": 6,
+        "pct": 100
+      },
+      "article_schema": {
+        "n": 0,
+        "pct": 0
+      },
+      "named_author": {
+        "n": 0,
+        "pct": 0
+      },
+      "share_affordance": {
+        "n": 1,
+        "pct": 16.7
+      }
+    },
+    "pages": [
+      {
+        "url": "https://www.wholefoodsmarket.com/events",
+        "section": "event_webinar",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Events | Whole Foods Market",
+          "description": null,
+          "image": "https://m.media-amazon.com/images/S/assets.wholefoodsmarket.com/undefined",
+          "type": null,
+          "site_name": "Whole Foods Market"
+        },
+        "has_og_title": true,
+        "has_og_description": false,
+        "has_og_image": true,
+        "og_complete": false,
+        "twitter_card": null,
+        "has_twitter_card": false,
+        "has_twitter_image": true,
+        "canonical": "https://www.wholefoodsmarket.com/events",
+        "has_canonical": true,
+        "schema_types": [],
+        "has_article_schema": false,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [],
+          "named_human_author": false,
+          "source": null,
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": null,
+          "modified": null,
+          "source": null
+        },
+        "share_affordances": [],
+        "has_share_affordance": false,
+        "h1": "Events",
+        "word_count": 366,
+        "looks_empty": false
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/events/asian-cuisine",
+        "section": "event_webinar",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Asian Cuisine | Whole Foods Market",
+          "description": "Craft vibrant Asian-inspired dishes with our unique assortment of marinated proteins, organic produce, sauces and more. Plus, learn how to prepare a striking meal at home with one of our easy-to-follow recipes.",
+          "image": "https://m.media-amazon.com/images/S/assets.wholefoodsmarket.com//content/6e/f0/fefd5cf240f8b7500bb3c6e06a5d/2025-wfm-cen-febb-ee-fireupasia-web-hub-hero-3000x1200.jpg",
+          "type": null,
+          "site_name": "Whole Foods Market"
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": null,
+        "has_twitter_card": false,
+        "has_twitter_image": true,
+        "canonical": "https://www.wholefoodsmarket.com/events/asian-cuisine",
+        "has_canonical": true,
+        "schema_types": [],
+        "has_article_schema": false,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [],
+          "named_human_author": false,
+          "source": null,
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": null,
+          "modified": null,
+          "source": null
+        },
+        "share_affordances": [],
+        "has_share_affordance": false,
+        "h1": "Fire Up Asia",
+        "word_count": 616,
+        "looks_empty": false
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/events/game-day",
+        "section": "event_webinar",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Game Day | Whole Foods Market",
+          "description": "Welcome to your headquarters for irresistible game day eats and clutch ideas for your watch party. \nGrab everything you need to keep your fans fueled.",
+          "image": "https://m.media-amazon.com/images/S/assets.wholefoodsmarket.com//content/0d/dc/b04bf6434407983ae55428fbe518/2025-wfm-cen-feba-se-gameday-web-eehub-hero-3000x1200.jpg",
+          "type": null,
+          "site_name": "Whole Foods Market"
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": null,
+        "has_twitter_card": false,
+        "has_twitter_image": true,
+        "canonical": "https://www.wholefoodsmarket.com/events/game-day",
+        "has_canonical": true,
+        "schema_types": [],
+        "has_article_schema": false,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [],
+          "named_human_author": false,
+          "source": null,
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": null,
+          "modified": null,
+          "source": null
+        },
+        "share_affordances": [],
+        "has_share_affordance": false,
+        "h1": "Game Day",
+        "word_count": 746,
+        "looks_empty": false
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/events/global-flavors-cuisine",
+        "section": "event_webinar",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Global Flavors Cuisine | Whole Foods Market",
+          "description": null,
+          "image": "https://m.media-amazon.com/images/S/assets.wholefoodsmarket.com/undefined",
+          "type": null,
+          "site_name": "Whole Foods Market"
+        },
+        "has_og_title": true,
+        "has_og_description": false,
+        "has_og_image": true,
+        "og_complete": false,
+        "twitter_card": null,
+        "has_twitter_card": false,
+        "has_twitter_image": true,
+        "canonical": "https://www.wholefoodsmarket.com/events/global-flavors-cuisine",
+        "has_canonical": true,
+        "schema_types": [],
+        "has_article_schema": false,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [],
+          "named_human_author": false,
+          "source": null,
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": null,
+          "modified": null,
+          "source": null
+        },
+        "share_affordances": [],
+        "has_share_affordance": false,
+        "h1": "Global Flavors Cuisines",
+        "word_count": 232,
+        "looks_empty": false
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/events/latin-american-cuisine",
+        "section": "event_webinar",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Latin American Cuisine | Whole Foods Market",
+          "description": "Spice up your routine with storewide deals on vibrant ingredients, street food–inspired finds, no-antibiotics-ever meat and our top picks for pantry essentials.",
+          "image": "https://m.media-amazon.com/images/S/assets.wholefoodsmarket.com//content/7f/b0/8bf6e1134e318af794c1af8dff3d/event-hub-hero-flavors-of-latin-america.png",
+          "type": null,
+          "site_name": "Whole Foods Market"
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": null,
+        "has_twitter_card": false,
+        "has_twitter_image": true,
+        "canonical": "https://www.wholefoodsmarket.com/events/latin-american-cuisine",
+        "has_canonical": true,
+        "schema_types": [],
+        "has_article_schema": false,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [],
+          "named_human_author": false,
+          "source": null,
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": null,
+          "modified": null,
+          "source": null
+        },
+        "share_affordances": [],
+        "has_share_affordance": false,
+        "h1": "Flavors of Latin America",
+        "word_count": 578,
+        "looks_empty": false
+      },
+      {
+        "url": "https://www.wholefoodsmarket.com/tips-and-ideas/archive/customer-stories-part-family",
+        "section": "case_study",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Customer Stories: Part of the Family | Whole Foods Market",
+          "description": "Every day, our store team members go out of their way to make sure our customers are part of the family. Read real life examples and see some cool store-inspired wedding decorations.",
+          "image": "https://m.media-amazon.com/images/S/assets.wholefoodsmarket.com//content/c9/9c/d24db1daa0bf8bcbb65e7cb51f4f/img-9746.jpg",
+          "type": null,
+          "site_name": "Whole Foods Market"
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": null,
+        "has_twitter_card": false,
+        "has_twitter_image": true,
+        "canonical": "https://www.wholefoodsmarket.com/tips-and-ideas/archive/customer-stories-part-family",
+        "has_canonical": true,
+        "schema_types": [],
+        "has_article_schema": false,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [],
+          "named_human_author": false,
+          "source": null,
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": null,
+          "modified": null,
+          "source": null
+        },
+        "share_affordances": [
+          "facebook"
+        ],
+        "has_share_affordance": true,
+        "h1": "Customer Stories: Part of the Family",
+        "word_count": 958,
+        "looks_empty": false
+      }
+    ],
+    "confidence_note": null
+  },
+  "lead_signals": {
+    "visibility": "PRIVATE — never rendered in the public report. Hiring pressure is a need signal, not a quality signal (spec §4).",
+    "careers_pages_checked": [
+      {
+        "url": "https://www.wholefoodsmarket.com/careers",
+        "status": 200,
+        "ok": true,
+        "via": "direct",
+        "escalated": false,
+        "found_in_direct_html": true
+      }
+    ],
+    "ats_detected": [
+      {
+        "ats": "workday",
+        "token": "wholefoods",
+        "found_in": "https://www.wholefoodsmarket.com/careers",
+        "tenant": "wholefoods",
+        "datacenter": "wd5",
+        "site": "wholefoods"
+      }
+    ],
+    "ats_attempts": [
+      {
+        "ats": "workday",
+        "token": "wholefoods",
+        "ok": false,
+        "reason": "Workday requires the CXS discovery step. Deferred to Phase 6 — reported as detected but unqueried."
+      }
+    ],
+    "ats_used": null,
+    "hiring": null,
+    "self_hosted_board": {
+      "source": "self-hosted careers page",
+      "source_url": "https://www.wholefoodsmarket.com/careers",
+      "role_titles": [
+        {
+          "title": "Associate Store Team Leader",
+          "found_in": "link text"
+        },
+        {
+          "title": "Associate Store Team Leader (Austin metro)",
+          "found_in": "link text"
+        },
+        {
+          "title": "Associate Store Team Leader - DFW Metro",
+          "found_in": "link text"
+        },
+        {
+          "title": "Associate Store Team Leader - Lynnwood",
+          "found_in": "link text"
+        }
+      ],
+      "approximate_open_reqs": 4,
+      "buyer_in_seat_roles": [],
+      "buyer_in_seat_trigger": false,
+      "confidence": "low",
+      "caveat": "Titles were inferred from link and heading text on the careers page, not read from an ATS API. The count is approximate, posting dates are unavailable, and full job description text is unavailable — so competitor/displacement grep cannot run for this company."
+    }
+  },
+  "blocked_at_root": false,
+  "warnings": [
+    "152 URL(s) appeared in more than one sitemap document and were counted once. Deduplicated inventory is 7238."
+  ],
+  "not_observed": [
+    "ATS: workday detected but no job data could be retrieved. See lead_signals.ats_attempts."
+  ],
+  "derived_note": "Scores are NOT stored. Derive them at read time with scoreEvidence() from lib/rubric.js (see tools/rescore.js). Any grade you did not just compute is not a grade."
+}

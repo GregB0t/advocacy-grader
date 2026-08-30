@@ -1,0 +1,325 @@
+{
+  "schema": "advocacy-grader/evidence",
+  "phase": 3,
+  "disclaimer": "Raw observation only. No scores, no model output, no inference. Every number below is derived from a request recorded in meta.fetch_log.",
+  "meta": {
+    "version": "0.1.0-phase1",
+    "user_agent": "AdvocacyReadinessGrader/0.1.0-phase1 (+https://greg-o-matic.com/grader; respects robots.txt)",
+    "input": "consumerportfolioservices.com",
+    "normalized_host": "consumerportfolioservices.com",
+    "resolved_origin": "https://consumerportfolioservices.com",
+    "origin_attempts": [
+      {
+        "origin": "https://consumerportfolioservices.com",
+        "status": 200,
+        "ok": true,
+        "final_url": "https://consumerportfolioservices.com/",
+        "redirected": false,
+        "error": null
+      }
+    ],
+    "started_at": "2026-08-29T03:25:43.777Z",
+    "elapsed_ms": 766,
+    "requests_made": 2,
+    "bytes_downloaded": 4995,
+    "fetch_log": [
+      {
+        "url": "https://consumerportfolioservices.com/",
+        "note": "origin probe",
+        "status": 200,
+        "ok": true,
+        "ms": 614,
+        "bytes": 4399,
+        "error": null,
+        "finalUrl": "https://consumerportfolioservices.com/",
+        "redirected": false,
+        "contentType": "text/html; charset=UTF-8"
+      },
+      {
+        "url": "https://consumerportfolioservices.com/robots.txt",
+        "note": "robots.txt",
+        "status": 200,
+        "ok": true,
+        "ms": 145,
+        "bytes": 596,
+        "error": null,
+        "finalUrl": "https://consumerportfolioservices.com/robots.txt",
+        "redirected": false,
+        "contentType": "text/plain"
+      }
+    ],
+    "caps": {
+      "max_sitemaps": 60,
+      "max_urls": 60000,
+      "timeout_ms": 15000,
+      "sample_size": 24,
+      "max_credits": 150
+    },
+    "scrapingbee": {
+      "enabled": true,
+      "credits_used": 0,
+      "credits_ceiling": 150,
+      "calls": [],
+      "note": null
+    },
+    "robots_hosts": null
+  },
+  "robots": {
+    "present": true,
+    "status": 200,
+    "bytes": 596,
+    "url": "https://consumerportfolioservices.com/robots.txt",
+    "raw": "User-agent: Googlebot\nDisallow:  /info/\nDisallow:  /search/\n\nUser-agent: Mediapartners-Google\nDisallow:  /info/\nDisallow:  /search/\n\nUser-agent: Yahoo! Slurp\nAllow: /$\nDisallow: /\n\nUser-agent: bingbot\nAllow: /$\nDisallow: /\n\nUser-agent: Yandex\nAllow: /$\nDisallow: /\n\nUser-agent: Baiduspider\nDisallow: /\n\nUser-agent: Sogou\nDisallow: /\n\nUser-agent: ia_archiver\nDisallow:\n\nUser-agent: IPS-Agent\nDisallow: /parking.php4\n\nUser-agent: BLEXBot\nDisallow: /\n\nUser-agent: Pandalytics\nDisallow:  /info/\nDisallow:  /search/\n\nUser-agent: IonCrawl\nDisallow: /info/\nDisallow: /search/\n\nUser-agent: *\nDisallow: /\n",
+    "group_count": 13,
+    "declared_sitemaps": [],
+    "unknown_directives": [],
+    "ai_posture": {
+      "agents": [
+        {
+          "user_agent": "GPTBot",
+          "vendor": "OpenAI",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "OAI-SearchBot",
+          "vendor": "OpenAI",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "ChatGPT-User",
+          "vendor": "OpenAI",
+          "kind": "user-fetch",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "ClaudeBot",
+          "vendor": "Anthropic",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Claude-User",
+          "vendor": "Anthropic",
+          "kind": "user-fetch",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Claude-SearchBot",
+          "vendor": "Anthropic",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "anthropic-ai",
+          "vendor": "Anthropic",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Google-Extended",
+          "vendor": "Google",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Googlebot",
+          "vendor": "Google",
+          "kind": "search",
+          "named_explicitly": true,
+          "root_allowed": true,
+          "basis": "own group"
+        },
+        {
+          "user_agent": "Bingbot",
+          "vendor": "Microsoft",
+          "kind": "search",
+          "named_explicitly": true,
+          "root_allowed": true,
+          "basis": "own group"
+        },
+        {
+          "user_agent": "PerplexityBot",
+          "vendor": "Perplexity",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Perplexity-User",
+          "vendor": "Perplexity",
+          "kind": "user-fetch",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Applebot",
+          "vendor": "Apple",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Applebot-Extended",
+          "vendor": "Apple",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Amazonbot",
+          "vendor": "Amazon",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "meta-externalagent",
+          "vendor": "Meta",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Meta-ExternalFetcher",
+          "vendor": "Meta",
+          "kind": "user-fetch",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "CCBot",
+          "vendor": "Common Crawl",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Bytespider",
+          "vendor": "ByteDance",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "cohere-ai",
+          "vendor": "Cohere",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "YouBot",
+          "vendor": "You.com",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "DuckAssistBot",
+          "vendor": "DuckDuckGo",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Diffbot",
+          "vendor": "Diffbot",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "ImagesiftBot",
+          "vendor": "ImageSift",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "CloudflareBrowserRenderingCrawler",
+          "vendor": "Cloudflare",
+          "kind": "render",
+          "named_explicitly": false,
+          "root_allowed": false,
+          "basis": "wildcard group"
+        }
+      ],
+      "content_signals": [],
+      "blocked_count": 23,
+      "blocked_agents": [
+        "GPTBot",
+        "OAI-SearchBot",
+        "ChatGPT-User",
+        "ClaudeBot",
+        "Claude-User",
+        "Claude-SearchBot",
+        "anthropic-ai",
+        "Google-Extended",
+        "PerplexityBot",
+        "Perplexity-User",
+        "Applebot",
+        "Applebot-Extended",
+        "Amazonbot",
+        "meta-externalagent",
+        "Meta-ExternalFetcher",
+        "CCBot",
+        "Bytespider",
+        "cohere-ai",
+        "YouBot",
+        "DuckAssistBot",
+        "Diffbot",
+        "ImagesiftBot",
+        "CloudflareBrowserRenderingCrawler"
+      ],
+      "matches_cloudflare_default_blocklist": true,
+      "contradictions": [],
+      "caveat": "robots.txt is advisory. This reports the declared policy only; it is not a claim that any crawler was actually blocked."
+    }
+  },
+  "llms_txt": null,
+  "sitemaps": null,
+  "homepage": null,
+  "classification": null,
+  "shareability": null,
+  "lead_signals": null,
+  "blocked_at_root": true,
+  "warnings": [
+    "robots.txt disallows our user-agent at the site root. Only robots.txt itself was read; nothing else was fetched. Being blocked is a finding, not an error."
+  ],
+  "not_observed": [
+    "Sitemaps, homepage content and URL inventory: our user-agent is disallowed at \"/\" and we did not fetch them."
+  ],
+  "derived_note": "Scores are NOT stored. Derive them at read time with scoreEvidence() from lib/rubric.js (see tools/rescore.js). Any grade you did not just compute is not a grade."
+}

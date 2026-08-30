@@ -1,0 +1,2520 @@
+{
+  "schema": "advocacy-grader/evidence",
+  "phase": 3,
+  "disclaimer": "Raw observation only. No scores, no model output, no inference. Every number below is derived from a request recorded in meta.fetch_log.",
+  "meta": {
+    "version": "0.1.0-phase1",
+    "user_agent": "AdvocacyReadinessGrader/0.1.0-phase1 (+https://greg-o-matic.com/grader; respects robots.txt)",
+    "input": "zapier.com",
+    "normalized_host": "zapier.com",
+    "resolved_origin": "https://zapier.com",
+    "origin_attempts": [
+      {
+        "origin": "https://zapier.com",
+        "status": 200,
+        "ok": true,
+        "final_url": "https://zapier.com/",
+        "redirected": false,
+        "error": null
+      }
+    ],
+    "started_at": "2026-08-28T00:38:25.926Z",
+    "elapsed_ms": 28237,
+    "requests_made": 39,
+    "bytes_downloaded": 14668565,
+    "fetch_log": [
+      {
+        "url": "https://zapier.com/",
+        "note": "origin probe",
+        "status": 200,
+        "ok": true,
+        "ms": 380,
+        "bytes": 580784,
+        "error": null,
+        "finalUrl": "https://zapier.com/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/robots.txt",
+        "note": "robots.txt",
+        "status": 200,
+        "ok": true,
+        "ms": 193,
+        "bytes": 1840,
+        "error": null,
+        "finalUrl": "https://zapier.com/robots.txt",
+        "redirected": false,
+        "contentType": "text/plain"
+      },
+      {
+        "url": "https://zapier.com/llms.txt",
+        "note": "llms.txt",
+        "status": 200,
+        "ok": true,
+        "ms": 323,
+        "bytes": 12654,
+        "error": null,
+        "finalUrl": "https://zapier.com/llms.txt",
+        "redirected": false,
+        "contentType": "text/plain; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-two-service-sitemap.xml",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 26,
+        "bytes": 7222,
+        "error": null,
+        "finalUrl": "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-two-service-sitemap.xml",
+        "redirected": false,
+        "contentType": "application/xml"
+      },
+      {
+        "url": "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-one-service-sitemap.xml",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 56,
+        "bytes": 623,
+        "error": null,
+        "finalUrl": "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-one-service-sitemap.xml",
+        "redirected": false,
+        "contentType": "application/xml"
+      },
+      {
+        "url": "https://zapier.com/sitemaps/zap-templates/LZB2XiWzbJFggRYdnRGwcoAgEkTnHHEh",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 117,
+        "bytes": 43580,
+        "error": null,
+        "finalUrl": "https://zapier.com/sitemaps/zap-templates/LZB2XiWzbJFggRYdnRGwcoAgEkTnHHEh",
+        "redirected": false,
+        "contentType": "application/xml; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/sitemap.xml",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 621,
+        "bytes": 525809,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/sitemap.xml",
+        "redirected": false,
+        "contentType": "text/xml"
+      },
+      {
+        "url": "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-sitemap.xml",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 4200,
+        "bytes": 1487,
+        "error": null,
+        "finalUrl": "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-sitemap.xml",
+        "redirected": false,
+        "contentType": "application/xml"
+      },
+      {
+        "url": "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-static-sitemap.xml",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 269,
+        "bytes": 706,
+        "error": null,
+        "finalUrl": "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-static-sitemap.xml",
+        "redirected": false,
+        "contentType": "application/xml"
+      },
+      {
+        "url": "https://zapier.com/agents/sitemap.xml",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 137,
+        "bytes": 20175,
+        "error": null,
+        "finalUrl": "https://zapier.com/agents/sitemap.xml",
+        "redirected": false,
+        "contentType": "application/xml"
+      },
+      {
+        "url": "https://zapier.com/automation/sitemap.xml",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 116,
+        "bytes": 404,
+        "error": null,
+        "finalUrl": "https://zapier.com/automation/sitemap.xml",
+        "redirected": false,
+        "contentType": "text/xml"
+      },
+      {
+        "url": "https://zapier.com/marketing/sitemap.xml",
+        "note": "sitemap",
+        "status": null,
+        "ok": false,
+        "ms": 10005,
+        "bytes": 0,
+        "error": "timeout after 10000ms"
+      },
+      {
+        "url": "https://zapier.com/sitemaps/templates/Xf3Lk9YbRzQnmgP2eCJtA5Wxv0NdMu6T",
+        "note": "sitemap",
+        "status": 200,
+        "ok": true,
+        "ms": 388,
+        "bytes": 63030,
+        "error": null,
+        "finalUrl": "https://zapier.com/sitemaps/templates/Xf3Lk9YbRzQnmgP2eCJtA5Wxv0NdMu6T",
+        "redirected": false,
+        "contentType": "application/xml"
+      },
+      {
+        "url": "https://zapier.com/blog/best-cloud-ides/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 459,
+        "bytes": 376480,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/best-cloud-ides/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/best-note-app-for-android/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 514,
+        "bytes": 677635,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/best-note-app-for-android/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/asana-microsoft-office-365-new-noteworthy-apps/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 574,
+        "bytes": 467533,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/asana-microsoft-office-365-new-noteworthy-apps/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/digital-marketing-report/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 461,
+        "bytes": 341640,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/digital-marketing-report/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/boost-customer-loyalty-with-automation/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 992,
+        "bytes": 725580,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/boost-customer-loyalty-with-automation/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/automation-for-startups/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 1024,
+        "bytes": 724334,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/automation-for-startups/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/drip-marketing/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 489,
+        "bytes": 710542,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/drip-marketing/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/how-to-improve-productivity-with-automation/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 965,
+        "bytes": 833803,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/how-to-improve-productivity-with-automation/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/database-vs-spreadsheet/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 2428,
+        "bytes": 379099,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/database-vs-spreadsheet/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/google-forms-online-learning/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 1902,
+        "bytes": 383865,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/google-forms-online-learning/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/how-to-use-trello/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 861,
+        "bytes": 647594,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/how-to-use-trello/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/find-twitter-handle-mentions-news/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 1930,
+        "bytes": 470414,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/find-twitter-handle-mentions-news/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/how-to-create-report-salesforce/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 1909,
+        "bytes": 572305,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/how-to-create-report-salesforce/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/multimodal-ai/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 509,
+        "bytes": 614843,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/multimodal-ai/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/starting-at-a-big-company/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 521,
+        "bytes": 373267,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/starting-at-a-big-company/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/read-more-books/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 558,
+        "bytes": 453538,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/read-more-books/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/reddit-marketing/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 690,
+        "bytes": 591748,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/reddit-marketing/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/sub-zaps-guide/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 396,
+        "bytes": 436116,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/sub-zaps-guide/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/onepage-crm-facebook-lead-ads/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 1026,
+        "bytes": 385242,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/onepage-crm-facebook-lead-ads/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/tips-for-powerful-zapier-workflows/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 465,
+        "bytes": 442528,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/tips-for-powerful-zapier-workflows/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/what-is-agile/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 426,
+        "bytes": 568281,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/what-is-agile/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/track-stripe-payments-airtable/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 810,
+        "bytes": 458432,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/track-stripe-payments-airtable/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/what-is-information-systems/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 545,
+        "bytes": 483778,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/what-is-information-systems/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/blog/ways-personal-assistants-can-start-automating-work/",
+        "note": "content sample",
+        "status": 200,
+        "ok": true,
+        "ms": 1579,
+        "bytes": 792671,
+        "error": null,
+        "finalUrl": "https://zapier.com/blog/ways-personal-assistants-can-start-automating-work/",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/jobs",
+        "note": "careers page",
+        "status": 200,
+        "ok": true,
+        "ms": 201,
+        "bytes": 412602,
+        "error": null,
+        "finalUrl": "https://zapier.com/jobs",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "url": "https://zapier.com/careers",
+        "note": "careers page",
+        "status": 404,
+        "ok": false,
+        "ms": 353,
+        "bytes": 86381,
+        "error": null,
+        "finalUrl": "https://zapier.com/careers",
+        "redirected": false,
+        "contentType": "text/html; charset=utf-8"
+      }
+    ],
+    "caps": {
+      "max_sitemaps": 10,
+      "max_urls": 12000,
+      "timeout_ms": 10000,
+      "sample_size": 24,
+      "max_credits": 150
+    },
+    "scrapingbee": {
+      "enabled": true,
+      "credits_used": 5,
+      "credits_ceiling": 150,
+      "calls": [
+        {
+          "url": "https://zapier.com/jobs",
+          "reason": "thin_html",
+          "credits": 5,
+          "ms": 5489,
+          "status": 200,
+          "ok": true,
+          "resolved_url": "https://zapier.com/jobs",
+          "error": null
+        }
+      ],
+      "note": null
+    },
+    "robots_hosts": {
+      "hosts_consulted": [
+        {
+          "origin": "https://zapier.com",
+          "source": "primary fetch"
+        }
+      ],
+      "note": "Every host touched has its own robots.txt checked before any request to it."
+    }
+  },
+  "robots": {
+    "present": true,
+    "status": 200,
+    "bytes": 1840,
+    "url": "https://zapier.com/robots.txt",
+    "raw": "User-agent: *\nAllow: /\nAllow: /shared/\nAllow: /app/login\nDisallow: /shared/*?wtime\nDisallow: /engine/hydrate/\nDisallow: /hooks/\nDisallow: /goto/\nDisallow: /developer/invite/\nDisallow: /developer/public-invite/\nDisallow: /editor/robots.txt\nDisallow: /app/\nDisallow: /engine/\nDisallow: /google-sso/\nDisallow: /home\nDisallow: /help-v1/\nDisallow: /help/search/\nDisallow: /apps/*/landing/\nDisallow: /apps/*/integrations/*/landing/\nDisallow: /apps/*/roles/*/\nDisallow: /app-directory/\nDisallow: /api/\nDisallow: /new-homepage/\nDisallow: /webintent/\nDisallow: /zapbook/\nDisallow: /sso/\nDisallow: */iframe/*\nDisallow: /*?\n\nSitemap: https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-two-service-sitemap.xml\nSitemap: https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-one-service-sitemap.xml\nSitemap: https://zapier.com/sitemaps/zap-templates/LZB2XiWzbJFggRYdnRGwcoAgEkTnHHEh\nSitemap: https://zapier.com/blog/sitemap.xml\nSitemap: https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-sitemap.xml\nSitemap: https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-static-sitemap.xml\nSitemap: https://zapier.com/agents/sitemap.xml\nSitemap: https://zapier.com/automation/sitemap.xml\nSitemap: https://zapier.com/marketing/sitemap.xml\nSitemap: https://zapier.com/sitemaps/templates/Xf3Lk9YbRzQnmgP2eCJtA5Wxv0NdMu6T\nSitemap: https://zapier.com/automations/sitemap-automations.xml\n\nAgentmap: https://zapier.com/.well-known/ai-catalog.json\n\nUser-agent: facebookexternalhit\nAllow: /engine/hydrate/\n\nUser-agent: Baiduspider\nDisallow: /api/\nDisallow: /engine/\nDisallow: /app/\n\nUser-agent: GPTBot\nUser-agent: OAI-SearchBot\nUser-agent: ChatGPT-User\nUser-agent: ClaudeBot\nUser-agent: Claude-User\nUser-agent: Claude-SearchBot\nUser-agent: Google-Extended\nUser-agent: PerplexityBot\nUser-agent: DuckAssistBot\nAllow: /\n\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\n",
+    "group_count": 4,
+    "declared_sitemaps": [
+      "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-two-service-sitemap.xml",
+      "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-one-service-sitemap.xml",
+      "https://zapier.com/sitemaps/zap-templates/LZB2XiWzbJFggRYdnRGwcoAgEkTnHHEh",
+      "https://zapier.com/blog/sitemap.xml",
+      "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-sitemap.xml",
+      "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-static-sitemap.xml",
+      "https://zapier.com/agents/sitemap.xml",
+      "https://zapier.com/automation/sitemap.xml",
+      "https://zapier.com/marketing/sitemap.xml",
+      "https://zapier.com/sitemaps/templates/Xf3Lk9YbRzQnmgP2eCJtA5Wxv0NdMu6T",
+      "https://zapier.com/automations/sitemap-automations.xml"
+    ],
+    "unknown_directives": [
+      "agentmap"
+    ],
+    "ai_posture": {
+      "agents": [
+        {
+          "user_agent": "GPTBot",
+          "vendor": "OpenAI",
+          "kind": "train",
+          "named_explicitly": true,
+          "root_allowed": true,
+          "basis": "own group"
+        },
+        {
+          "user_agent": "OAI-SearchBot",
+          "vendor": "OpenAI",
+          "kind": "search",
+          "named_explicitly": true,
+          "root_allowed": true,
+          "basis": "own group"
+        },
+        {
+          "user_agent": "ChatGPT-User",
+          "vendor": "OpenAI",
+          "kind": "user-fetch",
+          "named_explicitly": true,
+          "root_allowed": true,
+          "basis": "own group"
+        },
+        {
+          "user_agent": "ClaudeBot",
+          "vendor": "Anthropic",
+          "kind": "train",
+          "named_explicitly": true,
+          "root_allowed": true,
+          "basis": "own group"
+        },
+        {
+          "user_agent": "Claude-User",
+          "vendor": "Anthropic",
+          "kind": "user-fetch",
+          "named_explicitly": true,
+          "root_allowed": true,
+          "basis": "own group"
+        },
+        {
+          "user_agent": "Claude-SearchBot",
+          "vendor": "Anthropic",
+          "kind": "search",
+          "named_explicitly": true,
+          "root_allowed": true,
+          "basis": "own group"
+        },
+        {
+          "user_agent": "anthropic-ai",
+          "vendor": "Anthropic",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Google-Extended",
+          "vendor": "Google",
+          "kind": "train",
+          "named_explicitly": true,
+          "root_allowed": true,
+          "basis": "own group"
+        },
+        {
+          "user_agent": "Googlebot",
+          "vendor": "Google",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Bingbot",
+          "vendor": "Microsoft",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "PerplexityBot",
+          "vendor": "Perplexity",
+          "kind": "search",
+          "named_explicitly": true,
+          "root_allowed": true,
+          "basis": "own group"
+        },
+        {
+          "user_agent": "Perplexity-User",
+          "vendor": "Perplexity",
+          "kind": "user-fetch",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Applebot",
+          "vendor": "Apple",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Applebot-Extended",
+          "vendor": "Apple",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Amazonbot",
+          "vendor": "Amazon",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "meta-externalagent",
+          "vendor": "Meta",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Meta-ExternalFetcher",
+          "vendor": "Meta",
+          "kind": "user-fetch",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "CCBot",
+          "vendor": "Common Crawl",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "Bytespider",
+          "vendor": "ByteDance",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "cohere-ai",
+          "vendor": "Cohere",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "YouBot",
+          "vendor": "You.com",
+          "kind": "search",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "DuckAssistBot",
+          "vendor": "DuckDuckGo",
+          "kind": "search",
+          "named_explicitly": true,
+          "root_allowed": true,
+          "basis": "own group"
+        },
+        {
+          "user_agent": "Diffbot",
+          "vendor": "Diffbot",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "ImagesiftBot",
+          "vendor": "ImageSift",
+          "kind": "train",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        },
+        {
+          "user_agent": "CloudflareBrowserRenderingCrawler",
+          "vendor": "Cloudflare",
+          "kind": "render",
+          "named_explicitly": false,
+          "root_allowed": true,
+          "basis": "wildcard group"
+        }
+      ],
+      "content_signals": [
+        {
+          "applies_to": [
+            "gptbot",
+            "oai-searchbot",
+            "chatgpt-user",
+            "claudebot",
+            "claude-user",
+            "claude-searchbot",
+            "google-extended",
+            "perplexitybot",
+            "duckassistbot"
+          ],
+          "raw": "ai-train=yes, search=yes, ai-input=yes",
+          "parsed": {
+            "ai-train": "yes",
+            "search": "yes",
+            "ai-input": "yes"
+          }
+        }
+      ],
+      "blocked_count": 0,
+      "blocked_agents": [],
+      "matches_cloudflare_default_blocklist": false,
+      "contradictions": [],
+      "caveat": "robots.txt is advisory. This reports the declared policy only; it is not a claim that any crawler was actually blocked."
+    }
+  },
+  "llms_txt": {
+    "checked": true,
+    "present": true,
+    "status": 200,
+    "bytes": 12654,
+    "first_lines": [
+      "# Zapier",
+      "",
+      "> Root map for AI agents and developer tools. Per-surface indexes live in [Surfaces](#surfaces); topic-keyed cross-references live in [Topics](#topics). Section anchors are stable — safe to deep-link (e.g. `https://zapier.com/llms.txt#mcp`).",
+      "",
+      "## What is Zapier",
+      "",
+      "Zapier is a no-code AI orchestration platform where teams connect thousands of apps and AI tools to run automations and AI-assisted work, including workflows, Agents, MCP-connected assistants, and chatbots. Teams from SMBs to global enterprises use Zapier to wire together sprawling stacks, add AI where it fits, and apply admin and security controls at scale. Control, delegation, and visibility are built in so teams build safely without IT as a bottleneck.",
+      ""
+    ],
+    "evidence_caveat": "Presence is reported for completeness only. Google has stated it does not support llms.txt; no major AI vendor has confirmed consuming it; large-scale studies found no correlation with AI citations. This is recorded, not credited."
+  },
+  "sitemaps": {
+    "seeds_tried": [
+      "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-two-service-sitemap.xml",
+      "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-one-service-sitemap.xml",
+      "https://zapier.com/sitemaps/zap-templates/LZB2XiWzbJFggRYdnRGwcoAgEkTnHHEh",
+      "https://zapier.com/blog/sitemap.xml",
+      "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-sitemap.xml",
+      "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-static-sitemap.xml",
+      "https://zapier.com/agents/sitemap.xml",
+      "https://zapier.com/automation/sitemap.xml",
+      "https://zapier.com/marketing/sitemap.xml",
+      "https://zapier.com/sitemaps/templates/Xf3Lk9YbRzQnmgP2eCJtA5Wxv0NdMu6T"
+    ],
+    "documents": [
+      {
+        "url": "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-two-service-sitemap.xml",
+        "status": 200,
+        "kind": "index",
+        "bytes": 7222,
+        "entries": 56,
+        "entries_with_lastmod": 0
+      },
+      {
+        "url": "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-one-service-sitemap.xml",
+        "status": 200,
+        "kind": "index",
+        "bytes": 623,
+        "entries": 4,
+        "entries_with_lastmod": 0
+      },
+      {
+        "url": "https://zapier.com/sitemaps/zap-templates/LZB2XiWzbJFggRYdnRGwcoAgEkTnHHEh",
+        "status": 200,
+        "kind": "index",
+        "bytes": 43580,
+        "entries": 335,
+        "entries_with_lastmod": 0
+      },
+      {
+        "url": "https://zapier.com/blog/sitemap.xml",
+        "status": 200,
+        "kind": "urlset",
+        "bytes": 525809,
+        "entries": 4251,
+        "entries_with_lastmod": 4251
+      },
+      {
+        "url": "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-sitemap.xml",
+        "status": 200,
+        "kind": "index",
+        "bytes": 1487,
+        "entries": 13,
+        "entries_with_lastmod": 0
+      },
+      {
+        "url": "https://zapier.com/uag6x9zaeydnbfy75xsggcsb37h8cgzf-static-sitemap.xml",
+        "status": 200,
+        "kind": "index",
+        "bytes": 706,
+        "entries": 5,
+        "entries_with_lastmod": 0
+      },
+      {
+        "url": "https://zapier.com/agents/sitemap.xml",
+        "status": 200,
+        "kind": "urlset",
+        "bytes": 20175,
+        "entries": 102,
+        "entries_with_lastmod": 102
+      },
+      {
+        "url": "https://zapier.com/automation/sitemap.xml",
+        "status": 200,
+        "kind": "index",
+        "bytes": 404,
+        "entries": 3,
+        "entries_with_lastmod": 0
+      },
+      {
+        "url": "https://zapier.com/marketing/sitemap.xml",
+        "status": null,
+        "kind": "error",
+        "reason": "timeout after 10000ms",
+        "entries": 0
+      },
+      {
+        "url": "https://zapier.com/sitemaps/templates/Xf3Lk9YbRzQnmgP2eCJtA5Wxv0NdMu6T",
+        "status": 200,
+        "kind": "index",
+        "bytes": 63030,
+        "entries": 500,
+        "entries_with_lastmod": 0
+      }
+    ],
+    "documents_fetched": 9,
+    "urls_collected": 4353,
+    "duplicate_urls_removed": 0,
+    "recency": {
+      "urls_total": 4353,
+      "urls_with_lastmod": 4353,
+      "lastmod_coverage_pct": 100,
+      "newest": "2026-08-27",
+      "oldest": "2011-10-04",
+      "distinct_dates": 1940,
+      "span_days": 5441,
+      "most_common_date": {
+        "date": "2026-08-17",
+        "urls": 108,
+        "share_pct": 2.5
+      },
+      "updated_last_30d": 202,
+      "updated_last_90d": 376,
+      "updated_last_365d": 997,
+      "lastmod_looks_machine_generated": false,
+      "credibility_reasons": [],
+      "recency_measurable": true,
+      "note": null
+    }
+  },
+  "homepage": {
+    "title": "Zapier: Automate AI Workflows, Agents, and Apps",
+    "meta_description": "Build and scale AI workflows and agents across 9,000+ apps with Zapier—the most connected AI orchestration platform. Trusted by 3 million+ businesses. ",
+    "canonical": "https://zapier.com",
+    "open_graph": {
+      "title": "Zapier: Automate AI Workflows, Agents, and Apps",
+      "description": "Build and scale AI workflows and agents across 9,000+ apps with Zapier—the most connected AI orchestration platform. Trusted by 3 million+ businesses. ",
+      "image": "https://res.cloudinary.com/zapier-media/image/upload/q_auto/f_auto/v1776210705/Governance/og-image-homepage_mskeaq.png"
+    },
+    "open_graph_complete": true,
+    "twitter_card": {
+      "card": "summary_large_image",
+      "title": "Zapier: Automate AI Workflows, Agents, and Apps",
+      "description": "Build and scale AI workflows and agents across 9,000+ apps with Zapier—the most connected AI orchestration platform. Trusted by 3 million+ businesses. ",
+      "image": "https://res.cloudinary.com/zapier-media/image/upload/q_auto/f_auto/v1776210705/Governance/og-image-homepage_mskeaq.png"
+    },
+    "json_ld_types": [
+      "Organization",
+      "ImageObject",
+      "PostalAddress",
+      "Person",
+      "WebSite",
+      "WebPage",
+      "SoftwareApplication",
+      "CreativeWork"
+    ],
+    "json_ld_blocks": 3,
+    "feeds_declared": [],
+    "generator": null,
+    "outbound_link_count": 390,
+    "career_links_found": [
+      "https://zapier.com/jobs"
+    ],
+    "ats_hints": [],
+    "rendered_text_chars": 20188,
+    "likely_js_rendered": false,
+    "note": null
+  },
+  "classification": {
+    "total_urls_classified": 4353,
+    "canonical_content": {
+      "canonical_urls": 4353,
+      "raw_urls": 4353,
+      "collapsed_by_localization": 0,
+      "sections": {
+        "blog": 4251,
+        "unclassified": 102
+      },
+      "sections_present": 1,
+      "shareable_url_count": 4251,
+      "shareable_share_pct": 97.7,
+      "note": "Localized duplicates collapsed to one entry each. Per decision 2 this deduplicated view is what Content Supply scores; the raw counts below are kept for transparency."
+    },
+    "hosts_seen": {
+      "zapier.com": 4353
+    },
+    "cross_host": null,
+    "sections": {
+      "blog": 4251,
+      "unclassified": 102
+    },
+    "section_samples": {
+      "blog": [
+        "https://zapier.com/blog/",
+        "https://zapier.com/blog/all-articles/",
+        "https://zapier.com/blog/categories/zapier-product-and-platform/"
+      ],
+      "unclassified": [
+        "https://zapier.com/agents",
+        "https://zapier.com/agents/templates",
+        "https://zapier.com/agents/templates/slack-to-linear-ticket-creator-ab5bea"
+      ]
+    },
+    "sections_present": 1,
+    "shareable_url_count": 4251,
+    "shareable_share_pct": 97.7,
+    "localization": {
+      "localized_urls": 0,
+      "locales": {},
+      "distinct_locales": 0,
+      "note": null
+    },
+    "path_depth": {
+      "1": 2,
+      "2": 4243,
+      "3": 108
+    },
+    "unclassified": {
+      "count": 102,
+      "top_path_prefixes": {
+        "/agents": 102
+      },
+      "note": "Reported so classification gaps are visible rather than silently absorbed into other buckets."
+    }
+  },
+  "shareability": {
+    "sampling": {
+      "urls": [
+        {
+          "url": "https://zapier.com/blog/asana-microsoft-office-365-new-noteworthy-apps/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/automation-for-startups/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/best-cloud-ides/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/best-note-app-for-android/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/boost-customer-loyalty-with-automation/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/database-vs-spreadsheet/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/digital-marketing-report/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/drip-marketing/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/find-twitter-handle-mentions-news/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/google-forms-online-learning/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/how-to-create-report-salesforce/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/how-to-improve-productivity-with-automation/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/how-to-use-trello/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/multimodal-ai/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/onepage-crm-facebook-lead-ads/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/read-more-books/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/reddit-marketing/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/starting-at-a-big-company/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/sub-zaps-guide/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/tips-for-powerful-zapier-workflows/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/track-stripe-payments-airtable/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/ways-personal-assistants-can-start-automating-work/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/what-is-agile/",
+          "section": "blog"
+        },
+        {
+          "url": "https://zapier.com/blog/what-is-information-systems/",
+          "section": "blog"
+        }
+      ],
+      "method": "deterministic_stratified",
+      "seed": 586150543,
+      "pool_size": 4251,
+      "allocation": {
+        "blog": 24
+      },
+      "sections_available": 1,
+      "note": "Seeded by a hash of the domain and drawn proportionally across content sections, so re-running this domain returns the same pages and the same score, and no single section can dominate the sample."
+    },
+    "pages_attempted": 24,
+    "pages_retrieved": 24,
+    "pages_unretrieved": [],
+    "aggregates": {
+      "og_complete": {
+        "n": 24,
+        "pct": 100
+      },
+      "og_image": {
+        "n": 24,
+        "pct": 100
+      },
+      "og_title": {
+        "n": 24,
+        "pct": 100
+      },
+      "og_description": {
+        "n": 24,
+        "pct": 100
+      },
+      "twitter_card": {
+        "n": 24,
+        "pct": 100
+      },
+      "canonical": {
+        "n": 24,
+        "pct": 100
+      },
+      "article_schema": {
+        "n": 24,
+        "pct": 100
+      },
+      "named_author": {
+        "n": 24,
+        "pct": 100
+      },
+      "share_affordance": {
+        "n": 24,
+        "pct": 100
+      }
+    },
+    "pages": [
+      {
+        "url": "https://zapier.com/blog/asana-microsoft-office-365-new-noteworthy-apps/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "New and noteworthy apps: Asana, Microsoft Office 365, + more",
+          "description": "Explore the latest integrations and app updates on Zapier: Custom field support in Asana, new Microsoft Office 365 features, and more.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/iZMI8FpWl4Fucp98cCkGK/63cf6b37643c173bf765e2f1e18b6beb/new-noteworthy-feb-2024-00-hero__1_.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/asana-microsoft-office-365-new-noteworthy-apps/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Krystina Martinez"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "February 27, 2024",
+          "modified": "February 27, 2024",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "New and noteworthy apps: Asana, Microsoft Office 365, and more",
+        "word_count": 2063,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/automation-for-startups/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Automation for startups: Give yourself a competitive advantage | Zapier",
+          "description": "Automation is essential for organizational success—even for lean, nimble startups. Learn how to apply automation to solve problems and stay one step ahead of the competition.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/5y9zFsEKthEaJzqKgqkkLl/f50e6e162f6b210ade081a126c753d6e/Built-in_tools.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/automation-for-startups/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Andrew Davison"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "June 22, 2021",
+          "modified": "June 22, 2021",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "Automation for startups: is automation your untapped competitive advantage?",
+        "word_count": 2959,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/best-cloud-ides/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "The 3 Best Cloud IDEs for Backend Developers | Zapier",
+          "description": "Discover several cloud IDEs that make it easier for developers to try out the Zapier Platform CLI.",
+          "image": "https://res.cloudinary.com/zapier-media/image/upload/f_auto/q_auto/v1657116755/Blog/Social/share_n8hila.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/best-cloud-ides/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Adam Duvander"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "September 21, 2017",
+          "modified": "September 21, 2017",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "The 3 Best Cloud IDEs for Backend Developers",
+        "word_count": 2464,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/best-note-app-for-android/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "The 8 best Android note-taking apps",
+          "description": "We spent dozens of hours testing all the Android note-taking apps available on the Play Store. Based on that research and testing, these are the best note-taking apps for Android.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/5cFA8NsUuCdKOtaeLeaFNo/91a6e688eaa0703de463efa2ac944366/best-android-notes-app.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/best-note-app-for-android/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Shubham Agarwal"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "May 28, 2019",
+          "modified": "December 9, 2024",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "The 8 best Android note-taking apps",
+        "word_count": 4195,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/boost-customer-loyalty-with-automation/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "5 ways to boost customer loyalty with automation | Zapier",
+          "description": "By adding automation to every customer touchpoint, you can create a seamless and personalized experience that keeps customers engaged and coming back for more.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/1YqoIeFKEkyz42XFJz6g3Q/2521e0e95e52664a8a6c849cf1277b6f/boost-customer-loyalty-with-automation-00-hero.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/boost-customer-loyalty-with-automation/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Dmitry Dragilev"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "July 13, 2023",
+          "modified": "July 13, 2023",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "5 ways to boost customer loyalty with automation",
+        "word_count": 2926,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/database-vs-spreadsheet/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Spreadsheets aren&#x27;t databases—stop using them like one",
+          "description": "Sometimes a spreadsheet isn&#x27;t enough. Sure, they&#x27;re quick to create, but they have limits—and those limits have consequences.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/6jwuanzYX837MXpKmanER3/b9421c3f63ad0a26ff083cdea0b01a7b/database-vs-spreadsheet-00-hero.png",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/database-vs-spreadsheet/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Katie Redderson-Lear"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "October 12, 2020",
+          "modified": "October 12, 2020",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "Spreadsheets aren&#x27;t databases—stop using them like one",
+        "word_count": 2068,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/digital-marketing-report/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Report: Why digital marketers are embracing automation | Zapier",
+          "description": "Almost every digital marketer that uses automation software benefits from it, but these tools are currently more popular in the U.S. than in the U.K. \nThat&#x27;s ac",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/3TlHNM9IOqFO1EefdnAFyA/dc686999e9f3b37063ae88dd1877f210/data_reports.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/digital-marketing-report/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Zapier Editorial Team"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "October 27, 2020",
+          "modified": "October 27, 2020",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "Report: Why digital marketers are embracing automation",
+        "word_count": 1752,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/drip-marketing/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Drip marketing: Common types + 11 examples | Zapier",
+          "description": "Drip marketing is a strategy that involves sending automated emails to audiences based on either a schedule or certain actions that the user takes.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/6YirIezYS9dgu4bdRugoVZ/282da0ee49607e7383f73a05994c7075/mail-hero.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/drip-marketing/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Joe Stych"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "February 16, 2015",
+          "modified": "August 17, 2026",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "Drip marketing: 11 common types (with examples)",
+        "word_count": 4856,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/find-twitter-handle-mentions-news/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Find out when your Twitter username is used in articles | Zapier",
+          "description": "One of your tweets may have ended up in a news story without you even knowing it. Find out when your Twitter handle is mentioned and get alerted automatically.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/find-twitter-handle-mentions-n-p-img/d67aefc983e802bf16f82deac44ec377/file.png",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/find-twitter-handle-mentions-news/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Justin Pot"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "May 4, 2020",
+          "modified": "May 4, 2020",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "Find out when your Twitter handle is mentioned in a news article",
+        "word_count": 1601,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/google-forms-online-learning/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Using Google Forms to enhance online learning | Zapier",
+          "description": "For a recent project, I turned to a surprisingly lesser-known app from everyone&#x27;s favorite tech-giant-of-all-trades: Google Forms.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/4ODoWVyzgicvbcb6J9ZZZ5/f3b97fcb023e904b4446fdc33ed22e49/google-forms-hero-green.png",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/google-forms-online-learning/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Bethany Nagid"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "August 13, 2020",
+          "modified": "August 13, 2020",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "Virtual volcanoes: Using Google Forms to enhance online learning",
+        "word_count": 3084,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/how-to-create-report-salesforce/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "How to create a report in Salesforce | Zapier",
+          "description": "Here&#x27;s a tutorial for how to create a report in Salesforce so you can build out custom reporting dashboards with the actionable insights you need.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/1fKPxjqD0O5xQYTObQoceX/e6292364026d39043f711f829d864b4f/salesforce-app-tips.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/how-to-create-report-salesforce/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Bryce Emley"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "March 11, 2024",
+          "modified": "March 11, 2024",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "How to create a report in Salesforce",
+        "word_count": 2619,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/how-to-improve-productivity-with-automation/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "How this tech consulting company improved their productivity: tips,  tricks, and tools",
+          "description": "Emails, productivity boards, and workflow trackers are crucial for day-to-day business operations. DevsData leveraged automation to pull these tools together and increase productivity.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/4bs7bboyEagjJZlCfuZSjB/20ee44738a065b2f65980d86270db906/team.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/how-to-improve-productivity-with-automation/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Tom Potanski"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "November 25, 2020",
+          "modified": "November 25, 2020",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "How this tech consulting company improved their productivity: Tips, tricks, and tools",
+        "word_count": 3358,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/how-to-use-trello/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "What is Trello? And how to use it",
+          "description": "Trello is a popular project management tool that you can use for work and personal projects. Here&#x27;s a step-by-step beginner&#x27;s guide on how to use it.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/2gCya3PujHCc3y9vU8qFoi/6053984d06ed8bd47f9b4cf40f1fa925/trello-hero-neutral.png",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/how-to-use-trello/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Jessica Lau"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "November 20, 2018",
+          "modified": "April 14, 2026",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "What is Trello? And how to use it",
+        "word_count": 3316,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/multimodal-ai/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "What is multimodal AI? Large multimodal models, explained",
+          "description": "Explore the world of multimodal AI, its capabilities across different data modalities, and how it&#x27;s shaping the future of AI research. Here&#x27;s how large multimodal models work.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/2r5AuygApHh61hudc5uvSd/dd2e8b60ff61611e448e806e45948835/ai-agent-00-hero.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/multimodal-ai/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Harry Guinness"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "March 15, 2024",
+          "modified": "July 24, 2024",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "What is multimodal AI? Large multimodal models, explained",
+        "word_count": 2823,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/onepage-crm-facebook-lead-ads/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Close more deals and Get Things Done with OnePageCRM | Zapier",
+          "description": "Automatically send new leads from Facebook Lead Ads to OnePageCRM. Connect your lead sources to your sales pipeline and increase sales efficiency.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/4GydbYet1nJeevvzvVlcbG/7c6d8914c32eebf5841dd63dd914a20b/onepagecrm-00-hero.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/onepage-crm-facebook-lead-ads/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Krystina Martinez"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "December 12, 2023",
+          "modified": "December 12, 2023",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "Close more deals and Get Things Done with OnePageCRM",
+        "word_count": 1563,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/read-more-books/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "How to Read 50 Books a Year",
+          "description": "Over the years, I’ve developed a system that lets me read somewhere between 40-50 books per year. This system doesn’t require a massive amount of time or brainpower, both of which I lack. It only requires a little bit of diligence and small pockets of time. \n Here are seven techniques...",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/read-more-books-p-img/102061c7e9fba32703432afc51ec935d/file.png",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/read-more-books/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Stephen Altrogge"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "March 4, 2019",
+          "modified": "March 4, 2019",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "How to Read 50 Books a Year",
+        "word_count": 3552,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/reddit-marketing/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Reddit marketing: How to get it right—and wrong",
+          "description": "Reddit can be a gold mine for brands, but it can also be absolutely brutal. Learn how to advertise on Reddit—and if you should do it at all.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/6lUPTGiipojFIpvNgnO5qq/e4b81a3d3d466c0853b49d17b9fe3dae/reddit-hero.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/reddit-marketing/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Ryan Kane"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "January 20, 2022",
+          "modified": "September 5, 2024",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "Reddit marketing: How to get it right (and wrong)",
+        "word_count": 3806,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/starting-at-a-big-company/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "5 things to expect when starting at a big company | Zapier",
+          "description": "The transition from a small company to a big one involves a learning curve. If you&#x27;re about to find yourself in the same situation, here are a few ways you can prepare.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/3WIUCzR9F2BiKyLRZNwNKV/dbdd8801ac8173171d65982050291d95/starting-at-a-big-company-00-hero.png",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/starting-at-a-big-company/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Ellie Huizenga"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "July 2, 2021",
+          "modified": "July 2, 2021",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "What to expect when moving from a small company to a big(ger) one",
+        "word_count": 2326,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/sub-zaps-guide/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Sub-Zap by Zapier: Build reusable Zap components | Zapier",
+          "description": "Automation boosts your efficiency—and Sub-Zap by Zapier makes your workflow-building process more efficient.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/6QFoq7PTgjILMnIvO60ntR/46b6c2b9ff72f98b9d05c0b1f13353b0/Sub-Zaps.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/sub-zaps-guide/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Steph Spector"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "July 8, 2025",
+          "modified": "July 8, 2025",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "Sub-Zap by Zapier: Build reusable Zap components",
+        "word_count": 2688,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/tips-for-powerful-zapier-workflows/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Tips for powerful Zapier workflows that grow with you | Zapier",
+          "description": "As your business grows, so should your workflows. Learn how to create automated systems that will keep everything running as you scale.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/5y9zFsEKthEaJzqKgqkkLl/f50e6e162f6b210ade081a126c753d6e/Built-in_tools.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/tips-for-powerful-zapier-workflows/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Caleb Gonzalez"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "December 6, 2021",
+          "modified": "December 6, 2021",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "Tips to make powerful Zapier workflows that grow with your business",
+        "word_count": 3058,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/track-stripe-payments-airtable/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "Track Stripe Payments in Airtable Efficiently",
+          "description": "ScholarMatch uses Stripe to manage donations made; but how else do they do it? With Airtable, Gmail, Gravity Forms, & automated workflows.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/track-stripe-payments-airtable-p-img/31a94f651d5112f7688d7ea3396c206d/file.png",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/track-stripe-payments-airtable/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Joey Blanco"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "August 30, 2017",
+          "modified": "August 30, 2017",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "ScholarMatch Tracks Donations Across Databases & Email Automatically",
+        "word_count": 1770,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/ways-personal-assistants-can-start-automating-work/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "5 ways personal assistants can start automating their work | Zapier",
+          "description": "As a personal assistant, your job is all about someone else. Give yourself a hand by adding automation to your workflow. Learn five ways Zapier can help.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/UFmpe5wbaPczN970jaOkk/2824f3ccd1a18c2e9c82ea3db668f264/image_of_woman_in_front_of_a_computer_doing_many_things_at_once",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/ways-personal-assistants-can-start-automating-work/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Tyler Robertson"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "April 6, 2021",
+          "modified": "April 6, 2021",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "5 ways personal assistants can start automating their work",
+        "word_count": 2010,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/what-is-agile/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "What is Agile? A complete methodology guide | Zapier",
+          "description": "Agile project management can help teams simplify projects and complete them more efficiently. Learn the ins and outs in our comprehensive guide.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/2rN2JVzRD6WVMeHOPUOWiJ/5ec4c94e46f7cbc9880dbd8a120844bf/agile-hero.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/what-is-agile/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Ben Lyso"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "January 23, 2025",
+          "modified": "January 23, 2025",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "What is Agile? A complete methodology guide",
+        "word_count": 3682,
+        "looks_empty": false
+      },
+      {
+        "url": "https://zapier.com/blog/what-is-information-systems/",
+        "section": "blog",
+        "via": "direct",
+        "credits": 0,
+        "open_graph": {
+          "title": "What is information systems? Definition, uses, and examples | Zapier",
+          "description": "Information systems refers to the tools and strategies that organizations use to collect and manage data in order to improve their operations.",
+          "image": "https://images.ctfassets.net/lzny33ho1g45/2hfCIm4XnQn9dUsBoz5eB6/4d054f2819a9358d7ea06d0c32aeb5ba/Group_12376.jpg",
+          "type": null,
+          "site_name": null
+        },
+        "has_og_title": true,
+        "has_og_description": true,
+        "has_og_image": true,
+        "og_complete": true,
+        "twitter_card": "summary_large_image",
+        "has_twitter_card": true,
+        "has_twitter_image": true,
+        "canonical": "https://zapier.com/blog/what-is-information-systems/",
+        "has_canonical": true,
+        "schema_types": [
+          "Article",
+          "Person",
+          "Organization",
+          "PostalAddress",
+          "ContactPoint",
+          "BreadcrumbList",
+          "ListItem"
+        ],
+        "has_article_schema": true,
+        "json_ld_unparseable_blocks": 0,
+        "author": {
+          "names": [
+            "Luke Strauss"
+          ],
+          "named_human_author": true,
+          "source": "json-ld",
+          "rel_author_links": 0
+        },
+        "dates": {
+          "published": "November 21, 2022",
+          "modified": "November 21, 2022",
+          "source": "json-ld"
+        },
+        "share_affordances": [
+          "x_twitter",
+          "linkedin",
+          "reddit"
+        ],
+        "has_share_affordance": true,
+        "h1": "What is information systems? Definition, uses, and examples",
+        "word_count": 2669,
+        "looks_empty": false
+      }
+    ],
+    "confidence_note": null
+  },
+  "lead_signals": {
+    "visibility": "PRIVATE — never rendered in the public report. Hiring pressure is a need signal, not a quality signal (spec §4).",
+    "careers_pages_checked": [
+      {
+        "url": "https://zapier.com/jobs",
+        "status": 200,
+        "ok": true,
+        "via": "scrapingbee:render",
+        "escalated": true,
+        "found_in_direct_html": false
+      },
+      {
+        "url": "https://zapier.com/careers",
+        "status": 404,
+        "ok": false,
+        "via": "direct",
+        "escalated": false,
+        "found_in_direct_html": false
+      }
+    ],
+    "ats_detected": [],
+    "ats_attempts": [],
+    "ats_used": null,
+    "hiring": null,
+    "self_hosted_board": null
+  },
+  "blocked_at_root": false,
+  "warnings": [
+    "Sitemap traversal capped: 917 sitemap document(s) left unfetched (limit 10)."
+  ],
+  "not_observed": [
+    "ATS: no Greenhouse, Lever, Ashby, Workday, SmartRecruiters or Workable link was found on the homepage or careers pages. Hiring signals are unavailable for this domain."
+  ],
+  "derived_note": "Scores are NOT stored. Derive them at read time with scoreEvidence() from lib/rubric.js (see tools/rescore.js). Any grade you did not just compute is not a grade."
+}
