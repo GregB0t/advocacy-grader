@@ -57,7 +57,7 @@ Requires Node 20+. **Zero runtime dependencies** — `npm install` has nothing t
 
 ```
 git clone <repo> && cd advocacy-grader
-npm test                      # 37 offline assertions, no network, no key needed
+npm test                      # 65 offline assertions, no network, no key needed
 node score.js example.com     # collect evidence + score one domain (writes JSON)
 npm run serve                 # live server on :8787 — lookup UI, cached corpus, API
 npm run setup                 # optional: prompt for a ScrapingBee key, verify, write .env
@@ -116,7 +116,10 @@ is enforced by tests.
 
 ## Tests
 
-`npm test` runs 50 assertions, fully offline: coverage-gate boundaries, withheld-grade
+`npm test` runs 65 assertions, fully offline: coverage-gate boundaries, withheld-grade
 wording, the single-count rule for shareability signals, floor/sampler agreement, lead
 tiers, robots contradiction logic, findings on graded / withheld / blocked / partial
-evidence, and a no-leak check that private lead data never reaches findings.
+evidence, a no-leak check that private lead data never reaches findings, and the URL
+classifier against a labelled ground-truth fixture (`fixtures/classifier-groundtruth.json`)
+— including negative cases asserting that tempting-but-unsafe URL shapes stay
+unclassified, and a printed coverage + shareable-section precision summary.

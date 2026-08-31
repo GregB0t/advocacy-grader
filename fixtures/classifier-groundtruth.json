@@ -1,0 +1,123 @@
+{
+  "description": "Labelled ground truth for lib/classify.js (K1, 2026-08-31). Every 'evidence' URL is a real URL from out/calib section samples; 'live-verified' URLs were additionally fetched (robots-checked) and their page content confirmed the label; 'synthetic' URLs are constructed from real prefixes observed in evidence, marked so no one mistakes them for observations. expect='unclassified' entries are NEGATIVE cases: tempting shapes that a safe classifier must refuse to guess at. Groups are classified together so per-host evidence (locale siblings) works as it does in production.",
+  "groups": [
+    {
+      "name": "A: dated permalinks -> blog",
+      "urls": [
+        { "url": "https://www.expandenergy.com/2024/06/11/chesapeake-energy-corporation-releases-2023-sustainability-report/", "expect": "blog", "source": "evidence (chk.com, cross-host)" },
+        { "url": "https://clece.es/es/2015/06/16/a-xerencia-de-clece-en-almeria-celebra-unha-xornada-de-convivencia-pais-nais-e-crianzas-para-conciliar-a-vida-familiar-e-laboral-do-seu-cadro-de-persoal/", "expect": "blog", "source": "evidence (clece.es)" },
+        { "url": "https://www.esfm-usa.com/2020/12/15/successful-facility-services-mobilization-during-a-pandemic/", "expect": "blog", "source": "evidence" },
+        { "url": "https://globalfurnitureusa.com/2026/05/20/global-furniture-usa-vs-ashcroft-furniture-stocking-dropshipping-retailers/", "expect": "blog", "source": "evidence" },
+        { "url": "https://guardanthealth.com/2021/11/18/guardant-health-initiates-oracle-study-to-evaluate-performance-of-guardant-reveal-blood-test-to-predict-recurrence-across-early-stage-cancers/", "expect": "blog", "source": "evidence" },
+        { "url": "https://warburgpincus.com/2026/08/18/buyout-shops-are-bringing-something-new-to-secondaries/", "expect": "blog", "source": "evidence" },
+        { "url": "https://example-dated.com/2024/06/annual-report", "expect": "unclassified", "source": "synthetic NEGATIVE: year/month without day is not unambiguous enough" },
+        { "url": "https://example-dated.com/2021/11/", "expect": "author_tag_taxonomy", "source": "synthetic: date archive page" }
+      ]
+    },
+    {
+      "name": "B: non-English section words",
+      "urls": [
+        { "url": "https://www.baaderbank.de/karriere", "expect": "careers", "source": "evidence" },
+        { "url": "https://www.baaderbank.de/uber-uns/investor-relations/equity-story/aktienresearch-archiv", "expect": "about", "source": "evidence" },
+        { "url": "https://www.datagroup.de/ueber-uns/investor-relations/ir-information/publikationen/", "expect": "about", "source": "evidence" },
+        { "url": "https://eviden.com/ueber-uns/", "expect": "about", "source": "evidence" },
+        { "url": "https://www.flynth.nl/algemene-voorwaarden", "expect": "legal", "source": "evidence" },
+        { "url": "https://sedena.es/aviso-legal/", "expect": "legal", "source": "evidence" },
+        { "url": "https://www.tibco.fr/confidentialite/", "expect": "legal", "source": "evidence" },
+        { "url": "https://www.tieto.com/fi/uutishuone/uutiset/2026/tieto-edistaa-nuorten-mielenterveytta-tukemalla-sekasin-chattia/", "expect": "news_press", "source": "evidence (FI locale + uutishuone)" },
+        { "url": "https://www.mint.ca/fr/entreprise/durabilite/mise-a-jour-sur-les-facteurs-durabilite/2024-02-19_cultiver-la-comprehension", "expect": "about", "source": "evidence (FR locale + entreprise)" },
+        { "url": "https://example-fr.com/actualites/ouverture-nouvelle-usine", "expect": "news_press", "source": "synthetic from evidence prefix /actualites (179 urls, 3 domains)" },
+        { "url": "https://example-se.com/utbildningar/projektledning", "expect": "docs_support", "source": "synthetic from evidence prefix /utbildningar" },
+        { "url": "https://example-fr.com/magasiner/paris", "expect": "locations", "source": "synthetic from evidence prefix /magasiner" },
+        { "url": "https://tipografia-example.it/stampa/brochure-aziendali", "expect": "unclassified", "source": "synthetic NEGATIVE: IT 'stampa' is press AND printing — a printing company's product pages must not become a newsroom, so the word is deliberately not a rule" },
+        { "url": "https://eshop-example.cz/akce/black-friday", "expect": "unclassified", "source": "synthetic NEGATIVE: CZ 'akce' is events AND deals — deliberately not a rule" }
+      ]
+    },
+    {
+      "name": "C: locale false-friend promotion",
+      "urls": [
+        { "url": "https://www.avetta.com/it", "expect": "home", "source": "evidence; live-verified /it/about is lang=it Italian" },
+        { "url": "https://www.avetta.com/it/clients", "expect": "case_study", "source": "evidence" },
+        { "url": "https://www.avetta.com/it/about", "expect": "about", "source": "live-verified: lang=it, 'La nostra storia'" },
+        { "url": "https://www.avetta.com/de/clients", "expect": "case_study", "source": "synthetic context: avetta's evidence shows de/es-la/en-gb/fr-ca locales" },
+        { "url": "https://www.avetta.com/en-gb/clients", "expect": "case_study", "source": "synthetic context, locale attested in evidence" },
+        { "url": "https://www.avetta.com/fr-ca/about", "expect": "about", "source": "synthetic context, locale attested in evidence" },
+        { "url": "https://www.trustly.com/se", "expect": "home", "source": "evidence: three FF country roots se/it/no are themselves sibling evidence" },
+        { "url": "https://www.trustly.com/it", "expect": "home", "source": "evidence" },
+        { "url": "https://www.trustly.com/no", "expect": "home", "source": "evidence" },
+        { "url": "https://dovalue.it/it/comunicazione/news/progetto-sky", "expect": "news_press", "source": "evidence: ccTLD .it promotes /it; comunicazione -> news_press" },
+        { "url": "https://enphase.com/cz-cz", "expect": "home", "source": "evidence: doubled lang-region shape accepted as locale" },
+        { "url": "https://consulting-example.com/it/managed-services", "expect": "unclassified", "source": "synthetic NEGATIVE: /it with NO locale siblings and no .it TLD stays a section — the original collision the false-friend list exists for" }
+      ]
+    },
+    {
+      "name": "D: sections missing from the rule set",
+      "urls": [
+        { "url": "https://www.grantthornton.co.uk/services/advisory/", "expect": "solutions", "source": "evidence" },
+        { "url": "https://www.homedepot.com/services/h/carpentry-masonry", "expect": "solutions", "source": "evidence" },
+        { "url": "https://www.weightmans.com/services/commercial/commercial-contracts/", "expect": "solutions", "source": "evidence" },
+        { "url": "https://www.burnsmcd.com/locations/san-antonio", "expect": "locations", "source": "evidence" },
+        { "url": "https://www.chickensaladchick.com/locations/al/auburn/1345-opelika-road-/", "expect": "locations", "source": "evidence" },
+        { "url": "https://www.fluor.com/projects/183-south-expressway-design-build-austin-texas", "expect": "case_study", "source": "live-verified: 'Mobility Authority 183 South Expressway Design-Build - Fluor' — engineering portfolio page" },
+        { "url": "https://www.greenheck.com/project-profiles/istinye-park-shopping-mall", "expect": "case_study", "source": "evidence" },
+        { "url": "https://www.merrick.com/news-events/", "expect": "news_press", "source": "evidence" },
+        { "url": "https://www.ontic.com/news-events/events/f15-tcg", "expect": "news_press", "source": "evidence" },
+        { "url": "https://www.hubspot.com/company-news/the-real-ai-race-isnt-about-models-or-data-its-about-context", "expect": "news_press", "source": "live-verified: og:type=article press post" },
+        { "url": "https://www.wholefoodsmarket.com/company-info/newsroom/news-releases/new-whole-foods-market-in-san-diego-california-to-open-september-23", "expect": "news_press", "source": "evidence" },
+        { "url": "https://www.williams-sonoma.com/customer-service/shipping-info/", "expect": "docs_support", "source": "evidence" },
+        { "url": "https://about.collegeboard.org/help-center/where-can-i-go-if-i-have-more-questions-about-procurement", "expect": "docs_support", "source": "evidence" },
+        { "url": "https://www.wholefoodsmarket.com/recipes", "expect": "recipe", "source": "live-verified: 'Recipes | Whole Foods Market'" },
+        { "url": "https://www.wholefoodsmarket.com/recipes/vegan-chili", "expect": "recipe", "source": "synthetic from the audit's 2,001-URL /recipes prefix" },
+        { "url": "https://www.williams-sonoma.com/recipe/thanksgiving-turkey", "expect": "recipe", "source": "synthetic from the 8,443-URL /recipe prefix" },
+        { "url": "https://www.wholefoodsmarket.com/tips-and-ideas/holiday-hosting", "expect": "resource", "source": "synthetic from the audit's 4,212-URL /tips-and-ideas prefix" }
+      ]
+    },
+    {
+      "name": "E: .html-suffixed enterprise CMS paths",
+      "urls": [
+        { "url": "https://www.allegion.com/corp/en/about.html", "expect": "about", "source": "evidence" },
+        { "url": "https://www.allegion.com/corp/en.html", "expect": "home", "source": "evidence" },
+        { "url": "https://www.allegion.com/corp/en/index.html", "expect": "home", "source": "evidence" },
+        { "url": "https://www.pearson.com/en.html", "expect": "home", "source": "evidence" },
+        { "url": "https://www.buhlergroup.com/global/en/industries/Baked-goods.html", "expect": "solutions", "source": "evidence" },
+        { "url": "https://www.bostonscientific.com/en-US/2024-proxy-voting.html", "expect": "unclassified", "source": "evidence NEGATIVE: locale + .html normalize away but 'proxy-voting' is honestly unknown" },
+        { "url": "https://www.chubb.com/ar-es/personas-y-familias.html", "expect": "unclassified", "source": "evidence NEGATIVE: no rule for insurance product lines" },
+        { "url": "https://www.servair.com/residential.html", "expect": "unclassified", "source": "evidence NEGATIVE" }
+      ]
+    },
+    {
+      "name": "F: catalog_listing",
+      "urls": [
+        { "url": "https://www.pearson.com/store/en-us/pearsonplus/p/9780137524150", "expect": "catalog_listing", "source": "synthetic from the 40,479-URL /store prefix" },
+        { "url": "https://www.williams-sonoma.com/shop/furniture/", "expect": "catalog_listing", "source": "synthetic from the 29,679-URL /shop prefix" },
+        { "url": "https://www.homedepot.com/p/dewalt-20v-drill/312054", "expect": "catalog_listing", "source": "synthetic from the 19,041-URL /p prefix" },
+        { "url": "https://www.opendoor.com/properties/511-woodward", "expect": "catalog_listing", "source": "synthetic from the /properties prefix (eliagroup evidence has the real shape)" },
+        { "url": "https://www.southwest.com/flights/from-denver", "expect": "catalog_listing", "source": "synthetic from the 14,974-URL /flights prefix" },
+        { "url": "https://www.collegeboard.org/colleges/harvard-university", "expect": "catalog_listing", "source": "synthetic from the 21,490-URL /colleges prefix" },
+        { "url": "https://www.trustedshops.de/shops/lebensmittel/", "expect": "catalog_listing", "source": "evidence" },
+        { "url": "https://www.trustedshops.de/bewertung/example-shop.de", "expect": "catalog_listing", "source": "synthetic from the 22,760-URL /bewertung prefix" },
+        { "url": "https://www.preqin.com/data/profile/investor/example-fund", "expect": "unclassified", "source": "synthetic NEGATIVE: 'data' deliberately not a catalog word — too generic to justify from the path" },
+        { "url": "https://www.homedepot.com/l/some-local-page/123", "expect": "unclassified", "source": "synthetic NEGATIVE: single-letter /l deliberately not a catalog word" }
+      ]
+    },
+    {
+      "name": "G: CMS cruft",
+      "urls": [
+        { "url": "https://www.haskell.com/header-footer-demonstration/", "expect": "cms_cruft", "source": "evidence" },
+        { "url": "https://hoffmaster.com/et-adipisci-repudiandae-expedita-aut-sunt/", "expect": "cms_cruft", "source": "evidence: lorem-ipsum filler shipped to production" },
+        { "url": "https://example-cms.com/copy-of-insights", "expect": "cms_cruft", "source": "synthetic from the observed /copy-of-insights shape" },
+        { "url": "https://example-cms.com/ipsum-brand-collab", "expect": "unclassified", "source": "synthetic NEGATIVE: one latin-filler token is not evidence of cruft" }
+      ]
+    },
+    {
+      "name": "H: root-level article slugs stay unclassified",
+      "urls": [
+        { "url": "https://www.apmortgage.com/american-pacific-mortgage-mourns-loss-of-gloria-fillmon", "expect": "unclassified", "source": "evidence NEGATIVE: clearly a news item to a human, but the path alone cannot justify it" },
+        { "url": "https://www.booths.co.uk/the-boho-bakers-blog-pretty-perfect-pie-crusts/", "expect": "unclassified", "source": "evidence NEGATIVE: contains 'blog' mid-slug — must not match the blog rule" },
+        { "url": "https://www.gaggleamp.com/what-is-user-generated-content", "expect": "unclassified", "source": "evidence NEGATIVE" },
+        { "url": "https://clinchoice.com/modernization-of-cosmetics-regulation-act/", "expect": "unclassified", "source": "evidence NEGATIVE" },
+        { "url": "https://www.thenewtrongroup.com/triad-electric-controls-receives-national-excellence-award-from-abc-for-va-hospital-project-in-louisville-ky", "expect": "unclassified", "source": "evidence NEGATIVE (classifier gap analysis class H)" }
+      ]
+    }
+  ]
+}
