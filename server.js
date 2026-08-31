@@ -313,8 +313,13 @@ button:disabled:hover{background:var(--accent)}
 .field span{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 .3rem}
 .field input{width:100%}
 .gatehead{margin:.1rem 0 .5rem;font-size:22px}
-.demoout{border-left-color:var(--band-amber)}
-.demoout .kicker{color:var(--band-amber)}
+/* This panel has one job — telling a visitor the gate is not real — and as a white
+   card among white cards it read as one more paragraph. Amber ground, a 6px rule and
+   a kicker at 15px make it the thing you see after the form. */
+.demoout{background:var(--band-amber-bg);border:1px solid var(--band-amber-line);
+  border-left:6px solid var(--band-amber);box-shadow:var(--sh-md)}
+.demoout .kicker{color:var(--band-amber);font-size:15px;letter-spacing:.07em}
+.demoout p{color:var(--ink)}
 @media (max-width:620px){.runline{font-size:20px}}
 `;
 
