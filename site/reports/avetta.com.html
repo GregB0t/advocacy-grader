@@ -6,88 +6,188 @@
 <meta name="robots" content="noindex">
 <title>avetta.com — Advocacy Grade by justmesocial</title>
 <style>
+/* ---------------------------------------------------------------------------
+   Design language adapted from everyonesocial.com's published token set
+   (Plus Jakarta Sans, indigo #3f55e5, the grey-50..800 ramp, 4/6/8/12/999
+   radii, the four-corner radial "aura" wash). This is a deliberate visual
+   nod to the category's leading vendor, NOT a claim of affiliation: the
+   product is branded "Advocacy Grade by justmesocial" throughout, uses none
+   of their marks, and says on every page who made it.
+
+   Light-only by decision (their site has no dark mode). Fonts are vendored
+   under site/fonts/ and served from this origin, so the footer's "no
+   tracking" line stays literally true — no third-party request is made.
+   --------------------------------------------------------------------------- */
+@font-face{font-family:"Plus Jakarta Sans";src:url(/fonts/PlusJakartaSans-latin.woff2) format("woff2-variations");font-weight:200 800;font-style:normal;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(/fonts/JetBrainsMono-latin.woff2) format("woff2-variations");font-weight:400 500;font-style:normal;font-display:swap}
 :root{
-  --bg:#faf9f7; --panel:#ffffff; --ink:#1e2126; --muted:#5b6470; --line:#e3e0da;
-  --accent:#0d5c63; --accent-ink:#ffffff;
-  --crit:#a8323a; --crit-bg:#fbeef0; --issue:#8a5a12; --issue-bg:#fbf3e4;
-  --opp:#28618f; --opp-bg:#eaf2f9; --pos:#2e6b46; --pos-bg:#ecf5ef;
-  --lim:#5b6470; --lim-bg:#f1f0ed;
-  --grade-a:#2e6b46; --grade-b:#3a7a54; --grade-c:#8a5a12; --grade-d:#a05c2c; --grade-f:#a8323a;
-}
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#15171b; --panel:#1d2026; --ink:#e6e4df; --muted:#9aa2ad; --line:#31353d;
-    --accent:#5cb8bf; --accent-ink:#10262a;
-    --crit:#e08790; --crit-bg:#332326; --issue:#d8ab5e; --issue-bg:#302a1e;
-    --opp:#7fb3dd; --opp-bg:#1f2a35; --pos:#84c29d; --pos-bg:#1f2e25;
-    --lim:#9aa2ad; --lim-bg:#23262c;
-    --grade-a:#84c29d; --grade-b:#84c29d; --grade-c:#d8ab5e; --grade-d:#dd9a6a; --grade-f:#e08790;
-  }
+  color-scheme:light;
+  /* neutrals */
+  --page:#ffffff; --panel:#ffffff; --card:#f2f3fa; --subtle:#f9fafe;
+  --ink:#303347; --body:#4a4f64; --muted:#636882; --faint:#858ba0;
+  --line:#e5e7f1; --line-strong:#d5d8e5;
+  /* brand */
+  --accent:#3f55e5; --accent-soft:#e2e6fb; --accent-ink:#ffffff; --accent-deep:#3346c4;
+  /* semantic — hues theirs, text values darkened to clear 3:1 on their soft grounds */
+  --crit:#c93330; --crit-bg:#fae2e1; --crit-line:#f2c3c1;
+  --issue:#b5700f; --issue-bg:#fef0de; --issue-line:#f7dcb4;
+  --opp:#3567b8;  --opp-bg:#e3edfb;  --opp-line:#cadff5;
+  --pos:#1f8a5b;  --pos-bg:#e2f6ec;  --pos-line:#c0e6d2;
+  --lim:#636882;  --lim-bg:#f2f3fa;  --lim-line:#e5e7f1;
+  /* score bands */
+  --band-green:#2f8f77; --band-green-bg:#e4f4f0; --band-green-line:#bfe4d9;
+  --band-amber:#b5700f; --band-amber-bg:#fef0de; --band-amber-line:#f7dcb4;
+  --band-red:#c93330;   --band-red-bg:#fae2e1;   --band-red-line:#f2c3c1;
+  --band-none:#858ba0;  --band-none-bg:#f2f3fa;  --band-none-line:#e5e7f1;
+  /* grade letters */
+  --grade-a:#1f8a5b; --grade-b:#2f8f77; --grade-c:#b5700f; --grade-d:#b8451f; --grade-f:#c93330;
+  /* shape + depth */
+  --r-xs:4px; --r-sm:6px; --r-md:8px; --r-lg:12px; --r-pill:999px;
+  --sh-xs:0 1px 2px #3033470f;
+  --sh-sm:0 1px 3px #30334714, 0 1px 2px #3033470a;
+  --sh-md:0 4px 12px #30334714, 0 2px 4px #3033470a;
+  --sh-lg:0 12px 32px #3033471f, 0 4px 8px #3033470a;
+  --ring:0 0 0 3px #3f55e540;
+  --font-sans:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-mono:"JetBrains Mono","SF Mono","Fira Code","Liberation Mono",monospace;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-main{max-width:860px;margin:0 auto;padding:2rem 1.25rem 4rem}
-a{color:var(--accent)}
-h1{font-size:1.9rem;line-height:1.2;margin:.25rem 0 .1rem;overflow-wrap:anywhere}
-h2{font-size:1.25rem;margin:2.2rem 0 .8rem;border-bottom:1px solid var(--line);padding-bottom:.35rem}
-.kicker{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.kicker.brand{letter-spacing:.02em}
-.wm{text-transform:none;letter-spacing:.04em;white-space:nowrap}
-.wm .a{color:var(--ink);font-weight:500}
-.wm .b{color:var(--muted);font-weight:400}
-.nav{margin:.5rem 0}
-.nav.topnav{margin:.6rem 0 0}
+html{background:var(--page)}
+body{margin:0;background:transparent;color:var(--body);font:16px/1.5 var(--font-sans);-webkit-font-smoothing:antialiased}
+/* The aura: two four-corner radial washes fixed behind everything, crossfading
+   very slowly. Pure CSS — these pages still render with JavaScript disabled. */
+body:before,body:after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none}
+body:before{background:
+  radial-gradient(62% 46% at 14% 6%,#c4b5fd8c 0%,#c4b5fd00 70%),
+  radial-gradient(56% 40% at 88% 16%,#93c5fd80 0%,#93c5fd00 70%),
+  radial-gradient(66% 46% at 22% 84%,#bfdbfe7a 0%,#bfdbfe00 72%),
+  radial-gradient(52% 38% at 80% 94%,#ddd6fe75 0%,#ddd6fe00 70%)}
+body:after{opacity:0;animation:aura 54s ease-in-out infinite alternate;background:
+  radial-gradient(58% 44% at 82% 10%,#fdd9b666 0%,#fdd9b600 70%),
+  radial-gradient(60% 44% at 10% 26%,#c7d2fe80 0%,#c7d2fe00 70%),
+  radial-gradient(62% 46% at 74% 82%,#e9d5ff70 0%,#e9d5ff00 72%),
+  radial-gradient(54% 40% at 16% 92%,#bae6fd6b 0%,#bae6fd00 70%)}
+@keyframes aura{0%{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){body:after{animation:none;opacity:0}}
+@media print{body:before,body:after{display:none}}
+main{max-width:880px;margin:0 auto;padding:2.5rem 1.25rem 4rem}
+a{color:var(--accent);text-underline-offset:2px}
+a:hover{color:var(--accent-deep)}
+:focus-visible{outline:none;box-shadow:var(--ring);border-radius:var(--r-xs)}
+h1{font-size:44px;font-weight:700;letter-spacing:-.03em;line-height:1.08;color:var(--ink);margin:.35rem 0 .3rem;overflow-wrap:anywhere}
+h1 .tint{color:var(--accent)}
+h2{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--ink);margin:2.6rem 0 .9rem}
+h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.3;color:var(--ink)}
+.kicker{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0}
+.kicker.brand{letter-spacing:.02em;color:var(--muted)}
+.wm{text-transform:none;letter-spacing:.02em;white-space:nowrap}
+.wm .a{color:var(--ink);font-weight:700}
+.wm .b{color:var(--muted);font-weight:500}
+.nav{margin:.7rem 0}
+.nav.topnav{margin:.8rem 0 0}
 .foot-brand{font-size:1.25em}
 .nav.foot-nav{font-size:1.25em;margin:.4em 0 0}
-.sub{color:var(--muted);font-size:.9rem;margin:0}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;margin:1rem 0}
-.gradebox{display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap}
-.gradeletter{font-size:3.4rem;font-weight:700;line-height:1;min-width:4.2rem;text-align:center}
+.sub{color:var(--muted);font-size:14px;margin:.2rem 0 0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:1.2rem 1.35rem;margin:1rem 0;box-shadow:var(--sh-sm)}
+/* --- grade hero ------------------------------------------------------------ */
+.gradehero{text-align:center;padding:2rem 1.35rem 1.7rem;box-shadow:var(--sh-md)}
+.gradeletter{font-size:104px;font-weight:800;line-height:.9;letter-spacing:-.04em;margin:0}
+.gradehero .overall{font-size:18px;font-weight:600;color:var(--ink);margin:.55rem 0 0;letter-spacing:-.01em}
+.gradehero .overall .big{font-size:34px;font-weight:800;line-height:1;letter-spacing:-.03em}
+.gradehero .overall .tint{color:var(--accent)}
+.gradehero .conf{display:block;margin:.45rem auto 0;max-width:56ch}
+.gradehero .note{max-width:62ch;margin:.75rem auto 0}
 .g-A{color:var(--grade-a)}.g-B{color:var(--grade-b)}.g-C{color:var(--grade-c)}.g-D{color:var(--grade-d)}.g-F{color:var(--grade-f)}
-.withheld-mark{font-size:1.5rem;font-weight:700;color:var(--lim)}
-.finding{background:var(--panel);border:1px solid var(--line);border-left-width:4px;border-radius:8px;padding:.9rem 1.1rem;margin:.7rem 0}
-.finding h3{margin:.1rem 0 .4rem;font-size:1.05rem}
+.withheld-mark{font-size:28px;font-weight:700;letter-spacing:-.02em;color:var(--faint);margin:.2rem 0 .1rem}
+.withheld-why{text-align:left;max-width:68ch;margin:.8rem auto 0}
+/* --- sub-score cards ------------------------------------------------------- */
+.subscores{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem;margin:1rem 0}
+.sub-card{border:1px solid var(--line);border-radius:var(--r-lg);padding:1rem .6rem 1.1rem;text-align:center;background:var(--panel);box-shadow:var(--sh-sm)}
+.sub-card .num{font-size:30px;font-weight:800;line-height:1.05;letter-spacing:-.02em}
+.sub-card .den{font-size:15px;font-weight:700;opacity:.55}
+.sub-card .lbl{font-size:12.5px;font-weight:700;color:var(--ink);margin-top:.45rem;line-height:1.3}
+.sub-card .flag{font-size:11px;color:var(--muted);margin-top:.25rem;line-height:1.3}
+.b-green{background:var(--band-green-bg);border-color:var(--band-green-line)}.b-green .num{color:var(--band-green)}
+.b-amber{background:var(--band-amber-bg);border-color:var(--band-amber-line)}.b-amber .num{color:var(--band-amber)}
+.b-red{background:var(--band-red-bg);border-color:var(--band-red-line)}.b-red .num{color:var(--band-red)}
+.b-none{background:var(--band-none-bg);border-color:var(--band-none-line)}
+.b-none .num{font-size:17px;font-weight:700;color:var(--band-none)}
+/* --- findings -------------------------------------------------------------- */
+.finding{background:var(--panel);border:1px solid var(--line);border-left-width:4px;border-radius:var(--r-lg);padding:1rem 1.2rem;margin:.75rem 0;box-shadow:var(--sh-sm)}
+.finding h3{margin:.15rem 0 .45rem;font-size:17px}
 .finding p{margin:.4rem 0}
 .f-critical{border-left-color:var(--crit)} .f-issue{border-left-color:var(--issue)}
 .f-opportunity{border-left-color:var(--opp)} .f-positive{border-left-color:var(--pos)}
 .f-limitation{border-left-color:var(--lim)} .f-info{border-left-color:var(--lim)}
-.chip{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:99px;padding:.15rem .6rem;margin-bottom:.2rem}
+.chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:var(--r-pill);padding:.25rem .7rem;margin-bottom:.25rem}
 .c-critical{color:var(--crit);background:var(--crit-bg)} .c-issue{color:var(--issue);background:var(--issue-bg)}
 .c-opportunity{color:var(--opp);background:var(--opp-bg)} .c-positive{color:var(--pos);background:var(--pos-bg)}
 .c-limitation,.c-info{color:var(--lim);background:var(--lim-bg)}
-.fix{border-top:1px dashed var(--line);margin-top:.6rem;padding-top:.5rem}
+.fix{border-top:1px solid var(--line);margin-top:.7rem;padding-top:.6rem}
 .fix b{color:var(--accent)}
-details{margin:.4rem 0 0}
-summary{cursor:pointer;color:var(--muted);font-size:.85rem}
-.ev{font-size:.85rem;color:var(--muted);overflow-x:auto}
-.ev ul{margin:.4rem 0;padding-left:1.2rem}
+details{margin:.5rem 0 0}
+summary{cursor:pointer;color:var(--muted);font-size:13px;font-weight:600}
+summary:hover{color:var(--accent)}
+.ev{font-size:13px;color:var(--muted);overflow-x:auto}
+.ev ul{margin:.45rem 0;padding-left:1.2rem}
 .ev li{overflow-wrap:anywhere}
-table{border-collapse:collapse;width:100%;font-size:.9rem}
-.tablewrap{overflow-x:auto}
-th,td{text-align:left;padding:.45rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
-th{color:var(--muted);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
-.honest{border-left:4px solid var(--accent);background:var(--panel);border-radius:8px;padding:1rem 1.25rem;margin:1.4rem 0}
-.honest p{margin:.5rem 0}
-.note{font-size:.85rem;color:var(--muted)}
-footer{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem;font-size:.8rem;color:var(--muted)}
+code{font-family:var(--font-mono);font-size:12.5px}
+/* --- tables ---------------------------------------------------------------- */
+table{border-collapse:collapse;width:100%;font-size:14px}
+.tablewrap{overflow-x:auto;border-radius:var(--r-md)}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+tbody tr:last-child td{border-bottom:0}
+/* --- misc ------------------------------------------------------------------ */
+.honest{border-left:4px solid var(--accent);background:var(--panel);border-radius:var(--r-lg);padding:1.15rem 1.35rem;margin:1.5rem 0;box-shadow:var(--sh-sm)}
+.honest p{margin:.55rem 0}
+.note{font-size:13.5px;color:var(--muted)}
+footer{margin-top:3.5rem;border-top:1px solid var(--line);padding-top:1.2rem;font-size:13px;color:var(--muted)}
 .score-num{font-variant-numeric:tabular-nums}
-.catscore{font-weight:700}
-.conf{font-size:.75rem;color:var(--muted)}
+.catscore{font-weight:800;color:var(--ink)}
+.conf{font-size:12px;color:var(--muted);font-weight:500}
+@media (max-width:620px){
+  h1{font-size:32px}
+  h2{font-size:23px}
+  .gradeletter{font-size:76px}
+  .gradehero .overall .big{font-size:28px}
+  .subscores{grid-template-columns:repeat(2,minmax(0,1fr))}
+  main{padding:1.75rem 1rem 3rem}
+}
 </style>
 </head>
 <body>
 <main>
   <p class="kicker brand">Advocacy Grade <span class="wm">by <span class="a">justme</span><span class="b">social</span></span></p>
-  <h1>avetta.com</h1>
+  <h1>avetta<span class="tint">.com</span></h1>
   <p class="sub">Evidence collected August 29, 2026 · 30 polite, robots.txt-respecting requests · every claim cites what it saw</p>
   <p class="nav topnav"><a href="../index.html">&larr; Browse all reports</a></p>
-  <div class="panel gradebox">
-        <div class="gradeletter g-D score-num">D</div>
-        <div>
-          <p style="margin:.1rem 0"><b class="score-num">51.9</b>/100 — advocacy readiness <span class="conf">(reduced confidence: parts of the evidence were unobservable — see below)</span></p>
-          <p class="note" style="margin:.2rem 0">Graded because the reader classified enough of this site to trust the measurement. For scale: of the 350 companies in this corpus, only 91 earned a grade — for the rest I withheld it rather than grade a site the reader could not read.</p>
-        </div>
+  <div class="panel gradehero">
+        <p class="gradeletter g-D score-num">D</p>
+        <p class="overall"><span class="big score-num">51.9</span>/100 — <span class="tint">advocacy readiness</span><span class="conf">(reduced confidence: parts of the evidence were unobservable — see below)</span></p>
+        <p class="note">Graded because the reader classified enough of this site to trust the measurement. For scale: of the 350 companies in this corpus, only 91 earned a grade — for the rest I withheld it rather than grade a site the reader could not read.</p>
       </div>
+  <div class="subscores"><div class="sub-card b-red">
+      <div class="num score-num">57.2<span class="den">/100</span></div>
+      <div class="lbl">Content Supply</div>
+      <div class="flag">reduced confidence</div>
+      
+    </div><div class="sub-card b-red">
+      <div class="num score-num">52.7<span class="den">/100</span></div>
+      <div class="lbl">Shareability</div>
+      
+      
+    </div><div class="sub-card b-red">
+      <div class="num score-num">31.7<span class="den">/100</span></div>
+      <div class="lbl">Employee & Culture Surface</div>
+      
+      
+    </div><div class="sub-card b-red">
+      <div class="num score-num">68.3<span class="den">/100</span></div>
+      <div class="lbl">AI Discoverability</div>
+      
+      
+    </div></div>
   <div class="honest">
   <p class="kicker">Read this before the numbers</p>
   <p><b>This tool was built in a few days, on a stack of stated assumptions.</b> I didn't have the time — or the inside knowledge of what buyers in this category actually optimize for — to be certain these are the metrics that matter most. The four categories and their weights are editorial judgment, not measurement: nobody has proven that these things cause employees to post, and I don't claim otherwise.</p>

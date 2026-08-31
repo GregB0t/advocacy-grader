@@ -19,7 +19,7 @@
 // stated in the result), no Sheet (leads land in out/leads.jsonl).
 import { createServer } from 'node:http';
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
-import { join, normalize } from 'node:path';
+import { join, normalize, basename } from 'node:path';
 import { run, fastProbe, normalizeDomain, DEFAULT_OPTS } from './lib/run.js';
 import { scoreEvidence } from './lib/rubric.js';
 import { buildFindings, fastTier } from './lib/findings.js';
@@ -227,6 +227,22 @@ async function handleReport(req, res, host) {
   return html(res, 200, renderReport({ domain: host, ev: cached.evidence, scoring, findings, preGenerated, backHref: '/corpus/', corpusStats: CORPUS_STATS }));
 }
 
+// Fonts are vendored under site/fonts/ and served from this origin on purpose:
+// the footer claims these pages hold no tracking, and a Google Fonts request
+// would quietly make that false. Immutable caching — the filenames are pinned.
+function serveFont(res, urlPath) {
+  const name = basename(urlPath);
+  if (!/^[A-Za-z0-9._-]+\.woff2$/.test(name)) return html(res, 404, 'not found');
+  const p = join('site', 'fonts', name);
+  if (!existsSync(p) || !statSync(p).isFile()) return html(res, 404, 'not found');
+  res.writeHead(200, {
+    'content-type': 'font/woff2',
+    'cache-control': 'public, max-age=31536000, immutable',
+    'access-control-allow-origin': '*',
+  });
+  return res.end(readFileSync(p));
+}
+
 function serveStatic(req, res, urlPath) {
   const rel = normalize(urlPath.replace(/^\/corpus\/?/, '')).replace(/^([.][.][/\\])+/, '');
   const p = join('site', !rel || rel === '.' ? 'index.html' : rel);
@@ -243,19 +259,24 @@ function landingPage() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Advocacy Grade by justmesocial</title>
 <style>${CSS}
-form.lookup{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0}
-input[type=text],input[type=email]{flex:1;min-width:220px;padding:.6rem .8rem;font-size:1rem;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}
-button{padding:.6rem 1.2rem;font-size:1rem;border:0;border-radius:8px;background:var(--accent);color:var(--accent-ink);cursor:pointer;font-weight:600}
+form.lookup{display:flex;gap:.65rem;flex-wrap:wrap;margin:1.4rem 0}
+input[type=text],input[type=email]{flex:1;min-width:220px;padding:13px 14px;font-size:16px;font-family:inherit;border:1px solid var(--line-strong);border-radius:var(--r-sm);background:var(--panel);color:var(--ink);box-shadow:var(--sh-xs)}
+input::placeholder{color:var(--faint)}
+input:focus-visible{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
+button{padding:13px 22px;font-size:16px;font-family:inherit;border:0;border-radius:var(--r-sm);background:var(--accent);color:var(--accent-ink);cursor:pointer;font-weight:600;letter-spacing:-.01em;transition:background .12s}
+button:hover{background:var(--accent-deep)}
 button:disabled{opacity:.5;cursor:wait}
-#status{margin:.6rem 0;color:var(--muted)}
+button:disabled:hover{background:var(--accent)}
+#status{margin:.7rem 0;color:var(--muted);font-size:14px}
+.lede{font-size:18.5px;line-height:1.55;color:var(--muted);max-width:56ch}
 .hide{display:none}
 </style>
 </head>
 <body>
 <main>
   <p class="kicker brand">Advocacy Grade <span class="wm">by <span class="a">justme</span><span class="b">social</span></span></p>
-  <h1>What does your website hand your employees to share?</h1>
-  <p>Enter your company's domain. This reads only public pages — sitemap, share tags, structured data, robots.txt — politely and honestly, and shows you what it finds, with the evidence cited. The first findings appear in seconds, free.</p>
+  <h1>What does your website <span class="tint">hand your employees to share?</span></h1>
+  <p class="lede">Enter your company's domain. This reads only public pages — sitemap, share tags, structured data, robots.txt — politely and honestly, and shows you what it finds, with the evidence cited. The first findings appear in seconds, free.</p>
 
   <form class="lookup" id="lookup">
     <input type="text" id="domain" name="domain" placeholder="yourcompany.com" autocomplete="off" required>
@@ -365,6 +386,7 @@ const server = createServer(async (req, res) => {
     if (req.method === 'GET' && url.pathname === '/api/job') return handleJob(req, res, url);
     if (req.method === 'POST' && url.pathname === '/api/lead') return await handleLead(req, res);
     if (req.method === 'GET' && url.pathname.startsWith('/report/')) return await handleReport(req, res, decodeURIComponent(url.pathname.slice(8)));
+    if (req.method === 'GET' && url.pathname.startsWith('/fonts/')) return serveFont(res, url.pathname);
     if (req.method === 'GET' && (url.pathname === '/corpus' || url.pathname.startsWith('/corpus/'))) return serveStatic(req, res, url.pathname);
     if (req.method === 'GET' && url.pathname === '/healthz') return json(res, 200, { ok: true });
     return html(res, 404, 'not found');
