@@ -24,7 +24,7 @@ import { run, fastProbe, normalizeDomain, DEFAULT_OPTS } from './lib/run.js';
 import { scoreEvidence } from './lib/rubric.js';
 import { buildFindings, fastTier } from './lib/findings.js';
 import { narrateFindings } from './lib/narrate.js';
-import { renderReport, CSS } from './lib/report-html.js';
+import { renderReport, CSS, BRAND, HEAD_ICONS } from './lib/report-html.js';
 import { EvidenceCache, cacheKey, CACHE_TTL_MS } from './lib/cache.js';
 import { ensureSeed } from './lib/seed.js';
 import { RateLimiter } from './lib/ratelimit.js';
@@ -250,6 +250,29 @@ function serveStatic(req, res, urlPath) {
   return html(res, 200, readFileSync(p, 'utf8'));
 }
 
+// Icons and logo files live at the origin root so one set of <link> tags works
+// from /, /corpus/ and /corpus/reports/ alike. Explicit allowlist rather than a
+// directory server: site/ also holds 350 report pages and the font files, which
+// are already routed, and nothing else here should be reachable by guessing.
+const ASSETS = {
+  '/favicon.svg': ['favicon.svg', 'image/svg+xml'],
+  '/favicon.ico': ['favicon.ico', 'image/x-icon'],
+  '/favicon-16.png': ['favicon-16.png', 'image/png'],
+  '/favicon-32.png': ['favicon-32.png', 'image/png'],
+  '/apple-touch-icon.png': ['apple-touch-icon.png', 'image/png'],
+  '/logo.svg': ['logo.svg', 'image/svg+xml'],
+  '/logo-mark.svg': ['logo-mark.svg', 'image/svg+xml'],
+  '/logo-stacked.svg': ['logo-stacked.svg', 'image/svg+xml'],
+  '/logo-reversed.svg': ['logo-reversed.svg', 'image/svg+xml'],
+};
+function serveAsset(res, urlPath) {
+  const [name, type] = ASSETS[urlPath];
+  const p = join('site', name);
+  if (!existsSync(p) || !statSync(p).isFile()) return html(res, 404, 'not found');
+  res.writeHead(200, { 'content-type': type, 'cache-control': 'public, max-age=86400' });
+  return res.end(readFileSync(p));
+}
+
 // ---------------------------------------------------------------- landing page
 function landingPage() {
   return `<!doctype html>
@@ -258,6 +281,7 @@ function landingPage() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Advocacy Grade by justmesocial</title>
+${HEAD_ICONS}
 <style>${CSS}
 form.lookup{display:flex;gap:.65rem;flex-wrap:wrap;margin:1.4rem 0}
 input[type=text],input[type=email]{flex:1;min-width:220px;padding:13px 14px;font-size:16px;font-family:inherit;border:1px solid var(--line-strong);border-radius:var(--r-sm);background:var(--panel);color:var(--ink);box-shadow:var(--sh-xs)}
@@ -274,7 +298,7 @@ button:disabled:hover{background:var(--accent)}
 </head>
 <body>
 <main>
-  <p class="kicker brand">Advocacy Grade <span class="wm">by <span class="a">justme</span><span class="b">social</span></span></p>
+  ${BRAND}
   <h1>What does your website <span class="tint">hand your employees to share?</span></h1>
   <p class="lede">Enter your company's domain. This reads only public pages — sitemap, share tags, structured data, robots.txt — politely and honestly, and shows you what it finds, with the evidence cited. The first findings appear in seconds, free.</p>
 
@@ -387,6 +411,7 @@ const server = createServer(async (req, res) => {
     if (req.method === 'POST' && url.pathname === '/api/lead') return await handleLead(req, res);
     if (req.method === 'GET' && url.pathname.startsWith('/report/')) return await handleReport(req, res, decodeURIComponent(url.pathname.slice(8)));
     if (req.method === 'GET' && url.pathname.startsWith('/fonts/')) return serveFont(res, url.pathname);
+    if (req.method === 'GET' && ASSETS[url.pathname]) return serveAsset(res, url.pathname);
     if (req.method === 'GET' && (url.pathname === '/corpus' || url.pathname.startsWith('/corpus/'))) return serveStatic(req, res, url.pathname);
     if (req.method === 'GET' && url.pathname === '/healthz') return json(res, 200, { ok: true });
     return html(res, 404, 'not found');
