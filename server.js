@@ -24,7 +24,7 @@ import { run, fastProbe, normalizeDomain, DEFAULT_OPTS } from './lib/run.js';
 import { scoreEvidence } from './lib/rubric.js';
 import { buildFindings, fastTier } from './lib/findings.js';
 import { narrateFindings } from './lib/narrate.js';
-import { renderReport, CSS, BRAND, HEAD_ICONS } from './lib/report-html.js';
+import { renderReport, subScoreGrid, CSS, BRAND, HEAD_ICONS, LIVE_HREF } from './lib/report-html.js';
 import { EvidenceCache, cacheKey, CACHE_TTL_MS } from './lib/cache.js';
 import { ensureSeed } from './lib/seed.js';
 import { RateLimiter } from './lib/ratelimit.js';
@@ -107,6 +107,7 @@ function pump() {
 // ---------------------------------------------------------------- helpers
 const json = (res, code, obj) => { res.writeHead(code, { 'content-type': 'application/json' }); res.end(JSON.stringify(obj)); };
 const html = (res, code, body) => { res.writeHead(code, { 'content-type': 'text/html; charset=utf-8' }); res.end(body); };
+const esc = (x) => String(x ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const clientIp = (req) => (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress || 'unknown';
 
 function readBody(req, cap = 16384) {
@@ -200,9 +201,16 @@ async function handleLead(req, res) {
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json(res, 400, { error: 'a valid email is required' });
   const ts = await verifyTurnstile(body.turnstile_token, ip);
   if (!ts.ok) return json(res, 403, { error: 'challenge failed' });
+  // The teaser form collects first and last separately; the older single `name`
+  // field still works, and `name` is always stored so downstream (sheet, email
+  // merge) has one field to read whichever form the lead came from.
+  const first = String(body.first_name || '').trim().slice(0, 100);
+  const last = String(body.last_name || '').trim().slice(0, 100);
   const result = await leadStore.append({
     email,
-    name: String(body.name || '').slice(0, 200),
+    first_name: first || null,
+    last_name: last || null,
+    name: [first, last].filter(Boolean).join(' ') || String(body.name || '').slice(0, 200),
     company: String(body.company || '').slice(0, 200),
     domain: cacheKey(body.domain || ''),
     turnstile: ts.skipped ? 'not-enforced' : 'passed',
@@ -218,7 +226,7 @@ async function handleReport(req, res, host) {
     // fall back to a pre-built corpus page if one exists
     const p = join('site', 'reports', host + '.html');
     if (existsSync(p)) return html(res, 200, readFileSync(p, 'utf8'));
-    return html(res, 404, `<!doctype html><meta charset="utf-8"><title>No report</title><style>${CSS}</style><main><h1>No report yet for ${host}</h1><p>Run a lookup from the <a href="/">front page</a> first.</p></main>`);
+    return html(res, 404, `<!doctype html><meta charset="utf-8"><title>No report</title><style>${CSS}</style><main><h1>No report yet for ${host}</h1><p>Run a lookup from the <a href="${LIVE_HREF}">live tool</a> first.</p></main>`);
   }
   const scoring = scoreEvidence(cached.evidence); // live rubric, never the stored block
   let findings = buildFindings(cached.evidence, scoring);
@@ -273,6 +281,43 @@ function serveAsset(res, urlPath) {
   return res.end(readFileSync(p));
 }
 
+// ---------------------------------------------------------------- shared UI CSS
+// The one stylesheet in lib/report-html.js still rules every surface; this is the
+// interactive delta the two server-rendered pages (the live tool and the teaser)
+// need on top of it — forms, buttons, the running state. Shared between them on
+// purpose: a second copy is how a palette drifts.
+const UI_CSS = `
+form.lookup{display:flex;gap:.65rem;flex-wrap:wrap;margin:1.4rem 0}
+input[type=text],input[type=email]{flex:1;min-width:220px;padding:13px 14px;font-size:16px;font-family:inherit;border:1px solid var(--line-strong);border-radius:var(--r-sm);background:var(--panel);color:var(--ink);box-shadow:var(--sh-xs)}
+input::placeholder{color:var(--faint)}
+input:focus-visible{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
+button,.btn{display:inline-block;padding:13px 22px;font-size:16px;font-family:inherit;border:0;border-radius:var(--r-sm);background:var(--accent);color:var(--accent-ink);cursor:pointer;font-weight:600;letter-spacing:-.01em;text-decoration:none;transition:background .12s}
+button:hover,.btn:hover{background:var(--accent-deep);color:var(--accent-ink)}
+button:disabled{opacity:.5;cursor:wait}
+button:disabled:hover{background:var(--accent)}
+#status{margin:.7rem 0;color:var(--muted);font-size:14px}
+.lede{font-size:18.5px;line-height:1.55;color:var(--muted);max-width:56ch}
+.hide{display:none}
+/* The running state. Deliberately loud: the single most common moment on this page
+   is waiting ~10 seconds for a full read, and the old 14px grey line under the form
+   read as nothing happening. */
+.runstate{background:var(--accent-soft);border:1px solid #c7cff7;border-radius:var(--r-lg);padding:1.15rem 1.35rem;margin:1.4rem 0;box-shadow:var(--sh-sm)}
+.runline{display:flex;align-items:center;gap:.65rem;margin:0;font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.2;color:var(--accent-deep)}
+.runsub{margin:.4rem 0 0;font-size:14px;color:var(--muted)}
+.spinner{width:19px;height:19px;flex:0 0 auto;border-radius:50%;border:2.5px solid var(--accent);border-right-color:transparent;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spinner{animation-duration:2.6s}}
+/* Teaser gate form */
+.fieldrow{display:flex;gap:.65rem;flex-wrap:wrap}
+.field{display:block;flex:1;min-width:190px;margin:0 0 .7rem}
+.field span{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 .3rem}
+.field input{width:100%}
+.gatehead{margin:.1rem 0 .5rem;font-size:22px}
+.demoout{border-left-color:var(--band-amber)}
+.demoout .kicker{color:var(--band-amber)}
+@media (max-width:620px){.runline{font-size:20px}}
+`;
+
 // ---------------------------------------------------------------- landing page
 function landingPage() {
   return `<!doctype html>
@@ -282,19 +327,7 @@ function landingPage() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Advocacy Grade by justmesocial</title>
 ${HEAD_ICONS}
-<style>${CSS}
-form.lookup{display:flex;gap:.65rem;flex-wrap:wrap;margin:1.4rem 0}
-input[type=text],input[type=email]{flex:1;min-width:220px;padding:13px 14px;font-size:16px;font-family:inherit;border:1px solid var(--line-strong);border-radius:var(--r-sm);background:var(--panel);color:var(--ink);box-shadow:var(--sh-xs)}
-input::placeholder{color:var(--faint)}
-input:focus-visible{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
-button{padding:13px 22px;font-size:16px;font-family:inherit;border:0;border-radius:var(--r-sm);background:var(--accent);color:var(--accent-ink);cursor:pointer;font-weight:600;letter-spacing:-.01em;transition:background .12s}
-button:hover{background:var(--accent-deep)}
-button:disabled{opacity:.5;cursor:wait}
-button:disabled:hover{background:var(--accent)}
-#status{margin:.7rem 0;color:var(--muted);font-size:14px}
-.lede{font-size:18.5px;line-height:1.55;color:var(--muted);max-width:56ch}
-.hide{display:none}
-</style>
+<style>${CSS}${UI_CSS}</style>
 </head>
 <body>
 <main>
@@ -306,18 +339,12 @@ button:disabled:hover{background:var(--accent)}
     <input type="text" id="domain" name="domain" placeholder="yourcompany.com" autocomplete="off" required>
     <button id="go" type="submit">Check my site</button>
   </form>
+  <div id="running" class="runstate hide" role="status" aria-live="polite">
+    <p class="runline"><span class="spinner" aria-hidden="true"></span><span id="runhead">Running the report now</span></p>
+    <p class="runsub" id="runsub">Reading <b id="rundomain"></b> — the median site takes about 10 seconds; the largest in the corpus took 77.</p>
+  </div>
   <p id="status" role="status"></p>
   <div id="fast"></div>
-
-  <div id="gate" class="panel hide">
-    <p><b>The full report is being prepared</b> — content supply, shareability page-by-page, culture surface, AI discoverability, each finding cited and ranked by fixability. Leave an email and it's yours when it's done (usually under a minute).</p>
-    <form id="leadform">
-      <input type="email" id="email" placeholder="you@yourcompany.com" required style="width:100%;max-width:340px">
-      <button type="submit" style="margin-top:.5rem">Send me the report</button>
-    </form>
-    <p class="note">One email with the report link. No sequence, no resale.</p>
-  </div>
-  <div id="ready" class="hide panel"></div>
 
   <div class="honest">
     <p class="kicker">Straight talk, before you type anything</p>
@@ -348,51 +375,52 @@ button:disabled:hover{background:var(--accent)}
       box.appendChild(d);
     });
   }
+  function stopRunning() { $('running').classList.add('hide'); }
+  function goToTeaser() {
+    $('runhead').textContent = 'Report ready — opening it now';
+    location.href = '/teaser/' + encodeURIComponent(domain);
+  }
   function poll() {
     fetch('/api/job?domain=' + encodeURIComponent(domain)).then(function (r) { return r.json(); }).then(function (j) {
       if (j.state === 'ready') {
         clearInterval(polling);
-        $('status').textContent = 'Full report ready.';
-        showReady();
+        goToTeaser();
       } else if (j.state === 'error') {
         clearInterval(polling);
+        stopRunning();
         $('status').textContent = j.error || 'The full read could not finish. The quick findings above are still real.';
-      } else if (j.note) { $('status').textContent = j.note; }
+      } else if (j.note) { $('runsub').textContent = j.note; }
     }).catch(function () {});
-  }
-  function showReady() {
-    var r = $('ready'); r.classList.remove('hide'); r.textContent = '';
-    var a = el('a', null, 'View the full report for ' + domain);
-    a.href = '/report/' + domain;
-    r.appendChild(a);
   }
   $('lookup').addEventListener('submit', function (e) {
     e.preventDefault();
     domain = $('domain').value.trim();
     $('go').disabled = true;
-    $('status').textContent = 'Running the quick checks (usually about a second)…';
-    $('fast').textContent = ''; $('ready').classList.add('hide');
+    $('rundomain').textContent = domain;
+    $('runhead').textContent = 'Running the report now';
+    $('runsub').textContent = 'Reading ' + domain + ' — the quick checks come back in about a second, the full read in about ten.';
+    $('running').classList.remove('hide');
+    $('status').textContent = '';
+    $('fast').textContent = '';
     fetch('/api/lookup', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ domain: domain }) })
       .then(function (r) { return r.json(); })
       .then(function (j) {
         $('go').disabled = false;
-        if (j.error) { $('status').textContent = j.error; return; }
+        if (j.error) { stopRunning(); $('status').textContent = j.error; return; }
         domain = j.domain;
+        $('rundomain').textContent = domain;
         renderFindings((j.fast && j.fast.findings) || []);
         if (j.fast && j.fast.note) $('status').textContent = j.fast.note; else $('status').textContent = '';
-        if (j.state === 'ready') { $('status').textContent = 'Report ready' + (j.cached ? ' (from the ${CACHE_TTL_DAYS}-day cache)' : '') + '.'; showReady(); }
-        else { $('gate').classList.remove('hide'); if (j.state === 'running') { $('status').textContent = 'Quick checks done. The full read is running — median 10 seconds, large sites up to a minute.'; polling = setInterval(poll, 3000); } }
+        if (j.state === 'ready') { goToTeaser(); return; }
+        if (j.state === 'running') {
+          $('runsub').textContent = 'Quick checks done — the full read is running. Median 10 seconds; large sites up to a minute. This page moves on by itself.';
+          polling = setInterval(poll, 3000);
+        } else {
+          stopRunning();
+          $('status').textContent = j.full_run_note || 'Showing the quick checks only.';
+        }
       })
-      .catch(function () { $('go').disabled = false; $('status').textContent = 'Something went wrong on the server side. Try again in a moment.'; });
-  });
-  $('leadform').addEventListener('submit', function (e) {
-    e.preventDefault();
-    fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: $('email').value, domain: domain }) })
-      .then(function (r) { return r.json(); })
-      .then(function (j) {
-        if (j.ok) { $('gate').innerHTML = '<p>Thanks — the report link will be waiting here, and I saved your address for exactly one email.</p>'; }
-        else { $('status').textContent = j.error || 'Could not save that — try again?'; }
-      });
+      .catch(function () { $('go').disabled = false; stopRunning(); $('status').textContent = 'Something went wrong on the server side. Try again in a moment.'; });
   });
 })();
 </script>
@@ -401,15 +429,120 @@ button:disabled:hover{background:var(--accent)}
 </html>`;
 }
 
+// ---------------------------------------------------------------- teaser page
+// Shown the moment a run finishes, at its own URL so it can be linked and shown.
+//
+// 🔴 HONESTY: every number on this page is the REAL scored value, rendered and then
+// blurred in CSS. Nothing is substituted with a placeholder, so lifting the blur in
+// devtools reveals the truth rather than a lie the page told. The gate is soft by
+// design and says so: the escape-hatch button below hands over the full report with
+// no email at all, because this is a demo and pretending otherwise would be the one
+// dishonest thing on an otherwise honest site.
+function teaserPage({ domain, scoring }) {
+  const s = scoring;
+  const graded = Boolean(s?.gradeable);
+  const hero = graded
+    ? `<p class="gradeletter g-${s.grade} score-num blurred">${esc(s.grade)}</p>
+       <p class="overall"><span class="big score-num blurred">${esc(s.overall_score)}</span>/100 — <span class="tint">advocacy readiness</span></p>`
+    : `<p class="withheld-mark blurred">No letter grade — withheld, not failed</p>`;
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>${esc(domain)} — your Advocacy Grade is ready</title>
+${HEAD_ICONS}
+<style>${CSS}${UI_CSS}</style>
+</head>
+<body>
+<main>
+  ${BRAND}
+  <h1>Your report for ${esc(domain)} <span class="tint">is ready</span></h1>
+  <p class="sub">Read from public pages only, robots.txt honored on every request, every finding cited.</p>
+
+  <div class="panel gradehero">
+    ${hero}
+    <p class="note">The grade and the four sub-scores are real and already computed — they are just blurred until you say who you are.</p>
+  </div>
+
+  ${subScoreGrid(s, { blurScores: true })}
+
+  <div class="panel">
+    <h2 class="gatehead">Show me the full report</h2>
+    <p>Every finding, ranked by how fixable it is, with the evidence behind each one.</p>
+    <form id="leadform">
+      <div class="fieldrow">
+        <label class="field"><span>First name</span><input type="text" id="first" name="first" autocomplete="given-name" required></label>
+        <label class="field"><span>Last name</span><input type="text" id="last" name="last" autocomplete="family-name" required></label>
+      </div>
+      <label class="field"><span>Email address</span><input type="email" id="email" name="email" autocomplete="email" placeholder="you@yourcompany.com" required></label>
+      <button type="submit" id="gogate">Show me the full report</button>
+    </form>
+    <p class="note" id="gatenote">One email with the report link. No sequence, no resale.</p>
+  </div>
+
+  <div class="honest demoout">
+    <p class="kicker">This is a demo site</p>
+    <p>If you don't care to see whether the form works, skip it. Nothing here is really locked — this is the same report the form would send you.</p>
+    <p><a class="btn" href="/report/${encodeURIComponent(domain)}">View the full report now</a></p>
+  </div>
+
+  <footer>
+    <p class="foot-brand">Advocacy Grade <span class="wm">by <span class="a">justme</span><span class="b">social</span></span>.</p>
+    <p class="nav foot-nav"><a href="${LIVE_HREF}">&larr; Run a new report</a></p>
+    <p>No tracking on this page. The grade above is computed from public evidence by a deterministic rubric — the same evidence always yields the same result.</p>
+  </footer>
+</main>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var url = '/report/' + ${JSON.stringify(encodeURIComponent(domain))};
+  $('leadform').addEventListener('submit', function (e) {
+    e.preventDefault();
+    $('gogate').disabled = true;
+    fetch('/api/lead', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ first_name: $('first').value, last_name: $('last').value, email: $('email').value, domain: ${JSON.stringify(domain)} })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (j.ok) { location.href = url; }
+        else { $('gogate').disabled = false; $('gatenote').textContent = j.error || 'Could not save that — try again?'; }
+      })
+      .catch(function () { $('gogate').disabled = false; $('gatenote').textContent = 'Something went wrong saving that. The button below still opens the report.'; });
+  });
+})();
+</script>
+<noscript><p style="max-width:860px;margin:1rem auto;padding:0 1.25rem">The form needs JavaScript, but <a href="/report/${encodeURIComponent(domain)}">the full report</a> does not.</p></noscript>
+</body>
+</html>`;
+}
+
+async function handleTeaser(req, res, host) {
+  host = cacheKey(host);
+  const cached = cache.get(host);
+  // No evidence, no teaser — never a page implying a run that did not happen.
+  if (!cached) { res.writeHead(302, { location: LIVE_HREF }); return res.end(); }
+  return html(res, 200, teaserPage({ domain: host, scoring: scoreEvidence(cached.evidence) }));
+}
+
 // ---------------------------------------------------------------- server
 const server = createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
   try {
-    if (req.method === 'GET' && url.pathname === '/') return html(res, 200, landingPage());
+    // The live tool lives at /es-demo so that / is free for an unrelated
+    // Greg-O-Matic landing page later. 302 and NOT 301 on purpose: a permanent
+    // redirect would be cached in every visitor's browser and would still be
+    // firing after / becomes a different page.
+    if (req.method === 'GET' && url.pathname === '/') { res.writeHead(302, { location: LIVE_HREF }); return res.end(); }
+    if (req.method === 'GET' && (url.pathname === LIVE_HREF || url.pathname === LIVE_HREF + '/')) return html(res, 200, landingPage());
     if (req.method === 'POST' && url.pathname === '/api/lookup') return await handleLookup(req, res);
     if (req.method === 'GET' && url.pathname === '/api/job') return handleJob(req, res, url);
     if (req.method === 'POST' && url.pathname === '/api/lead') return await handleLead(req, res);
     if (req.method === 'GET' && url.pathname.startsWith('/report/')) return await handleReport(req, res, decodeURIComponent(url.pathname.slice(8)));
+    if (req.method === 'GET' && url.pathname.startsWith('/teaser/')) return await handleTeaser(req, res, decodeURIComponent(url.pathname.slice(8)));
     if (req.method === 'GET' && url.pathname.startsWith('/fonts/')) return serveFont(res, url.pathname);
     if (req.method === 'GET' && ASSETS[url.pathname]) return serveAsset(res, url.pathname);
     if (req.method === 'GET' && (url.pathname === '/corpus' || url.pathname.startsWith('/corpus/'))) return serveStatic(req, res, url.pathname);
