@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>edmentum.com — Advocacy Grader by JustMeSocial</title>
+<title>edmentum.com — Advocacy Grade by justmesocial</title>
 <style>
 :root{
   --bg:#faf9f7; --panel:#ffffff; --ink:#1e2126; --muted:#5b6470; --line:#e3e0da;
@@ -31,6 +31,14 @@ a{color:var(--accent)}
 h1{font-size:1.9rem;line-height:1.2;margin:.25rem 0 .1rem;overflow-wrap:anywhere}
 h2{font-size:1.25rem;margin:2.2rem 0 .8rem;border-bottom:1px solid var(--line);padding-bottom:.35rem}
 .kicker{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kicker.brand{letter-spacing:.02em}
+.wm{text-transform:none;letter-spacing:.04em;white-space:nowrap}
+.wm .a{color:var(--ink);font-weight:500}
+.wm .b{color:var(--muted);font-weight:400}
+.nav{margin:.5rem 0}
+.nav.topnav{margin:.6rem 0 0}
+.foot-brand{font-size:1.25em}
+.nav.foot-nav{font-size:1.25em;margin:.4em 0 0}
 .sub{color:var(--muted);font-size:.9rem;margin:0}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;margin:1rem 0}
 .gradebox{display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap}
@@ -69,9 +77,10 @@ footer{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem;font-si
 </head>
 <body>
 <main>
-  <p class="kicker"><a href="../index.html">Advocacy Readiness Grader</a></p>
+  <p class="kicker brand">Advocacy Grade <span class="wm">by <span class="a">justme</span><span class="b">social</span></span></p>
   <h1>edmentum.com</h1>
   <p class="sub">Evidence collected August 29, 2026 · 54 polite, robots.txt-respecting requests · every claim cites what it saw</p>
+  <p class="nav topnav"><a href="../index.html">&larr; Browse all reports</a></p>
   <div class="panel">
         <p class="withheld-mark">No letter grade — withheld, not failed</p>
         <p>No letter grade is issued because this tool could not read this site&#39;s content structure: of the 4392 URLs in its sitemap, 2917 (66.4%) could not be classified into content sections by the reader. That is a limit of this tool&#39;s reading, not evidence that the company lacks content — a grade computed from the readable sliver would report a gap in this tool as their failure. What could be observed is scored below at reduced confidence.</p>
@@ -186,7 +195,8 @@ footer{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem;font-si
     </div>
 <div class="panel"><h3 style="margin:.1rem 0">AI Discoverability — <span class="conf">not scored</span></h3><p class="note">No usable robots.txt was retrieved, so AI-agent posture is unknown for this domain. Unknown is not the same as open, and it has not been scored as open.</p></div>
   <footer>
-    <p>Advocacy Grader by JustMeSocial.</p>
+    <p class="foot-brand">Advocacy Grade <span class="wm">by <span class="a">justme</span><span class="b">social</span></span>.</p>
+    <p class="nav foot-nav"><a href="../index.html">&larr; Browse all reports</a></p>
     <p>Method: deterministic rubric in code — the same evidence always yields the same result; no model assigns numbers. User-agent: AdvocacyReadinessGrader/0.1.0-phase1 (+https://greg-o-matic.com/grader; respects robots.txt). This page renders without JavaScript and holds no tracking.</p>
     <p>This report reads only public pages, identifies itself honestly, and honors robots.txt on every request — including the ones that would have made it look better.</p>
   </footer>

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Employee-advocacy readiness grader: collects public evidence (robots, sitemaps, sampled pages, careers surface) for any domain and scores it with a deterministic rubric. The report is the product; the letter grade is withheld whenever classification coverage does not earn it.",
+  "description": "Advocacy Grade — employee-advocacy readiness scored from public evidence: collects robots, sitemaps, sampled pages and the careers surface for any domain and scores it with a deterministic rubric. The report is the product; the letter grade is withheld whenever classification coverage does not earn it.",
   "bin": {
     "score": "./score.js"
   },

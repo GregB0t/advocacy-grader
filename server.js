@@ -224,7 +224,7 @@ async function handleReport(req, res, host) {
   let findings = buildFindings(cached.evidence, scoring);
   findings = await narrateFindings(findings, { domain: host }); // no-op without ANTHROPIC_API_KEY
   const preGenerated = cached.source.includes('calib');
-  return html(res, 200, renderReport({ domain: host, ev: cached.evidence, scoring, findings, preGenerated, backHref: '/', corpusStats: CORPUS_STATS }));
+  return html(res, 200, renderReport({ domain: host, ev: cached.evidence, scoring, findings, preGenerated, backHref: '/corpus/', corpusStats: CORPUS_STATS }));
 }
 
 function serveStatic(req, res, urlPath) {
@@ -241,7 +241,7 @@ function landingPage() {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Advocacy Grader by JustMeSocial</title>
+<title>Advocacy Grade by justmesocial</title>
 <style>${CSS}
 form.lookup{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0}
 input[type=text],input[type=email]{flex:1;min-width:220px;padding:.6rem .8rem;font-size:1rem;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}
@@ -253,7 +253,7 @@ button:disabled{opacity:.5;cursor:wait}
 </head>
 <body>
 <main>
-  <p class="kicker">Advocacy Grader by JustMeSocial</p>
+  <p class="kicker brand">Advocacy Grade <span class="wm">by <span class="a">justme</span><span class="b">social</span></span></p>
   <h1>What does your website hand your employees to share?</h1>
   <p>Enter your company's domain. This reads only public pages — sitemap, share tags, structured data, robots.txt — politely and honestly, and shows you what it finds, with the evidence cited. The first findings appear in seconds, free.</p>
 

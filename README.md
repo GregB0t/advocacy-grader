@@ -1,4 +1,4 @@
-# Advocacy Readiness Grader
+# Advocacy Grade
 
 Give it a company domain and it produces an evidence-cited report on how ready that
 company's public web presence is for an employee-advocacy program — whether there is
