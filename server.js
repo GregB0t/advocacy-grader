@@ -346,7 +346,7 @@ ${HEAD_ICONS}
   </form>
   <div id="running" class="runstate hide" role="status" aria-live="polite">
     <p class="runline"><span class="spinner" aria-hidden="true"></span><span id="runhead">Running the report now</span></p>
-    <p class="runsub" id="runsub">Reading <b id="rundomain"></b> — the median site takes about 10 seconds; the largest in the corpus took 77.</p>
+    <p class="runsub" id="runsub">The median site takes about 10 seconds; the largest in the corpus took 77.</p>
   </div>
   <p id="status" role="status"></p>
   <div id="fast"></div>
@@ -367,6 +367,15 @@ ${HEAD_ICONS}
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var domain = null, polling = null;
+  // A lookup can be interrupted by things the browser cannot distinguish: a redeploy
+  // draining the instance, a proxy error page where JSON was expected, a dropped
+  // connection. All of them land in the same .catch, so the client counts failures
+  // and says only what it actually knows rather than blaming the server.
+  // Two counters, not one: pollFails counts DROPPED polls, noneTicks counts polls the
+  // server answered with "I have no such job". Sharing a counter meant the success path
+  // reset it every time and the second case could never trip.
+  var pollFails = 0, noneTicks = 0, pollTicks = 0;
+  var POLL_MS = 3000, POLL_GIVE_UP = Math.ceil(180000 / POLL_MS);
   var sev = { critical: 'Broken', issue: 'Issue', opportunity: 'Opportunity', positive: 'Working', limitation: 'Not visible', info: 'Note' };
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
   function renderFindings(list) {
@@ -381,52 +390,89 @@ ${HEAD_ICONS}
     });
   }
   function stopRunning() { $('running').classList.add('hide'); }
+  // Every dead end goes through here. The button is re-enabled unconditionally —
+  // a disabled submit with no way forward is the one state this page must never sit in.
+  function fail(msg) {
+    if (polling) { clearInterval(polling); polling = null; }
+    stopRunning();
+    $('go').disabled = false;
+    $('status').textContent = msg;
+  }
   function goToTeaser() {
     $('runhead').textContent = 'Report ready — opening it now';
     location.href = '/teaser/' + encodeURIComponent(domain);
   }
+  var LOST = 'Lost contact with the server while the full read was running — it may have restarted. The run often finishes anyway: try the same domain again in a moment and a completed one comes straight back from the cache.';
   function poll() {
+    if (++pollTicks > POLL_GIVE_UP) return fail('The full read has been going for three minutes without finishing. The quick findings above are still real. Try again later, or browse a pre-generated report.');
     fetch('/api/job?domain=' + encodeURIComponent(domain)).then(function (r) { return r.json(); }).then(function (j) {
+      pollFails = 0;
+      if (j.state !== 'none') noneTicks = 0;
       if (j.state === 'ready') {
-        clearInterval(polling);
+        clearInterval(polling); polling = null;
         goToTeaser();
       } else if (j.state === 'error') {
-        clearInterval(polling);
-        stopRunning();
-        $('status').textContent = j.error || 'The full read could not finish. The quick findings above are still real.';
+        fail(j.error || 'The full read could not finish. The quick findings above are still real.');
+      } else if (j.state === 'none') {
+        // The server no longer knows about this job — it restarted, and its job map
+        // went with it. Silently polling forever is what this used to do.
+        if (++noneTicks >= 2) fail(LOST);
       } else if (j.note) { $('runsub').textContent = j.note; }
-    }).catch(function () {});
+    }).catch(function () {
+      if (++pollFails >= 5) fail(LOST);
+    });
   }
   $('lookup').addEventListener('submit', function (e) {
     e.preventDefault();
     domain = $('domain').value.trim();
     $('go').disabled = true;
-    $('rundomain').textContent = domain;
     $('runhead').textContent = 'Running the report now';
     $('runsub').textContent = 'Reading ' + domain + ' — the quick checks come back in about a second, the full read in about ten.';
     $('running').classList.remove('hide');
     $('status').textContent = '';
     $('fast').textContent = '';
-    fetch('/api/lookup', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ domain: domain }) })
-      .then(function (r) { return r.json(); })
+    pollFails = 0; noneTicks = 0; pollTicks = 0;
+    sendLookup(1);
+  });
+
+  // A lookup is retried ONCE, automatically, on a dropped or unparseable response —
+  // which is exactly what a visitor gets if they submit while a deploy is swapping
+  // instances. The retry is silent apart from the sub-line, because from the
+  // visitor's side nothing has gone wrong yet.
+  function sendLookup(attempt) {
+    var ctl = typeof AbortController === 'function' ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 40000);
+    var opts = { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ domain: domain }) };
+    if (ctl) opts.signal = ctl.signal;
+    fetch('/api/lookup', opts)
+      .then(function (r) { clearTimeout(timer); return r.json(); })
       .then(function (j) {
         $('go').disabled = false;
         if (j.error) { stopRunning(); $('status').textContent = j.error; return; }
         domain = j.domain;
-        $('rundomain').textContent = domain;
         renderFindings((j.fast && j.fast.findings) || []);
         if (j.fast && j.fast.note) $('status').textContent = j.fast.note; else $('status').textContent = '';
         if (j.state === 'ready') { goToTeaser(); return; }
         if (j.state === 'running') {
           $('runsub').textContent = 'Quick checks done — the full read is running. Median 10 seconds; large sites up to a minute. This page moves on by itself.';
-          polling = setInterval(poll, 3000);
+          polling = setInterval(poll, POLL_MS);
         } else {
           stopRunning();
           $('status').textContent = j.full_run_note || 'Showing the quick checks only.';
         }
       })
-      .catch(function () { $('go').disabled = false; stopRunning(); $('status').textContent = 'Something went wrong on the server side. Try again in a moment.'; });
-  });
+      .catch(function () {
+        clearTimeout(timer);
+        if (attempt < 2) {
+          $('runsub').textContent = 'No answer yet — trying once more.';
+          setTimeout(function () { sendLookup(attempt + 1); }, 1500);
+          return;
+        }
+        // Deliberately does NOT claim a server-side fault: from here the only
+        // observed fact is that no usable answer came back.
+        fail('No answer came back from the server. If the site was mid-deploy it is usually back within a few seconds — try again. The pre-generated reports below work either way.');
+      });
+  }
 })();
 </script>
 <noscript><p style="max-width:860px;margin:1rem auto;padding:0 1.25rem">This live checker needs JavaScript for the two-phase flow, but the <a href="/corpus/">${CORPUS_COUNT} pre-generated reports</a> work without it.</p></noscript>
