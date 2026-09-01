@@ -35,10 +35,12 @@ Withheld is not failed; the findings still ship.
   categories cause employees to post. They are the conditions we can observe and you
   can fix — presented as exactly that, never as a validated model of advocacy.
 - **LinkedIn (the actual advocacy outcome) is not measured.** Readiness ≠ reach.
-- **The classifier is English-first and modern-SaaS-shaped.** Enterprise CMS paths
-  (`/corp/en/about.html`), locale prefixes, and non-English sections mostly land in
-  "unclassified" — which is why the coverage gate exists and why the no-grade rate is
-  ~74% on a cross-sector corpus. Reading these sites better is the top of the roadmap.
+- **The classifier reads paths, not pages, and unreadable stays ungraded.** The K1
+  rule set (dated permalinks, eight languages, enterprise-CMS shapes, a catalog
+  bucket for commerce inventory) cut the no-grade rate from ~74% to ~64% on the
+  cross-sector corpus; what remains withheld is mostly sites with no usable sitemap,
+  sites that refuse the crawler, and programmatic inventories the path alone cannot
+  justify classifying. The coverage gate exists so none of those get a guessed grade.
 - **~36% of a grade rides on 24 sampled pages** (deterministic, stratified — but a
   sample).
 - **Employee & Culture partly measures where HR content is hosted**, not culture
@@ -57,7 +59,7 @@ Requires Node 20+. **Zero runtime dependencies** — `npm install` has nothing t
 
 ```
 git clone <repo> && cd advocacy-grader
-npm test                      # 65 offline assertions, no network, no key needed
+npm test                      # 66 offline assertions, no network, no key needed
 node score.js example.com     # collect evidence + score one domain (writes JSON)
 npm run serve                 # live server on :8787 — lookup UI, cached corpus, API
 npm run setup                 # optional: prompt for a ScrapingBee key, verify, write .env
@@ -116,7 +118,7 @@ is enforced by tests.
 
 ## Tests
 
-`npm test` runs 65 assertions, fully offline: coverage-gate boundaries, withheld-grade
+`npm test` runs 66 assertions, fully offline: coverage-gate boundaries, withheld-grade
 wording, the single-count rule for shareability signals, floor/sampler agreement, lead
 tiers, robots contradiction logic, findings on graded / withheld / blocked / partial
 evidence, a no-leak check that private lead data never reaches findings, and the URL

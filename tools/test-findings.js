@@ -11,11 +11,14 @@ function ok(cond, name) {
   if (cond) { passed++; console.log('ok - ' + name); }
   else { failed++; console.error('FAIL - ' + name); }
 }
-// Evidence is loaded from out/calib/ (the full 350-domain calibration cache,
-// gitignored) when present, falling back to the three committed copies in
-// fixtures/calib/ so `npm test` passes on a fresh clone.
+// Evidence is loaded from the committed fixture copies in fixtures/calib/
+// FIRST, falling back to out/calib/. It used to be the other way around, and
+// the K2 refetch after the K1 classifier broke the suite in the best possible
+// way: the refreshed wholefoodsmarket evidence no longer trips the coverage
+// gate (its recipes are read now), so the "withheld precondition" went false.
+// A regression test must not depend on mutable data; the fixtures are pinned.
 const load = (f) => {
-  for (const dir of ['../out/calib/', '../fixtures/calib/']) {
+  for (const dir of ['../fixtures/calib/', '../out/calib/']) {
     try { return JSON.parse(readFileSync(new URL(dir + f + '.json', import.meta.url))); }
     catch (e) { if (e.code !== 'ENOENT') throw e; }
   }

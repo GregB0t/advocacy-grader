@@ -47,7 +47,7 @@ came from, so you can check any of it yourself.
 We've run this grader against [PLACEHOLDER: total, currently 350] real companies across
 sectors. Most striking finding: [PLACEHOLDER: pct C or below among graded, currently
 86%] of the companies we could fully read graded C or below — almost nobody's public
-site is set up for this. And for [PLACEHOLDER: withheld count, currently 259 of 350]
+site is set up for this. And for [PLACEHOLDER: withheld count, currently 224 of 350]
 we refused to issue a grade at all, mostly because our reader couldn't parse the site's
 content structure — we'd rather say "we couldn't read you" than dress a reading gap up
 as your failure.

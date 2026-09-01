@@ -167,5 +167,46 @@ test('the gate is OFF by default so the live server is never serialized', () => 
   assert.equal(globalConcurrencyState().limit, 0);
 });
 
+// ---- oversized responses must settle, never hang (the K2 349/350 bug) ----
+// ultradentproducts.com serves a 33.5MB catalog page; res.destroy() on the
+// oversize guard emitted neither 'end' nor 'error', so the fetch promise never
+// settled, run() awaited forever, and prewarm died with Node exit 13. A fetch
+// that trips maxBytes must RESOLVE (truncated), within bounded time.
+await testAsync('a response larger than maxBytes resolves as truncated instead of hanging', async () => {
+  const http = await import('node:http');
+  const server = http.createServer((req, res) => {
+    res.writeHead(200, { 'content-type': 'text/html' });
+    const chunk = Buffer.alloc(64 * 1024, 'x');
+    // Write far more than the fetcher's maxBytes, slowly enough that the
+    // guard fires mid-stream, then keep the connection open: exactly the
+    // shape that used to strand the promise.
+    let sent = 0;
+    const iv = setInterval(() => {
+      sent += chunk.length;
+      res.write(chunk);
+      if (sent > 1024 * 1024) clearInterval(iv); // stop writing, never end()
+    }, 1);
+    res.on('close', () => clearInterval(iv));
+  });
+  await new Promise((r) => server.listen(0, '127.0.0.1', r));
+  const port = server.address().port;
+  // The SSRF guard refuses loopback by design; GRADER_ALLOW_PRIVATE exists
+  // precisely for fixture tests against a local server. Restored below.
+  const prevAllow = process.env.GRADER_ALLOW_PRIVATE;
+  process.env.GRADER_ALLOW_PRIVATE = '1';
+  try {
+    const f = new Fetcher({ timeoutMs: 10000, maxBytes: 256 * 1024 });
+    const result = await Promise.race([
+      f.get(`http://127.0.0.1:${port}/huge`, { note: 'oversize test' }),
+      new Promise((_, rej) => setTimeout(() => rej(new Error('fetch did not settle within 5s — the oversize hang is back')), 5000)),
+    ]);
+    assert.ok(result, 'fetch settled');
+    assert.equal(result.error, null, `fetch errored instead of truncating: ${result.error}`);
+  } finally {
+    if (prevAllow === undefined) delete process.env.GRADER_ALLOW_PRIVATE; else process.env.GRADER_ALLOW_PRIVATE = prevAllow;
+    server.close();
+  }
+});
+
 if (failed) { console.error(`\n${failed} cache test(s) FAILED`); process.exit(1); }
 console.log(`\n${n} tests passed`);
