@@ -29,12 +29,17 @@ import { EvidenceCache, cacheKey, CACHE_TTL_MS } from './lib/cache.js';
 import { ensureSeed } from './lib/seed.js';
 import { RateLimiter } from './lib/ratelimit.js';
 import { createLeadStore } from './lib/leads.js';
+import { leadIntel } from './lib/lead-intel.js';
 import { verifyTurnstile, turnstileOutcome } from './lib/turnstile.js';
 import { loadEnv } from './lib/scrapingbee.js';
 import { hostPreCheck } from './lib/ssrf.js';
 
 const env = { ...loadEnv(new URL('./.env', import.meta.url).pathname), ...process.env };
 const PORT = Number(env.PORT || 8787);
+// The origin used to build the report link that travels out with a captured lead.
+// Deliberately NOT derived from the request's Host header: that header is
+// attacker-controlled, and this value ends up as a link inside an email we send.
+const PUBLIC_ORIGIN = env.PUBLIC_ORIGIN || 'https://greg-o-matic.com';
 const FAST_CAP_MS = 15000;   // p99 of the measured fast tier
 const FULL_CAP_MS = 150000;  // max observed full run was 77s; double it, then say so honestly
 
@@ -216,15 +221,23 @@ async function handleLead(req, res) {
   // merge) has one field to read whichever form the lead came from.
   const first = String(body.first_name || '').trim().slice(0, 100);
   const last = String(body.last_name || '').trim().slice(0, 100);
+  const host = cacheKey(body.domain || '');
+  // The private lead score and the report's own top fix are attached HERE because
+  // this is the only place the evidence bundle exists — it lives in this process's
+  // cache and no route exposes it. The teaser page (the only surface carrying this
+  // form) renders only when the cache is warm, so on the ordinary path the evidence
+  // is present. When it is not, every derived field is null rather than guessed.
+  const intel = leadIntel(cache.get(host)?.evidence || null, { domain: host, publicOrigin: PUBLIC_ORIGIN });
   const result = await leadStore.append({
     email,
     first_name: first || null,
     last_name: last || null,
     name: [first, last].filter(Boolean).join(' ') || String(body.name || '').slice(0, 200),
     company: String(body.company || '').slice(0, 200),
-    domain: cacheKey(body.domain || ''),
+    domain: host,
     turnstile: turnstileOutcome(ts),
     ip,
+    ...intel,
   });
   return json(res, 200, { ok: result.ok });
 }
