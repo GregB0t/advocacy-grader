@@ -59,7 +59,7 @@ Requires Node 20+. **Zero runtime dependencies** — `npm install` has nothing t
 
 ```
 git clone <repo> && cd advocacy-grader
-npm test                      # 66 offline assertions, no network, no key needed
+npm test                      # 77 offline assertions, no network, no key needed
 node score.js example.com     # collect evidence + score one domain (writes JSON)
 npm run serve                 # live server on :8787 — lookup UI, cached corpus, API
 npm run setup                 # optional: prompt for a ScrapingBee key, verify, write .env
@@ -118,10 +118,24 @@ is enforced by tests.
 
 ## Tests
 
-`npm test` runs 66 assertions, fully offline: coverage-gate boundaries, withheld-grade
+`npm test` runs 77 assertions, fully offline: coverage-gate boundaries, withheld-grade
 wording, the single-count rule for shareability signals, floor/sampler agreement, lead
 tiers, robots contradiction logic, findings on graded / withheld / blocked / partial
 evidence, a no-leak check that private lead data never reaches findings, and the URL
 classifier against a labelled ground-truth fixture (`fixtures/classifier-groundtruth.json`)
 — including negative cases asserting that tempting-but-unsafe URL shapes stay
-unclassified, and a printed coverage + shareable-section precision summary.
+unclassified, and a printed coverage + shareable-section precision summary. The
+Turnstile suite covers the email gate's four outcomes and asserts the one that is
+easy to get wrong: when Cloudflare is unreachable the lead is accepted but recorded
+as `unverified-outage`, never as `passed`.
+
+Two browser suites are not part of `npm test`, because they need Playwright and this
+repo has no dependencies. Both mock every network call, so neither fetches a site,
+starts a run, or touches Cloudflare:
+
+```
+npm i --no-save playwright
+node server.js &
+node tools/test-lookup-ui.mjs     # 6 failure paths on the lookup page
+node tools/test-teaser-ui.mjs     # 6 paths on the email gate, incl. the challenge
+```

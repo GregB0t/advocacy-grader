@@ -29,7 +29,7 @@ import { EvidenceCache, cacheKey, CACHE_TTL_MS } from './lib/cache.js';
 import { ensureSeed } from './lib/seed.js';
 import { RateLimiter } from './lib/ratelimit.js';
 import { createLeadStore } from './lib/leads.js';
-import { verifyTurnstile } from './lib/turnstile.js';
+import { verifyTurnstile, turnstileOutcome } from './lib/turnstile.js';
 import { loadEnv } from './lib/scrapingbee.js';
 import { hostPreCheck } from './lib/ssrf.js';
 
@@ -199,8 +199,18 @@ async function handleLead(req, res) {
   try { body = await readBody(req); } catch (e) { return json(res, 400, { error: e.message }); }
   const email = String(body.email || '').trim().slice(0, 200);
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json(res, 400, { error: 'a valid email is required' });
-  const ts = await verifyTurnstile(body.turnstile_token, ip);
-  if (!ts.ok) return json(res, 403, { error: 'challenge failed' });
+  // The secret is read from the MERGED env: loadEnv() returns an object and does
+  // not populate process.env, so a .env-only key would never reach the verifier's
+  // default. On Render the value is in process.env and both paths agree.
+  const ts = await verifyTurnstile(body.turnstile_token, ip, { secret: env.TURNSTILE_SECRET_KEY });
+  if (!ts.ok) {
+    return json(res, 403, {
+      error: ts.reason === 'missing-token'
+        ? 'The anti-bot check did not finish, so nothing was sent to verify. Give it a moment and try again \u2014 or use the link below, which opens the report with no form at all.'
+        : 'Cloudflare did not accept the anti-bot check. Try again, or use the link below, which opens the report with no form at all.',
+      turnstile: ts.reason,
+    });
+  }
   // The teaser form collects first and last separately; the older single `name`
   // field still works, and `name` is always stored so downstream (sheet, email
   // merge) has one field to read whichever form the lead came from.
@@ -213,7 +223,7 @@ async function handleLead(req, res) {
     name: [first, last].filter(Boolean).join(' ') || String(body.name || '').slice(0, 200),
     company: String(body.company || '').slice(0, 200),
     domain: cacheKey(body.domain || ''),
-    turnstile: ts.skipped ? 'not-enforced' : 'passed',
+    turnstile: turnstileOutcome(ts),
     ip,
   });
   return json(res, 200, { ok: result.ok });
@@ -313,6 +323,9 @@ button:disabled:hover{background:var(--accent)}
 .field span{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 .3rem}
 .field input{width:100%}
 .gatehead{margin:.1rem 0 .5rem;font-size:22px}
+/* Turnstile's iframe is 300x65 in managed mode. Reserve the height so the panel
+   does not jump when the script lands, and keep it above the button. */
+.cf-turnstile{margin:0 0 .85rem;min-height:65px}
 /* This panel has one job — telling a visitor the gate is not real — and as a white
    card among white cards it read as one more paragraph. Amber ground, a 6px rule and
    a kicker at 15px make it the thing you see after the form. */
@@ -322,6 +335,27 @@ button:disabled:hover{background:var(--accent)}
 .demoout p{color:var(--ink)}
 @media (max-width:620px){.runline{font-size:20px}}
 `;
+
+// ------------------------------------------------- Turnstile (client half)
+// The SITE key is public by design — it is what a site key is for, and it only
+// works on the hostnames configured at Cloudflare. The SECRET never appears here
+// or anywhere else in a tracked file; it is read from the environment in
+// handleLead. With no site key set, all three constants are inert and the gate
+// behaves exactly as it did before this existed: soft, and honest about it.
+const TURNSTILE_SITE_KEY = String(env.TURNSTILE_SITE_KEY || '').trim();
+const TURNSTILE_WIDGET = TURNSTILE_SITE_KEY
+  ? `<div class="cf-turnstile" data-sitekey="${esc(TURNSTILE_SITE_KEY)}" data-theme="light" data-action="lead-gate"></div>`
+  : '';
+const TURNSTILE_SCRIPT = TURNSTILE_SITE_KEY
+  ? '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>'
+  : '';
+// The footer of this page claims there is no tracking on it. Loading Cloudflare's
+// script makes that claim need a qualifier, exactly as a Google Fonts request would
+// (see serveFont). Say what is actually requested rather than quietly leaving a
+// sentence that has stopped being true.
+const TURNSTILE_NOTE = TURNSTILE_SITE_KEY
+  ? 'No analytics and no tracking on this page. The form loads one third-party script \u2014 Cloudflare Turnstile \u2014 which checks that a person is filling it in, and that is the only request on this page that leaves this origin. '
+  : 'No tracking on this page. ';
 
 // ---------------------------------------------------------------- landing page
 function landingPage() {
@@ -529,6 +563,7 @@ ${HEAD_ICONS}
         <label class="field"><span>Last name</span><input type="text" id="last" name="last" autocomplete="family-name" required></label>
       </div>
       <label class="field"><span>Email address</span><input type="email" id="email" name="email" autocomplete="email" placeholder="you@yourcompany.com" required></label>
+      ${TURNSTILE_WIDGET}
       <button type="submit" id="gogate">Show me the full report</button>
     </form>
     <p class="note" id="gatenote">One email with the report link. No sequence, no resale.</p>
@@ -543,29 +578,54 @@ ${HEAD_ICONS}
   <footer>
     <p class="foot-brand">Advocacy Grade <span class="wm">by <span class="a">justme</span><span class="b">social</span></span>.</p>
     <p class="nav foot-nav"><a href="${LIVE_HREF}">&larr; Run a new report</a></p>
-    <p>No tracking on this page. The grade above is computed from public evidence by a deterministic rubric — the same evidence always yields the same result.</p>
+    <p>${TURNSTILE_NOTE}The grade above is computed from public evidence by a deterministic rubric — the same evidence always yields the same result.</p>
   </footer>
 </main>
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var url = '/report/' + ${JSON.stringify(encodeURIComponent(domain))};
+  // Whether a Turnstile widget was rendered at all. With no site key configured
+  // this is false and every line below that mentions the challenge is skipped.
+  var gated = ${TURNSTILE_SITE_KEY ? 'true' : 'false'};
+  // Cloudflare injects <input name="cf-turnstile-response"> into the enclosing
+  // form once the challenge resolves. Absent or empty means it has not resolved.
+  function tokenNow() {
+    var el = document.querySelector('[name="cf-turnstile-response"]');
+    return el ? el.value : '';
+  }
+  // A spent token cannot be reused, so every dead end resets the widget. Wrapped
+  // because a throw in here would land in the fetch's .catch and be reported to
+  // the visitor as a save failure — the exact costume the 2026-08-31 lookup bug wore.
+  function resetChallenge() {
+    if (!gated || !window.turnstile) return;
+    try { window.turnstile.reset(); } catch (err) { /* nothing the visitor can act on */ }
+  }
+  function fail(msg) { $('gogate').disabled = false; $('gatenote').textContent = msg; resetChallenge(); }
   $('leadform').addEventListener('submit', function (e) {
     e.preventDefault();
+    var token = gated ? tokenNow() : '';
+    if (gated && !token) {
+      // Say what is actually true: the check has not finished. Do not send a
+      // request that we already know the server will refuse.
+      fail('The anti-bot check has not finished yet — give it a second and press the button again. The link below opens the report with no form at all.');
+      return;
+    }
     $('gogate').disabled = true;
     fetch('/api/lead', {
       method: 'POST', headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ first_name: $('first').value, last_name: $('last').value, email: $('email').value, domain: ${JSON.stringify(domain)} })
+      body: JSON.stringify({ first_name: $('first').value, last_name: $('last').value, email: $('email').value, domain: ${JSON.stringify(domain)}, turnstile_token: token })
     })
       .then(function (r) { return r.json(); })
       .then(function (j) {
         if (j.ok) { location.href = url; }
-        else { $('gogate').disabled = false; $('gatenote').textContent = j.error || 'Could not save that — try again?'; }
+        else { fail(j.error || 'Could not save that — try again?'); }
       })
-      .catch(function () { $('gogate').disabled = false; $('gatenote').textContent = 'Something went wrong saving that. The button below still opens the report.'; });
+      .catch(function () { fail('Something went wrong saving that. The button below still opens the report.'); });
   });
 })();
 </script>
+${TURNSTILE_SCRIPT}
 <noscript><p style="max-width:860px;margin:1rem auto;padding:0 1.25rem">The form needs JavaScript, but <a href="/report/${encodeURIComponent(domain)}">the full report</a> does not.</p></noscript>
 </body>
 </html>`;
