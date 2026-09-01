@@ -323,9 +323,14 @@ button:disabled:hover{background:var(--accent)}
 .field span{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 .3rem}
 .field input{width:100%}
 .gatehead{margin:.1rem 0 .5rem;font-size:22px}
-/* Turnstile's iframe is 300x65 in managed mode. Reserve the height so the panel
-   does not jump when the script lands, and keep it above the button. */
-.cf-turnstile{margin:0 0 .85rem;min-height:65px}
+/* NO RESERVED HEIGHT, and that is measured rather than assumed. The widget is in
+   MANAGED mode, which Cloudflare renders silently for most visitors — verified in a
+   real browser on the live site: zero iframes, a token produced with nothing on
+   screen. A fixed 65px therefore left ~70px of dead space for the common case. The
+   host collapses to zero when empty and expands when someone IS challenged; the
+   .85rem matches the gap between the fields above it, so the form reads as
+   deliberate either way. */
+.cf-turnstile{margin:0 0 .85rem}
 /* This panel has one job — telling a visitor the gate is not real — and as a white
    card among white cards it read as one more paragraph. Amber ground, a 6px rule and
    a kicker at 15px make it the thing you see after the form. */
