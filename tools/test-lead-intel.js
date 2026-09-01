@@ -16,10 +16,14 @@
 //     manufacture an opportunity_gap out of a verdict that was never issued.
 //
 // Fixtures-first, per K2: pinned to fixtures/calib/, never to mutable out/calib/.
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
+import { gzipSync } from 'node:zlib';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { scoreEvidence } from '../lib/rubric.js';
 import { buildFindings } from '../lib/findings.js';
 import { leadIntel, LEAD_INTEL_FIELDS } from '../lib/lead-intel.js';
+import { lookupIncumbent } from '../lib/incumbent.js';
 
 let passed = 0, failed = 0;
 function ok(cond, name) {
@@ -115,6 +119,90 @@ const ORIGIN = 'https://greg-o-matic.com';
     'every declared field is present in both the empty and the populated shape');
   ok(Object.keys(a).length === Object.keys(b).length,
     'populated and empty results carry the same key set');
+}
+
+// --- THE INCUMBENT INDEX: "NOT CHECKED" IS NOT "CHECKED AND FOUND NOTHING" --
+// The bug this guards against shipped to production and wrote itself into real
+// lead rows. lib/incumbent.js returned status 'no_evidence_in_index' and the
+// sentence "Nothing found for X in the incumbent index" in BOTH cases: when the
+// index was loaded and the domain was genuinely absent, AND when no index was
+// loaded at all. The second is a claim that a search ran. No search ran.
+// Spec section 7 rule 3.
+//
+// The fixture is INVENTED here at run time, not read from data/. data/ is
+// gitignored and holds the real scraped index; no part of it is committed, and
+// no assertion below depends on it existing.
+{
+  const dir = mkdtempSync(join(tmpdir(), 'advg-incumbent-'));
+  const tiny = {
+    schema: 1,
+    built_at: '2020-01-01T00:00:00.000Z',
+    domains: {
+      'known-customer.example': [{
+        vendor_name: 'Fictional Advocacy Co', vendor_key: 'fictional', vendor_tier: 'advocacy',
+        confidence: 'confirmed', confidence_basis: 'invented for this test',
+        evidence: { source: 'test', app_name: 'Test App', bundle_id: 'com.example.test',
+                    developer_account: 'Fictional Advocacy Co', app_url: 'https://example.com/app',
+                    last_updated: '2025-06-01T00:00:00.000Z' },
+      }],
+    },
+    rows: [], counts: {},
+  };
+  const plain = join(dir, 'tiny-index.json');
+  const gz = join(dir, 'tiny-index.json.gz');
+  const b64 = join(dir, 'tiny-index.json.gz.b64');
+  const body = JSON.stringify(tiny);
+  writeFileSync(plain, body);
+  writeFileSync(gz, gzipSync(Buffer.from(body)));
+  // Written with embedded newlines on purpose: a value pasted into Render's
+  // secret-file textarea can pick up wrapping, and the loader must not care.
+  writeFileSync(b64, gzipSync(Buffer.from(body)).toString('base64').replace(/(.{76})/g, '$1\n'));
+
+  const noIndex = lookupIncumbent('anything.example', { indexPath: join(dir, 'does-not-exist.json') });
+  const realMiss = lookupIncumbent('anything.example', { indexPath: plain });
+  const realHit = lookupIncumbent('known-customer.example', { indexPath: plain });
+
+  ok(noIndex.status === 'no_index_loaded' && noIndex.index_loaded === false,
+    'no index loaded: status is "no_index_loaded", not a miss');
+  ok(realMiss.status === 'no_evidence_in_index' && realMiss.index_loaded === true,
+    'index loaded, domain absent: status is "no_evidence_in_index"');
+  ok(noIndex.status !== realMiss.status,
+    'the two are DISTINGUISHABLE — this is the whole point of the fix');
+  ok(!/nothing found/i.test(noIndex.summary) && /never looked up|no search/i.test(noIndex.summary),
+    'no index loaded: the summary never claims a search happened');
+  ok(realHit.status === 'evidence_found' && realHit.matches.length === 1 && realHit.index_loaded === true,
+    'index loaded, domain present: the found path still works');
+
+  // A .gz index must be inflated on read and produce a byte-identical result.
+  // The real index is ~5.2MB uncompressed, over Render's documented 1MB
+  // combined secret-file cap; gzipped it fits, which is the only reason the
+  // incumbent signal can exist in production at all.
+  const gzHit = lookupIncumbent('known-customer.example', { indexPath: gz });
+  const gzMiss = lookupIncumbent('anything.example', { indexPath: gz });
+  ok(JSON.stringify(gzHit) === JSON.stringify(realHit),
+    'a gzipped index yields a byte-identical result to the plain one (hit)');
+  ok(JSON.stringify(gzMiss) === JSON.stringify(realMiss),
+    'a gzipped index yields a byte-identical result to the plain one (miss)');
+
+  // .gz.b64 is the form that actually reaches production. Render's secret-file
+  // UI is a paste-in Contents field for plaintext, so raw gzip bytes cannot
+  // survive it; gzip-then-base64 can. Suffixes peel right to left.
+  const b64Hit = lookupIncumbent('known-customer.example', { indexPath: b64 });
+  ok(JSON.stringify(b64Hit) === JSON.stringify(realHit),
+    'a gzip+base64 index yields a byte-identical result, newlines and all');
+
+  // And the value has to survive the whole way out to the lead row, because the
+  // Data table column is where the false claim was actually being recorded.
+  const withNoIndex = leadIntel(load('zapier'), {
+    domain: 'zapier.com', publicOrigin: ORIGIN, incumbentIndex: join(dir, 'does-not-exist.json'),
+  });
+  const withIndex = leadIntel(load('zapier'), {
+    domain: 'zapier.com', publicOrigin: ORIGIN, incumbentIndex: plain,
+  });
+  ok(withNoIndex.incumbent_status === 'no_index_loaded',
+    'lead row records "no_index_loaded" when no index is configured');
+  ok(withIndex.incumbent_status === 'no_evidence_in_index',
+    'lead row records "no_evidence_in_index" when an index was searched and missed');
 }
 
 // --- A BROKEN SCORER MUST NOT COST A LEAD -----------------------------------

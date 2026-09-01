@@ -40,6 +40,9 @@ const PORT = Number(env.PORT || 8787);
 // Deliberately NOT derived from the request's Host header: that header is
 // attacker-controlled, and this value ends up as a link inside an email we send.
 const PUBLIC_ORIGIN = env.PUBLIC_ORIGIN || 'https://greg-o-matic.com';
+// Read once, from the merged env. Absence is a supported state, not an error:
+// findings ship as the deterministic prose lib/findings.js already produced.
+const ANTHROPIC_API_KEY = env.ANTHROPIC_API_KEY || null;
 const FAST_CAP_MS = 15000;   // p99 of the measured fast tier
 const FULL_CAP_MS = 150000;  // max observed full run was 77s; double it, then say so honestly
 
@@ -47,6 +50,11 @@ const FULL_CAP_MS = 150000;  // max observed full run was 77s; double it, then s
 // shipped corpus before the cache is read, so the very first lookup of a
 // corpus domain is instant on a brand-new instance.
 ensureSeed();
+// Said once at boot so the deploy log answers "is AI actually running?" without
+// anyone having to infer it from the prose. Mirrors the seed line.
+console.log(ANTHROPIC_API_KEY
+  ? 'narrate: ANTHROPIC_API_KEY present — findings prose will be model-polished, with the deterministic text as the fallback'
+  : 'narrate: no ANTHROPIC_API_KEY — findings ship as deterministic prose (this is a supported state, not a failure)');
 const cache = new EvidenceCache({});
 // Every user-visible mention of the cache window derives from CACHE_TTL_MS so the
 // page can never claim a TTL the code does not actually enforce.
@@ -227,7 +235,12 @@ async function handleLead(req, res) {
   // cache and no route exposes it. The teaser page (the only surface carrying this
   // form) renders only when the cache is warm, so on the ordinary path the evidence
   // is present. When it is not, every derived field is null rather than guessed.
-  const intel = leadIntel(cache.get(host)?.evidence || null, { domain: host, publicOrigin: PUBLIC_ORIGIN });
+  // INCUMBENT_INDEX comes from the MERGED env for the same reason the Turnstile
+  // secret does: loadEnv() does not populate process.env, so a .env-only value
+  // would never reach lib/incumbent.js's own fallback. Unset is a valid state --
+  // the lead then records incumbent_status 'no_index_loaded', which says no
+  // search ran rather than pretending one found nothing.
+  const intel = leadIntel(cache.get(host)?.evidence || null, { domain: host, publicOrigin: PUBLIC_ORIGIN, incumbentIndex: env.INCUMBENT_INDEX || null });
   const result = await leadStore.append({
     email,
     first_name: first || null,
@@ -253,7 +266,18 @@ async function handleReport(req, res, host) {
   }
   const scoring = scoreEvidence(cached.evidence); // live rubric, never the stored block
   let findings = buildFindings(cached.evidence, scoring);
-  findings = await narrateFindings(findings, { domain: host }); // no-op without ANTHROPIC_API_KEY
+  // The key comes from the MERGED env for the same reason TURNSTILE_SECRET_KEY and
+  // INCUMBENT_INDEX do: loadEnv() does not populate process.env, so narrate.js's own
+  // process.env default would never see a .env-only key and the feature would be
+  // untestable locally. On Render both paths agree.
+  findings = await narrateFindings(findings, { domain: host, apiKey: ANTHROPIC_API_KEY });
+  // A narration failure is SILENT by design — the report is complete either way.
+  // That is exactly why it gets logged: with a key set and nothing in the log,
+  // "the model ran" would be an assumption. Only the failure is logged; a working
+  // key must not print a line per report view.
+  if (ANTHROPIC_API_KEY && findings.narrated === false) {
+    console.warn('narrate: ' + (findings.narrate_note || 'narration did not run, no reason given'));
+  }
   const preGenerated = cached.source.includes('calib');
   return html(res, 200, renderReport({ domain: host, ev: cached.evidence, scoring, findings, preGenerated, backHref: '/corpus/', corpusStats: CORPUS_STATS }));
 }

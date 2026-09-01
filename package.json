@@ -11,7 +11,7 @@
     "setup": "node setup.js",
     "check": "node setup.js --check",
     "fixtures": "node fixtures/server.js",
-    "test": "node tools/test-rubric.js && node tools/test-findings.js && node tools/test-cache.js && node tools/test-classify.js && node tools/test-turnstile.js && node tools/test-lead-intel.js",
+    "test": "node tools/test-rubric.js && node tools/test-findings.js && node tools/test-cache.js && node tools/test-classify.js && node tools/test-turnstile.js && node tools/test-lead-intel.js && node tools/test-narrate.js",
     "build:site": "node tools/build-site.js",
     "serve": "node server.js",
     "start": "node server.js",
