@@ -323,21 +323,28 @@ button:disabled:hover{background:var(--accent)}
 .field span{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 .3rem}
 .field input{width:100%}
 .gatehead{margin:.1rem 0 .5rem;font-size:22px}
-/* NO RESERVED HEIGHT HERE — but be clear about what that does and does not buy,
-   because the first version of this comment was wrong. Measured on the live page in
-   a real browser: with this rule carrying no min-height, Cloudflare's own injected
-   container still computes to ~70.7px even though it paints nothing (the widget is
-   in MANAGED mode, which resolves silently for most visitors — zero iframes, a
-   794-char token, blank on screen). No rule in this stylesheet matches that
-   container and it has no inline style: THE FOOTPRINT IS CLOUDFLARE'S, NOT OURS,
-   and it cannot be removed from here. What this rule does is stop US asserting a
-   height we do not own. The .85rem matches the gap between the fields above it.
-   🔴 data-appearance="interaction-only" DOES collapse it to 0 — and produces NO
+/* Reserve the widget's height so the submit button does not jump between page
+   paint and widget paint. Turnstile's box is 300x65 in managed mode, and its
+   appearance option defaults to "always", so it IS drawn on every load.
+
+   🔴 DO NOT "VERIFY" THAT BY QUERYING THE DOM — IT WILL LIE TO YOU, AND IT LIED TO
+   ME TWICE. Turnstile renders into a CLOSED shadow root.
+   document.querySelectorAll('iframe') returns 0, el.shadowRoot is null, and the
+   container's own outerHTML is literally an empty div — while a real, visible
+   Cloudflare box paints at
+   70.66px. I read that emptiness as "the widget renders nothing for most visitors"
+   and removed this reservation; a screenshot taken after the box had painted showed
+   an unchecked "Verify you are human" checkbox sitting exactly where the DOM said
+   nothing existed. TAKE A SCREENSHOT, AFTER A WAIT. Do not trust querySelector on a
+   third-party widget.
+
+   🔴 data-appearance="interaction-only" WOULD collapse this to 0 — and produces NO
    token, because it defers the challenge until an interaction. Tested on the live
    page: 0px and an empty response field after 11s, which would make the submit
-   handler below refuse every visitor. Adopting it means moving to an explicit
-   turnstile.execute() + callback flow first. Do not set it as a one-line tweak. */
-.cf-turnstile{margin:0 0 .85rem}
+   handler below refuse every visitor with "the check has not finished". Adopting it
+   means moving to an explicit turnstile.execute() + callback flow first. It is not
+   a one-line tweak. */
+.cf-turnstile{margin:0 0 .85rem;min-height:65px}
 /* This panel has one job — telling a visitor the gate is not real — and as a white
    card among white cards it read as one more paragraph. Amber ground, a 6px rule and
    a kicker at 15px make it the thing you see after the form. */
