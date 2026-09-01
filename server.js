@@ -323,13 +323,20 @@ button:disabled:hover{background:var(--accent)}
 .field span{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 .3rem}
 .field input{width:100%}
 .gatehead{margin:.1rem 0 .5rem;font-size:22px}
-/* NO RESERVED HEIGHT, and that is measured rather than assumed. The widget is in
-   MANAGED mode, which Cloudflare renders silently for most visitors — verified in a
-   real browser on the live site: zero iframes, a token produced with nothing on
-   screen. A fixed 65px therefore left ~70px of dead space for the common case. The
-   host collapses to zero when empty and expands when someone IS challenged; the
-   .85rem matches the gap between the fields above it, so the form reads as
-   deliberate either way. */
+/* NO RESERVED HEIGHT HERE — but be clear about what that does and does not buy,
+   because the first version of this comment was wrong. Measured on the live page in
+   a real browser: with this rule carrying no min-height, Cloudflare's own injected
+   container still computes to ~70.7px even though it paints nothing (the widget is
+   in MANAGED mode, which resolves silently for most visitors — zero iframes, a
+   794-char token, blank on screen). No rule in this stylesheet matches that
+   container and it has no inline style: THE FOOTPRINT IS CLOUDFLARE'S, NOT OURS,
+   and it cannot be removed from here. What this rule does is stop US asserting a
+   height we do not own. The .85rem matches the gap between the fields above it.
+   🔴 data-appearance="interaction-only" DOES collapse it to 0 — and produces NO
+   token, because it defers the challenge until an interaction. Tested on the live
+   page: 0px and an empty response field after 11s, which would make the submit
+   handler below refuse every visitor. Adopting it means moving to an explicit
+   turnstile.execute() + callback flow first. Do not set it as a one-line tweak. */
 .cf-turnstile{margin:0 0 .85rem}
 /* This panel has one job — telling a visitor the gate is not real — and as a white
    card among white cards it read as one more paragraph. Amber ground, a 6px rule and
