@@ -186,6 +186,7 @@ summary:hover{color:var(--accent)}
 code{font-family:var(--font-mono);font-size:12.5px}
 /* --- tables ---------------------------------------------------------------- */
 table{border-collapse:collapse;width:100%;font-size:14px}
+tr.grouphead th{text-align:left;padding:.7rem .5rem .3rem;font-size:13px;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
 .tablewrap{overflow-x:auto;border-radius:var(--r-md)}
 th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
 th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
@@ -241,7 +242,7 @@ footer{margin-top:3.5rem;border-top:1px solid var(--line);padding-top:1.2rem;fon
       <div class="flag">not observable</div>
     </div><div class="sub-card b-none">
       <div class="num">Not scored</div>
-      <div class="lbl">Employee & Culture Surface</div>
+      <div class="lbl">Employee & Culture</div>
       
       <div class="flag">not observable</div>
     </div><div class="sub-card b-red">
@@ -253,9 +254,9 @@ footer{margin-top:3.5rem;border-top:1px solid var(--line);padding-top:1.2rem;fon
   <div class="honest">
   <p class="kicker">Read this before the numbers</p>
   <p><b>This tool was built in a few days, on a stack of stated assumptions.</b> I didn't have the time — or the inside knowledge of what buyers in this category actually optimize for — to be certain these are the metrics that matter most. The four categories and their weights are editorial judgment, not measurement: nobody has proven that these things cause employees to post, and I don't claim otherwise.</p>
-  <p>What isn't measured, on purpose: your employees' actual posting. I chose to strictly adhere to LinkedIn's Terms of Service, so no direct or indirect scraping of LinkedIn went into this report. The only LinkedIn signal here is whether your own pages carry a LinkedIn share link — that's your HTML, not theirs. This report reads only what your company has published on its own public site, which is also the part you can fix.</p>
+  <p>Where the evidence comes from: three of the four categories read only what your company has published on its own public site — the part you can fix on Monday. Half of Employee &amp; Culture comes from somewhere else: aggregate counts of how many of your people posted in the last 90 days, from a licensed third-party index of public professional-network activity. Nothing here was scraped from LinkedIn by this tool. Those counts are records in an index, not a census — they undercount, they undercount small companies most, and you can't check them yourself — so each one says so where it appears, a zero is reported as "none in the index" and never as "nobody posts," and a company with fewer than 25 people in the index gets the number reported but not scored. No individual is named anywhere in this report.</p>
   <p>To prioritize speed, this particular report was loaded using cached data; it was generated from evidence originally collected on August 31, 2026 rather than live. Reports are cached for 30 days. Every observation below is dated and cited.</p>
-  <p>What you can hold me to: every number cites its public evidence, nothing unseen is guessed at, robots.txt is respected on every fetch, and when this tool can't read a site it says so instead of issuing a grade.</p>
+  <p>What you can hold me to: every number cites its evidence and says where it came from, nothing unseen is guessed at, robots.txt is respected on every fetch, and when this tool can't read a site it says so instead of issuing a grade.</p>
 </div>
   <h2>What was found — most fixable first</h2>
     <p class="note">Ranked by impact × ease of fixing, not by category. Counts describe the pages actually read, and each finding cites them.</p>
@@ -285,6 +286,20 @@ footer{margin-top:3.5rem;border-top:1px solid var(--line);padding-top:1.2rem;fon
   <p>The homepage carries no JSON-LD schema.org markup. Machine readers — search engines and AI assistants alike — get no structured statement of who you are (Organization, name, logo, sameAs profiles).</p>
   <p class="note">Evidence: homepage HTML.</p>
   <p class="fix"><b>The fix:</b> Add an Organization JSON-LD block to the homepage: name, url, logo, and sameAs links to your official social profiles.</p>
+</div>
+<div class="finding f-opportunity">
+  <span class="chip c-opportunity">Opportunity</span>
+  <h3>Your people are barely posting</h3>
+  <p>In the licensed index, 0 of 37 current employees posted anything in the last 90 days (0%). Across the 126 graded companies in this corpus the median is 6.1%. This is a third-party count and a lower bound — but the gap to the median is not a rounding error.</p>
+  <p class="note">Evidence: licensed third-party index.</p>
+  <p class="fix"><b>The fix:</b> This is the gap an advocacy program closes directly. Start with the few people who already post: give them something from your site worth sharing this week.</p>
+</div>
+<div class="finding f-opportunity">
+  <span class="chip c-opportunity">Opportunity</span>
+  <h3>No company-page posts in the last 90 days — in the index</h3>
+  <p>The licensed index holds 0 post(s) from your company page in total and none in the last 90 days. That may be index coverage rather than silence — during testing the index missed a company that posts weekly — so treat this as a prompt to check, not a verdict.</p>
+  <p class="note">Evidence: licensed third-party index.</p>
+  <p class="fix"><b>The fix:</b> If the page really has gone quiet, employees have nothing of yours to amplify. A weekly cadence is the floor most graded companies clear.</p>
 </div>
 <div class="finding f-issue">
   <span class="chip c-issue">Issue</span>
@@ -317,10 +332,10 @@ footer{margin-top:3.5rem;border-top:1px solid var(--line);padding-top:1.2rem;fon
   
 </div>
   <h2>How the numbers break down</h2>
-  <p class="note">Weights: Content Supply 30% · Shareability 25% · Employee &amp; Culture 25% · AI Discoverability 20%. The weights are editorial judgment about what an advocacy program draws on — not the result of a study. Every row cites the observation behind it.</p>
+  <p class="note">Weights: Content Supply 30% · Shareability 25% · Employee &amp; Culture 25% (half what the site says, half what employees do) · AI Discoverability 20%. The weights are editorial judgment about what an advocacy program draws on — not the result of a study. Every row cites the observation behind it and says whether it was read from your site or from the licensed index.</p>
   <div class="panel"><h3 style="margin:.1rem 0">Content Supply — <span class="conf">not scored</span></h3><p class="note">No sitemap URLs were retrieved, so content volume could not be measured.</p></div>
 <div class="panel"><h3 style="margin:.1rem 0">Shareability — <span class="conf">not scored</span></h3><p class="note">No content pages were sampled.</p></div>
-<div class="panel"><h3 style="margin:.1rem 0">Employee & Culture Surface — <span class="conf">not scored</span></h3><p class="note">No sitemap URLs were retrieved.</p></div>
+<div class="panel"><h3 style="margin:.1rem 0">Employee & Culture — <span class="conf">not scored</span></h3><p class="note">No sitemap URLs were retrieved.</p></div>
 <div class="panel">
       <h3 style="margin:.1rem 0">AI Discoverability — <span class="catscore score-num">54</span>/100 <span class="conf">(reduced confidence)</span></h3>
       <div class="tablewrap"><table><thead><tr><th>Signal</th><th>Points</th><th>What was observed</th></tr></thead><tbody>
@@ -336,7 +351,7 @@ footer{margin-top:3.5rem;border-top:1px solid var(--line);padding-top:1.2rem;fon
       <p class="nav share"><a href="mailto:?subject=cce.com's%20Advocacy%20Grade%20report&body=I%20ran%20cce.com%20through%20Advocacy%20Grade%2C%20a%20free%20employee-advocacy%20readiness%20check.%20No%20letter%20grade%20was%20issued%20--%20the%20report%20says%20exactly%20why%2C%20plus%20what%20it%20did%20find%3A%20https%3A%2F%2Fgreg-o-matic.com%2Freport%2Fcce.com">Share this report with a colleague</a></p>
     </div>
     <p>Method: deterministic rubric in code — the same evidence always yields the same result; no model assigns numbers. User-agent: AdvocacyReadinessGrader/0.1.0-phase1 (+https://greg-o-matic.com/grader; respects robots.txt). This page renders without JavaScript and holds no tracking.</p>
-    <p>This report reads only public pages, identifies itself honestly, and honors robots.txt on every request — including the ones that would have made it look better.</p>
+    <p>This report reads public pages, identifies itself honestly, and honors robots.txt on every request — including the ones that would have made it look better. The employee-posting counts come from a licensed third-party index and are labeled as such wherever they appear.</p>
   </footer>
 </main>
 </body>
