@@ -279,7 +279,7 @@ async function handleReport(req, res, host) {
     console.warn('narrate: ' + (findings.narrate_note || 'narration did not run, no reason given'));
   }
   const preGenerated = cached.source.includes('calib');
-  return html(res, 200, renderReport({ domain: host, ev: cached.evidence, scoring, findings, preGenerated, backHref: '/corpus/', corpusStats: CORPUS_STATS }));
+  return html(res, 200, renderReport({ domain: host, ev: cached.evidence, scoring, findings, preGenerated, backHref: '/corpus/', corpusStats: CORPUS_STATS, shareUrl: `${PUBLIC_ORIGIN}/report/${host}` }));
 }
 
 // Fonts are vendored under site/fonts/ and served from this origin on purpose:

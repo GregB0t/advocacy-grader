@@ -47,7 +47,11 @@ for (const f of evidenceFiles) {
     const scoring = scoreEvidence(ev); // ALWAYS the live rubric; d.scoring is stale first-pass output
     const findings = buildFindings(ev, scoring);
     const domain = ev.meta?.normalized_host || slug;
-    const html = renderReport({ domain, ev, scoring, findings, preGenerated: true, corpusStats });
+        // Hardcoded to match server.js's PUBLIC_ORIGIN default: this static
+    // twin's own deployed origin is not where these reports canonically live,
+    // and the share link must point somewhere that will actually show the
+    // report you're looking at, not a 404 on a different host.
+    const html = renderReport({ domain, ev, scoring, findings, preGenerated: true, corpusStats, shareUrl: `https://greg-o-matic.com/report/${domain}` });
     writeFileSync(join(outDir, 'reports', slug + '.html'), html);
     rows.push({ slug, domain, grade: scoring.grade, overall: scoring.overall_score, actions: findings.actions.length });
   } catch (err) {
