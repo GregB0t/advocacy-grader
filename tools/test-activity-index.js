@@ -141,5 +141,45 @@ ok(COST.company_multi_source === 20 && COST.employee_post === 1, 'cost table mat
 
 
 
-console.log(`\n${passed} passed, ${failed} failed`);
+// ---- rubric split (Employee & Culture, behind opts.activity_index) ----
+{
+  const { scoreEvidence, ACTIVITY_INDEX_MIN_INDEXED } = await import('../lib/rubric.js');
+  const { readdirSync } = await import('node:fs');
+  const fx = 'zapier.json'; // scorable Employee & Culture; the first fixture alphabetically has no sitemap
+  const ev = JSON.parse((await import('node:fs')).readFileSync('fixtures/calib/' + fx, 'utf8'));
+  const base = scoreEvidence(ev);
+  const counts = (o) => ({ window_days: 90, since: '2026-06-18', employees_indexed: 1000, employees_posted_in_window: 61, active_poster_rate_pct: 6.1, decision_makers_posted_in_window: 12, company_posts_in_window: 39, company_posts_all_time: 200, reshares_of_company_posts_in_window: 20, ...o });
+  const cs = (o = {}, c = {}) => ({ status: 'resolved', confidence: 'high', coverage: 'ok', company_id: 1, company_name: 'X', method: 'enrich_by_website', record: { employees_count: 1200 }, counts: counts(c), ...o });
+
+  // flag off: identical to today, even with a block present
+  const off = scoreEvidence({ ...ev, activity_index: cs() });
+  ok(off.overall_score === base.overall_score && off.categories.employee_culture.score === base.categories.employee_culture.score && off.categories.employee_culture.basis === 'website', 'rubric: opts.activity_index absent -> nothing changes');
+
+  // flag on, corpus-median counts: the index half scores ~15/50 (percentile anchoring)
+  const on = scoreEvidence({ ...ev, activity_index: cs() }, { activity_index: true });
+  const ec = on.categories.employee_culture;
+  const half = ec.score - base.categories.employee_culture.score / 2;
+  ok(ec.basis === 'website+index' && half >= 14 && half <= 16, `rubric: median-company counts score ${half.toFixed(1)}/50 on the index half`);
+  ok(ec.components.filter((c) => c.group === 'What the site says').length === 5 && ec.components.filter((c) => c.group === 'What employees do').length === 3, 'rubric: 5 website components halved + 3 index components');
+  ok(ec.components.filter((c) => c.group === 'What the site says').reduce((n, c) => n + c.max, 0) === 50 && ec.components.filter((c) => c.group === 'What employees do').reduce((n, c) => n + c.max, 0) === 50, 'rubric: both halves max at 50');
+  ok(ec.components.every((c) => c.group !== 'What employees do' || /licensed third-party index/.test(c.evidence)), 'rubric: every index line names its source');
+  ok(on.categories.content_supply.score === base.categories.content_supply.score && on.categories.shareability.score === base.categories.shareability.score && on.categories.ai_discoverability.score === base.categories.ai_discoverability.score, 'rubric: the other three categories are untouched');
+
+  // top of the scales
+  const top = scoreEvidence({ ...ev, activity_index: cs({}, { active_poster_rate_pct: 25, decision_makers_posted_in_window: 60, company_posts_in_window: 200 }) }, { activity_index: true }).categories.employee_culture;
+  ok(Math.abs((top.score - base.categories.employee_culture.score / 2) - 50) < 0.11, 'rubric: 25% rate + 6% DM + 200 posts -> full 50');
+  const zero = scoreEvidence({ ...ev, activity_index: cs({}, { active_poster_rate_pct: 0, employees_posted_in_window: 0, decision_makers_posted_in_window: 0, company_posts_in_window: 0 }) }, { activity_index: true }).categories.employee_culture;
+  ok(Math.abs(zero.score - base.categories.employee_culture.score / 2) < 0.11 && /none in the index, which is not proof/.test(zero.components.find((c) => /cadence/.test(c.name)).evidence), 'rubric: all-zero counts -> 0/50 and "none in the index" wording');
+
+  // thin coverage: reported, not scored; website half at full scale
+  const thin = scoreEvidence({ ...ev, activity_index: cs({}, { employees_indexed: ACTIVITY_INDEX_MIN_INDEXED - 1, employees_posted_in_window: 20, active_poster_rate_pct: 83.3 }) }, { activity_index: true }).categories.employee_culture;
+  ok(thin.score === base.categories.employee_culture.score && thin.basis === 'website' && thin.notes.some((n) => /minimum 25/.test(n)) && thin.evidence.activity_index.scored === false, 'rubric: under-minimum index -> website-only at full scale, numbers reported in the note');
+  // unresolved: same fallback, reason carried
+  const unres = scoreEvidence({ ...ev, activity_index: { status: 'unresolved', reason: 'no record for this website' } }, { activity_index: true }).categories.employee_culture;
+  ok(unres.score === base.categories.employee_culture.score && unres.notes.some((n) => /no record for this website/.test(n)), 'rubric: unresolved -> website-only, reason in the note');
+  // null count (not observed) is not zero
+  const nul = scoreEvidence({ ...ev, activity_index: cs({}, { employees_posted_in_window: null, active_poster_rate_pct: null }) }, { activity_index: true }).categories.employee_culture;
+  ok(nul.basis === 'website' && /did not answer/.test(nul.notes.join(' ')), 'rubric: a null count is "not observed", never scored as 0');
+}
+console.log(`\n${passed} passed, ${failed} failed (incl. rubric split)`);
 process.exit(failed ? 1 : 0);
