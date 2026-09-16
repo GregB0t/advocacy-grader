@@ -54,7 +54,7 @@ function fakeFetch(log) {
     return reply(404, { detail: 'nope' });
   };
 }
-const make = (opts = {}) => { const log = []; const cs = new ActivityIndex({ apiKey: 'test', baseUrl: 'https://index.example/v2', cacheDir: mkdtempSync(join(tmpdir(), 'cs-')), fetchImpl: fakeFetch(log), ...opts }); return { cs, log }; };
+const make = (opts = {}) => { const log = []; const cs = new ActivityIndex({ apiKey: 'test', baseUrl: 'https://index.example/v2', cacheDir: mkdtempSync(join(tmpdir(), 'cs-')), ledgerPath: null, fetchImpl: fakeFetch(log), ...opts }); return { cs, log }; };
 
 // ---- shorthand extraction ----
 const HTML = `<a href="https://www.linkedin.com/company/align-technology/">LinkedIn</a>
@@ -72,6 +72,13 @@ ok(assessCandidate(ES, { domain: 'everyonesocial.com', employeesIndexed: 34 }).c
 { const a = assessCandidate(GONG_IL, { domain: 'gong.io', employeesIndexed: 0 });
   ok(a.confidence === 'low' && a.checks.headcount_consistent === false, 'assess: Gong Israel (employees 0 vs size 501-1000) -> low, inconsistency named'); }
 ok(assessCandidate(GONG, { domain: 'gong.io', employeesIndexed: 1831, method: 'homepage_linkedin:gong-io' }).confidence === 'medium', 'assess: alias website but homepage-declared -> medium');
+{ const { nameMatchesSite, extractTitle } = await import('../lib/activity-index.js');
+  const AGENCY = { id: 21740843, company_name: 'MarkUpgrade', website: 'https://www.markupgrade.com', employees_count: 3, size_range: '1-10 employees' };
+  const a = assessCandidate(AGENCY, { domain: 'clientsite.fr', employeesIndexed: 1, method: 'homepage_linkedin:markupgrade', siteTitle: 'Client Site — Fabricant de portes' });
+  ok(a.confidence === 'low' && a.checks.name_matches_site === false, 'assess: homepage-declared agency link whose name is not on the site -> low (the MarkUpgrade case)');
+  ok(nameMatchesSite('Ashurst Perkins Coie', { domain: 'perkinscoie.com' }) && nameMatchesSite('Miroglio Group', { domain: 'mirogliogroup.com' }) && nameMatchesSite('Gong', { domain: 'gong.io', title: 'Gong - Revenue AI' }) && nameMatchesSite('Align Technology', { domain: 'aligntechnology.com' }), 'name check: real alias cases still pass on domain/title tokens');
+  ok(!nameMatchesSite('Global Services Group', { domain: 'acme.com', title: 'Acme' }), 'name check: generic tokens alone never match');
+  ok(/Acme Widgets/.test(extractTitle('<html><head><title>Acme Widgets | Home</title><meta property="og:site_name" content="Acme"></head>')), 'extractTitle: reads <title> and og:site_name'); }
 ok(assessCandidate(GONG, { domain: 'gong.io', employeesIndexed: 1831, method: 'enrich_by_website' }).confidence === 'low', 'assess: alias website via enrich, not declared -> low');
 ok(assessCandidate(ALIGN, { domain: 'aligntechnology.com', finalHost: 'www.aligntech.com', employeesIndexed: 9699 }).confidence === 'high', 'assess: finalHost (redirect target) counts as a website match');
 eq(assessCandidate(ES, { domain: 'everyonesocial.com', employeesIndexed: null }).coverage, 'unknown', 'assess: coverage unknown when count not observed');
@@ -147,13 +154,16 @@ ok(COST.company_multi_source === 20 && COST.employee_post === 1, 'cost table mat
   const { readdirSync } = await import('node:fs');
   const fx = 'zapier.json'; // scorable Employee & Culture; the first fixture alphabetically has no sitemap
   const ev = JSON.parse((await import('node:fs')).readFileSync('fixtures/calib/' + fx, 'utf8'));
-  const base = scoreEvidence(ev);
+  const base = scoreEvidence(ev, { activity_index: false });
+  // default (no opts) on evidence WITHOUT a block: same numbers as the pure rubric, plus the not-scored note
+  const noblock = scoreEvidence(ev);
+  ok(noblock.overall_score === base.overall_score && noblock.categories.employee_culture.basis === 'website' && noblock.categories.employee_culture.notes.some((n) => /no activity-index lookup was made/.test(n)), 'rubric: default on block-less evidence -> same numbers, note says no lookup was made');
   const counts = (o) => ({ window_days: 90, since: '2026-06-18', employees_indexed: 1000, employees_posted_in_window: 61, active_poster_rate_pct: 6.1, decision_makers_posted_in_window: 12, company_posts_in_window: 39, company_posts_all_time: 200, reshares_of_company_posts_in_window: 20, ...o });
   const cs = (o = {}, c = {}) => ({ status: 'resolved', confidence: 'high', coverage: 'ok', company_id: 1, company_name: 'X', method: 'enrich_by_website', record: { employees_count: 1200 }, counts: counts(c), ...o });
 
-  // flag off: identical to today, even with a block present
-  const off = scoreEvidence({ ...ev, activity_index: cs() });
-  ok(off.overall_score === base.overall_score && off.categories.employee_culture.score === base.categories.employee_culture.score && off.categories.employee_culture.basis === 'website', 'rubric: opts.activity_index absent -> nothing changes');
+  // opted out: identical to the pure website rubric, even with a block present
+  const off = scoreEvidence({ ...ev, activity_index: cs() }, { activity_index: false });
+  ok(off.overall_score === base.overall_score && off.categories.employee_culture.score === base.categories.employee_culture.score && off.categories.employee_culture.basis === 'website', 'rubric: { activity_index: false } -> pure website rubric, block ignored');
 
   // flag on, corpus-median counts: the index half scores ~15/50 (percentile anchoring)
   const on = scoreEvidence({ ...ev, activity_index: cs() }, { activity_index: true });
@@ -181,5 +191,60 @@ ok(COST.company_multi_source === 20 && COST.employee_post === 1, 'cost table mat
   const nul = scoreEvidence({ ...ev, activity_index: cs({}, { employees_posted_in_window: null, active_poster_rate_pct: null }) }, { activity_index: true }).categories.employee_culture;
   ok(nul.basis === 'website' && /did not answer/.test(nul.notes.join(' ')), 'rubric: a null count is "not observed", never scored as 0');
 }
-console.log(`\n${passed} passed, ${failed} failed (incl. rubric split)`);
+// ---- evidence block, observeActivity, monthly cap ----
+{
+  const { evidenceBlock, observeActivity } = await import('../lib/activity-index.js');
+  const { cs: idx } = make();
+  const r = await idx.resolveCompany({ domain: 'everyonesocial.com', html: '' });
+  r.record.company_emails = ['someone@example.com']; r.record.company_updates = new Array(100).fill({ description: 'x' });
+  const b = evidenceBlock(r, await idx.companyCounts(r.company_id));
+  const json = JSON.stringify(b);
+  ok(b.status === 'resolved' && b.company_id === 6408815 && b.counts && b.record_summary && !('record' in b), 'block: carries id, counts and a summary, never the raw record');
+  ok(!/company_emails|someone@example|company_updates/.test(json) && json.length < 4000, 'block: no emails, no post bodies, small');
+  ok(b.source === 'licensed third-party index' && !/Coresig/i.test(json), 'block: source is generic and the provider is not named');
+  const o = await observeActivity(idx, { domain: 'nobody.example', html: '' });
+  ok(o.block.status === 'unresolved' && o.not_observed.length === 1 && /could not be matched/.test(o.not_observed[0]), 'observe: unresolved -> block says so, one not_observed line');
+  const off = await observeActivity(new ActivityIndex({ apiKey: null, baseUrl: null, cacheDir: null, ledgerPath: null }), { domain: 'x.com' });
+  ok(off.block.status === 'disabled' && /no licensed activity index configured/.test(off.not_observed[0]), 'observe: not configured -> disabled, says so');
+  const boom = await observeActivity({ enabled: true, resolveCompany: async () => { throw new Error('socket hang up'); } }, { domain: 'x.com' });
+  ok(boom.block.status === 'error' && /lookup failed/.test(boom.not_observed[0]), 'observe: a thrown lookup never throws out — error block + not_observed');
+}
+{
+  const { writeFileSync } = await import('node:fs');
+  const ledger = join(mkdtempSync(join(tmpdir(), 'led-')), 'credits.json');
+  writeFileSync(ledger, JSON.stringify({ month: new Date().toISOString().slice(0, 7), used: 39990 }));
+  const log = []; const idx = new ActivityIndex({ apiKey: 'test', baseUrl: 'https://index.example/v2', cacheDir: null, ledgerPath: ledger, monthlyCap: 40000, fetchImpl: fakeFetch(log) });
+  const r = await idx.resolveCompany({ domain: 'everyonesocial.com', useCache: false });
+  ok(r.status === 'ceiling' && idx.creditsUsed === 0 && log.length === 0, 'monthly cap: a 20-credit call over the cap is refused before any request is made');
+  ok((await idx.count('company_post', { match_all: {} })) === 165, 'monthly cap: free searches still work at the cap');
+  writeFileSync(ledger, JSON.stringify({ month: '1999-01', used: 999999 }));
+  const r2 = await idx.resolveCompany({ domain: 'everyonesocial.com', useCache: false });
+  ok(r2.status === 'resolved' && idx.monthlyUsed === 20, 'monthly cap: a stale month resets; the charge is recorded');
+}
+// ---- findings + lead intel on the new block ----
+{
+  const { buildFindings } = await import('../lib/findings.js');
+  const { leadIntel } = await import('../lib/lead-intel.js');
+  const { readFileSync } = await import('node:fs');
+  const ev = JSON.parse(readFileSync('fixtures/calib/zapier.json', 'utf8'));
+  const block = (c) => ({ source: 'licensed third-party index', status: 'resolved', confidence: 'high', coverage: 'ok', company_id: 1, record_employees_count: 1000, counts: { window_days: 90, since: '2026-06-18', employees_indexed: 803, employees_posted_in_window: 3, active_poster_rate_pct: 0.4, decision_makers_posted_in_window: 0, company_posts_in_window: 0, company_posts_all_time: 0, reshares_of_company_posts_in_window: 0, ...c } });
+  const quiet = buildFindings({ ...ev, activity_index: block({}) }, null);
+  const ids = quiet.actions.map((f) => f.id);
+  ok(ids.includes('employees_quiet') && ids.includes('company_page_quiet'), 'findings: chk.com-shaped counts fire both findings');
+  const q = quiet.actions.find((f) => f.id === 'employees_quiet');
+  ok(/3 of 803/.test(q.statement) && /median is 6.1%/.test(q.statement) && /lower bound/.test(q.statement) && /third-party/.test(q.statement), 'findings: employees_quiet cites counts, the corpus median and the caveat');
+  ok(/prompt to check, not a verdict/.test(quiet.actions.find((f) => f.id === 'company_page_quiet').statement), 'findings: company_page_quiet never calls a zero a verdict');
+  const active = buildFindings({ ...ev, activity_index: block({ employees_posted_in_window: 160, active_poster_rate_pct: 19.9, company_posts_in_window: 40 }) }, null).actions.map((f) => f.id);
+  ok(!active.includes('employees_quiet') && !active.includes('company_page_quiet'), 'findings: active company fires neither');
+  const thin = buildFindings({ ...ev, activity_index: block({ employees_indexed: 20, employees_posted_in_window: 0, active_poster_rate_pct: 0 }) }, null).actions.map((f) => f.id);
+  ok(!thin.includes('employees_quiet'), 'findings: under the 25-employee floor, no quiet finding');
+  ok(!buildFindings({ ...ev, activity_index: { status: 'unresolved' } }, null).actions.some((f) => /quiet/.test(f.id)), 'findings: unresolved -> nothing');
+  const li = leadIntel({ ...ev, activity_index: block({}) }, { domain: 'zapier.com', publicOrigin: 'https://x' });
+  ok(li.advocacy_baseline_status === 'measured' && li.advocacy_baseline_rate_pct === 0.4 && li.advocacy_baseline_indexed === 803 && /cleanest advocacy pitch|needs both/.test(li.advocacy_baseline_note), 'lead intel: baseline measured, rep note present');
+  const li2 = leadIntel({ ...ev, activity_index: { status: 'unresolved', reason: 'no record' } }, { domain: 'zapier.com', publicOrigin: 'https://x' });
+  ok(li2.advocacy_baseline_status === 'unresolved' && li2.advocacy_baseline_rate_pct === null && /not "nobody posts"/.test(li2.advocacy_baseline_note), 'lead intel: unresolved -> null rate, note says so');
+  const li3 = leadIntel(ev, { domain: 'zapier.com', publicOrigin: 'https://x' });
+  ok(li3.advocacy_baseline_status === 'not_looked_up' && li3.advocacy_baseline_rate_pct === null, 'lead intel: no block -> not_looked_up');
+}
+console.log(`\n${passed} passed, ${failed} failed (incl. rubric split, findings, lead intel)`);
 process.exit(failed ? 1 : 0);

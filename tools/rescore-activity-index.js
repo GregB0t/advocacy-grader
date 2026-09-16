@@ -16,8 +16,8 @@ for (const f of readdirSync(dir).filter((x) => x.endsWith('.json'))) {
   const host = ev.meta?.normalized_host || f.slice(0, -5);
   const cp = `${cacheDir}/${registrableDomain(host)}.json`;
   const cs = existsSync(cp) ? JSON.parse(readFileSync(cp, 'utf8')) : null;
-  const before = scoreEvidence(ev);
-  const after = scoreEvidence({ ...ev, activity_index: cs }, { activity_index: true });
+  const before = scoreEvidence(ev, { activity_index: false });
+  const after = scoreEvidence({ ...ev, activity_index: cs });
   const ec = after.categories.employee_culture;
   rows.push({ host, gradeable: before.gradeable, g0: before.grade, s0: before.overall_score, g1: after.grade, s1: after.overall_score,
     ec0: before.categories.employee_culture.score, ec1: ec.score, basis: ec.basis,

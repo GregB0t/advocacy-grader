@@ -5,10 +5,12 @@ company's public web presence is for an employee-advocacy program — whether th
 anything worth sharing, whether shared links render properly, whether employees are
 visible on the content, and whether AI crawlers can read any of it.
 
-Advocacy leaderboards rank companies on the *outcome* (how many employees posted on
-LinkedIn last month). This tool measures the *inputs*: the publicly observable,
-fixable conditions on the company's own website. It never touches LinkedIn and it
-cannot tell you whether anyone will actually post — see [Honest limitations](#honest-limitations).
+Advocacy leaderboards rank companies on the *outcome* (how many employees posted last
+month). This tool measures the *inputs*: the observable, fixable conditions on the
+company's own website — plus one outcome-shaped input, whether people there already
+post, taken as aggregate counts from a licensed third-party index of public
+professional-network activity. It scrapes nothing from LinkedIn and it cannot tell you
+whether anyone *will* post — see [Honest limitations](#honest-limitations).
 
 ## What a report contains
 
@@ -16,12 +18,13 @@ cannot tell you whether anyone will actually post — see [Honest limitations](#
    pages have a literal `/undefined` og:image URL", not "improve your social presence".
    Every finding carries the evidence counts and the URLs it came from.
 2. **A letter grade, only when it is earned.** Four categories: Content Supply (30%),
-   Shareability (25%), Employee & Culture (25%), AI Discoverability (20%). Scoring is
+   Shareability (25%), Employee & Culture (25%: half website, half licensed posting
+   counts), AI Discoverability (20%). Scoring is
    deterministic code (`lib/rubric.js`), not a model call — the same domain always
    gets the same grade, and every point traces to fetched evidence.
 
 **The grade is withheld most of the time, on purpose.** In the 350-domain calibration
-corpus only 91 domains (26%) receive a letter grade. The main reason is us, not them:
+corpus only 126 domains (36%) receive a letter grade. The main reason is us, not them:
 the URL classifier keys on common English content-path shapes (`/blog/`,
 `/resources/`, …) and cannot yet read enterprise-CMS or non-English sitemaps. When
 more than half of a site's URLs are unclassified, a grade computed from the sliver we
@@ -34,7 +37,18 @@ Withheld is not failed; the findings still ship.
 - **The weights are editorial judgment.** Nobody has demonstrated that these four
   categories cause employees to post. They are the conditions we can observe and you
   can fix — presented as exactly that, never as a validated model of advocacy.
-- **LinkedIn (the actual advocacy outcome) is not measured.** Readiness ≠ reach.
+- **Half of Employee & Culture is licensed third-party data, not observed by this tool.**
+  A licensed index of public professional-network activity supplies three aggregate
+  counts per company (employees who posted in the last 90 days, decision-makers who
+  posted, company-page posts). They are labeled on every line, capped at 12.5% of the
+  grade, scored on percentile scales derived from the 126-domain gradeable corpus, and
+  never scored when fewer than 25 employees are in the index. The index undercounts —
+  small companies most — and its coverage varies by company, so a low number is "few in
+  the index," not "nobody posts." No individual is stored or shown. Without the index
+  configured (`ACTIVITY_INDEX_API_KEY` + `ACTIVITY_INDEX_BASE_URL`), the category is
+  scored on website evidence alone and every report says so.
+- **Reach is still not measured.** Whether people post is an input; how far it goes is
+  not in this tool.
 - **The classifier reads paths, not pages, and unreadable stays ungraded.** The K1
   rule set (dated permalinks, eight languages, enterprise-CMS shapes, a catalog
   bucket for commerce inventory) cut the no-grade rate from ~74% to ~64% on the
@@ -43,9 +57,10 @@ Withheld is not failed; the findings still ship.
   justify classifying. The coverage gate exists so none of those get a guessed grade.
 - **~36% of a grade rides on 24 sampled pages** (deterministic, stratified — but a
   sample).
-- **Employee & Culture partly measures where HR content is hosted**, not culture
-  itself (a company whose handbook lives on a subdomain outside its sitemap is
-  understated).
+- **The website half of Employee & Culture partly measures where HR content is
+  hosted**, not culture itself (a company whose handbook lives on a subdomain outside
+  its sitemap is understated). The posting half measures behavior directly, which is
+  why it exists.
 - **AI Discoverability rarely goes low** — most sites don't block AI crawlers, so its
   observed floor across the corpus is ~48/100. It differentiates less than the other
   categories.
@@ -59,7 +74,7 @@ Requires Node 20+. **Zero runtime dependencies** — `npm install` has nothing t
 
 ```
 git clone <repo> && cd advocacy-grader
-npm test                      # 131 offline assertions, no network, no key needed
+npm test                      # 197 offline assertions, no network, no key needed
 node score.js example.com     # collect evidence + score one domain (writes JSON)
 npm run serve                 # live server on :8787 — lookup UI, cached corpus, API
 npm run setup                 # optional: prompt for a ScrapingBee key, verify, write .env
@@ -118,7 +133,7 @@ is enforced by tests.
 
 ## Tests
 
-`npm test` runs 131 assertions, fully offline: coverage-gate boundaries, withheld-grade
+`npm test` runs 197 assertions, fully offline: coverage-gate boundaries, withheld-grade
 wording, the single-count rule for shareability signals, floor/sampler agreement, lead
 tiers, robots contradiction logic, findings on graded / withheld / blocked / partial
 evidence, a no-leak check that private lead data never reaches findings, and the URL

@@ -55,6 +55,11 @@ ensureSeed();
 console.log(ANTHROPIC_API_KEY
   ? 'narrate: ANTHROPIC_API_KEY present — findings prose will be model-polished, with the deterministic text as the fallback'
   : 'narrate: no ANTHROPIC_API_KEY — findings ship as deterministic prose (this is a supported state, not a failure)');
+// Same idea for the licensed activity index: say at boot which state we are in.
+// Falling back is silent by design, so this line is the only place it shows.
+console.log(env.ACTIVITY_INDEX_API_KEY && env.ACTIVITY_INDEX_BASE_URL
+  ? 'activity-index: configured — Employee & Culture scores both halves; new domains cost index credits (per-run and monthly caps apply)'
+  : 'activity-index: not configured — Employee & Culture is scored on website evidence alone and every report says so');
 const cache = new EvidenceCache({});
 // Every user-visible mention of the cache window derives from CACHE_TTL_MS so the
 // page can never claim a TTL the code does not actually enforce.
@@ -428,7 +433,7 @@ ${HEAD_ICONS}
 <main>
   ${BRAND}
   <h1>What does your website <span class="tint">hand your employees to share?</span></h1>
-  <p class="lede">Enter your company's domain. This reads only public pages — sitemap, share tags, structured data, robots.txt — politely and honestly, and shows you what it finds, with the evidence cited. The first findings appear in seconds, free.</p>
+  <p class="lede">Enter your company's domain. This reads your public pages — sitemap, share tags, structured data, robots.txt — politely and honestly, adds a licensed count of how many of your people already post, and shows you what it finds, with every source stated. The first findings appear in seconds, free.</p>
 
   <form class="lookup" id="lookup">
     <input type="text" id="domain" name="domain" placeholder="yourcompany.com" autocomplete="off" required>
@@ -601,7 +606,7 @@ ${HEAD_ICONS}
 <main>
   ${BRAND}
   <h1>Your report for ${esc(domain)} <span class="tint">is ready</span></h1>
-  <p class="sub">Read from public pages only, robots.txt honored on every request, every finding cited.</p>
+  <p class="sub">Read from your public pages plus one licensed data source, robots.txt honored on every request, every finding cited and sourced.</p>
 
   <div class="panel gradehero">
     ${hero}

@@ -119,6 +119,18 @@ if (flag('--check')) {
   const v = await verify(key);
   console.log(v.ok ? c.g(`Verified via ${v.method}`) : c.r(`Failed via ${v.method}`));
   console.log(c.dim(typeof v.detail === 'string' ? v.detail : JSON.stringify(v.detail)));
+  // Licensed activity index: optional. Report the state, never fail the check over it.
+  const aiKey = process.env.ACTIVITY_INDEX_API_KEY || env.ACTIVITY_INDEX_API_KEY;
+  const aiUrl = process.env.ACTIVITY_INDEX_BASE_URL || env.ACTIVITY_INDEX_BASE_URL;
+  if (aiKey && aiUrl) {
+    try {
+      const { ActivityIndex } = await import('./lib/activity-index.js');
+      const t = await new ActivityIndex({ apiKey: aiKey, baseUrl: aiUrl, ledgerPath: null }).selfTest();
+      console.log(t.ok ? c.g('Activity index: configured and the positive control passes') : c.r('Activity index: configured but the positive control FAILED — do not trust its counts'), c.dim(JSON.stringify(t)));
+    } catch (e) { console.log(c.r('Activity index: configured but unreachable — ') + c.dim(e.message)); }
+  } else {
+    console.log(c.y('Activity index: not configured') + c.dim(' (ACTIVITY_INDEX_API_KEY + ACTIVITY_INDEX_BASE_URL) — Employee & Culture scores on website evidence alone'));
+  }
   process.exit(v.ok ? 0 : 1);
 }
 
