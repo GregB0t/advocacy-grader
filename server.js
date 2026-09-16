@@ -449,9 +449,9 @@ ${HEAD_ICONS}
   <div class="honest">
     <p class="kicker">Straight talk, before you type anything</p>
     <p>I built this tool in a few days, on a stack of assumptions — without the inside knowledge to be sure these are the exact metrics that matter for employee advocacy. The four categories and their weights are editorial judgment; nobody has proven they cause employees to post.</p>
-    <p>I chose to strictly adhere to LinkedIn's Terms of Service, so no direct or indirect scraping of LinkedIn went into any of these results. The only LinkedIn signal I read is whether your own pages carry a LinkedIn share link — that's your HTML, not theirs.</p>
+    <p>This tool scrapes nothing from LinkedIn and never will. It does use one thing it did not observe itself: for half of the Employee &amp; Culture score, it reads aggregate employee-posting counts from a licensed third-party index of public professional-network activity. I can't audit how that index is compiled and neither can you, so every line that rests on it says so, a zero is reported as &quot;none in the index&quot; rather than &quot;nobody posts,&quot; and it is capped at 12.5% of the grade.</p>
     <p>To prioritize report generation speed, reports are cached for ${CACHE_TTL_DAYS} days. There are currently ${CORPUS_COUNT} pre-generated reports cached — <a href="/corpus/">you can view those reports here</a>.</p>
-    <p>What you can hold me to: every claim cites its public evidence, robots.txt is honored on every request, and when this tool can't read a site it says so instead of inventing a grade.</p>
+    <p>What you can hold me to: every claim cites its evidence and says where it came from, robots.txt is honored on every request, and when this tool can't read a site — or can't match it to a company in that index — it says so instead of inventing a grade.</p>
   </div>
 
   <p>Browse the <a href="/corpus/">${CORPUS_COUNT} pre-generated company reports</a> to see what one looks like.</p>

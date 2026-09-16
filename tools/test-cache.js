@@ -15,7 +15,7 @@
 // than against whatever happens to be in the working tree — because the
 // archive is what a fresh deploy actually gets.
 import assert from 'node:assert/strict';
-import { readdirSync, existsSync, mkdtempSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readdirSync, readFileSync, existsSync, mkdtempSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { EvidenceCache, cacheKey, CACHE_TTL_MS } from '../lib/cache.js';
@@ -42,6 +42,19 @@ const seedDir = join(scratch, 'calib');
 test('the shipped seed archive unpacks', () => {
   assert.ok(seedResult.ok, `seed/calib.tgz did not unpack: ${seedResult.reason || ''}`);
   assert.ok(seedResult.written > 300, `expected 300+ evidence files from the seed, got ${seedResult.written}`);
+});
+
+// The data provider is not named anywhere public. tools/test-activity-index.js asserts
+// that on evidenceBlock's OUTPUT, which is the right place — but the corpus is written
+// once and shipped, so a block built before the label was sanitised survives in the
+// tarball untouched by any later edit to the builder. That is exactly what happened:
+// 124 of 350 evidence files shipped the provider's real name inside counts.note. Assert
+// it on what actually ships, not on the function that produces it.
+test('the shipped seed names no data provider', () => {
+  const named = readdirSync(seedDir)
+    .filter((f) => f.endsWith('.json'))
+    .filter((f) => /coresignal/i.test(readFileSync(join(seedDir, f), 'utf8')));
+  assert.deepEqual(named, [], `${named.length} seed evidence file(s) name the provider: ${named.slice(0, 8).join(', ')}`);
 });
 
 // ---- THE INVARIANT: every published report is a cache hit ----

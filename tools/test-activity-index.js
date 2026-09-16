@@ -232,7 +232,14 @@ ok(COST.company_multi_source === 20 && COST.employee_post === 1, 'cost table mat
   const ids = quiet.actions.map((f) => f.id);
   ok(ids.includes('employees_quiet') && ids.includes('company_page_quiet'), 'findings: chk.com-shaped counts fire both findings');
   const q = quiet.actions.find((f) => f.id === 'employees_quiet');
-  ok(/3 of 803/.test(q.statement) && /median is 6.1%/.test(q.statement) && /lower bound/.test(q.statement) && /third-party/.test(q.statement), 'findings: employees_quiet cites counts, the corpus median and the caveat');
+  // `employees_indexed` is the index's COVERAGE, not the company's headcount. Calling it
+  // "current employees" shipped a number the tool never observed onto 68 public pages
+  // (mcdonalds.com read "2387 of 119,660 current employees"; its own record said 304,645).
+  // The negative half of this assertion is the part that matters.
+  ok(/3 of the 803 employees it has records for/.test(q.statement) && /not of your headcount/.test(q.statement)
+    && !/current employees/.test(q.statement)
+    && /median is 6.1%/.test(q.statement) && /lower bound/.test(q.statement) && /third-party/.test(q.statement),
+    'findings: employees_quiet cites index coverage, never a headcount');
   ok(/prompt to check, not a verdict/.test(quiet.actions.find((f) => f.id === 'company_page_quiet').statement), 'findings: company_page_quiet never calls a zero a verdict');
   const active = buildFindings({ ...ev, activity_index: block({ employees_posted_in_window: 160, active_poster_rate_pct: 19.9, company_posts_in_window: 40 }) }, null).actions.map((f) => f.id);
   ok(!active.includes('employees_quiet') && !active.includes('company_page_quiet'), 'findings: active company fires neither');
