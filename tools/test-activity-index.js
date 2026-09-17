@@ -230,7 +230,9 @@ ok(COST.company_multi_source === 20 && COST.employee_post === 1, 'cost table mat
   const block = (c) => ({ source: 'licensed third-party index', status: 'resolved', confidence: 'high', coverage: 'ok', company_id: 1, record_employees_count: 1000, counts: { window_days: 90, since: '2026-06-18', employees_indexed: 803, employees_posted_in_window: 3, active_poster_rate_pct: 0.4, decision_makers_posted_in_window: 0, company_posts_in_window: 0, company_posts_all_time: 0, reshares_of_company_posts_in_window: 0, ...c } });
   const quiet = buildFindings({ ...ev, activity_index: block({}) }, null);
   const ids = quiet.actions.map((f) => f.id);
-  ok(ids.includes('employees_quiet') && ids.includes('company_page_quiet'), 'findings: chk.com-shaped counts fire both findings');
+  const infoIds = quiet.info.map((f) => f.id);
+  ok(ids.includes('employees_quiet') && infoIds.includes('company_page_quiet') && !ids.includes('company_page_quiet'),
+    'findings: chk.com-shaped counts fire both findings — employees_quiet ranked, company_page_quiet under "For the record" (index coverage is too thin to rank it; QA 2026-09-17 P2-4)');
   const q = quiet.actions.find((f) => f.id === 'employees_quiet');
   // `employees_indexed` is the index's COVERAGE, not the company's headcount. Calling it
   // "current employees" shipped a number the tool never observed onto 68 public pages
@@ -240,7 +242,7 @@ ok(COST.company_multi_source === 20 && COST.employee_post === 1, 'cost table mat
     && !/current employees/.test(q.statement)
     && /median is 6.1%/.test(q.statement) && /lower bound/.test(q.statement) && /third-party/.test(q.statement),
     'findings: employees_quiet cites index coverage, never a headcount');
-  ok(/prompt to check, not a verdict/.test(quiet.actions.find((f) => f.id === 'company_page_quiet').statement), 'findings: company_page_quiet never calls a zero a verdict');
+  ok(/prompt to check, not a verdict/.test(quiet.info.find((f) => f.id === 'company_page_quiet').statement), 'findings: company_page_quiet never calls a zero a verdict');
   const active = buildFindings({ ...ev, activity_index: block({ employees_posted_in_window: 160, active_poster_rate_pct: 19.9, company_posts_in_window: 40 }) }, null).actions.map((f) => f.id);
   ok(!active.includes('employees_quiet') && !active.includes('company_page_quiet'), 'findings: active company fires neither');
   const thin = buildFindings({ ...ev, activity_index: block({ employees_indexed: 20, employees_posted_in_window: 0, active_poster_rate_pct: 0 }) }, null).actions.map((f) => f.id);

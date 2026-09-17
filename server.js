@@ -24,7 +24,7 @@ import { run, fastProbe, normalizeDomain, DEFAULT_OPTS } from './lib/run.js';
 import { scoreEvidence } from './lib/rubric.js';
 import { buildFindings, fastTier } from './lib/findings.js';
 import { narrateFindings } from './lib/narrate.js';
-import { renderReport, subScoreGrid, CSS, BRAND, HEAD_ICONS, LIVE_HREF } from './lib/report-html.js';
+import { renderReport, subScoreGrid, CSS, BRAND, HEAD_ICONS, LIVE_HREF, socialMeta } from './lib/report-html.js';
 import { EvidenceCache, cacheKey, CACHE_TTL_MS } from './lib/cache.js';
 import { ensureSeed } from './lib/seed.js';
 import { RateLimiter } from './lib/ratelimit.js';
@@ -320,6 +320,7 @@ const ASSETS = {
   '/favicon-16.png': ['favicon-16.png', 'image/png'],
   '/favicon-32.png': ['favicon-32.png', 'image/png'],
   '/apple-touch-icon.png': ['apple-touch-icon.png', 'image/png'],
+  '/social-card.png': ['social-card.png', 'image/png'],
   '/logo.svg': ['logo.svg', 'image/svg+xml'],
   '/logo-mark.svg': ['logo-mark.svg', 'image/svg+xml'],
   '/logo-stacked.svg': ['logo-stacked.svg', 'image/svg+xml'],
@@ -426,6 +427,12 @@ function landingPage() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Advocacy Grade by justmesocial</title>
+${socialMeta({
+  title: 'Advocacy Grade by justmesocial',
+  description: 'Grade any company\'s employee-advocacy readiness from its public website in about a minute. Deterministic rubric, every finding cited, nothing guessed.',
+  url: `${PUBLIC_ORIGIN}${LIVE_HREF}`,
+  origin: PUBLIC_ORIGIN,
+})}
 ${HEAD_ICONS}
 <style>${CSS}${UI_CSS}</style>
 </head>
@@ -599,6 +606,12 @@ function teaserPage({ domain, scoring }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>${esc(domain)} — your Advocacy Grade is ready</title>
+${socialMeta({
+  title: `${domain} — your Advocacy Grade is ready`,
+  description: `The employee-advocacy readiness report for ${domain} is ready: a letter grade, four sub-scores and ranked findings, each cited to the public page it was read from.`,
+  url: `${PUBLIC_ORIGIN}/teaser/${domain}`,
+  origin: PUBLIC_ORIGIN,
+})}
 ${HEAD_ICONS}
 <style>${CSS}${UI_CSS}</style>
 </head>
